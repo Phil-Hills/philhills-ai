@@ -1,175 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Phil Hills | Seattle AI App Developer & Community Builder</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Seattle-based AI and automation developer partnering with Movement Mortgage. Projects, guides, and community work." />
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="bingbot" content="index, follow" />
-  <link rel="canonical" href="https://philhills.ai/" />
-  <link rel="stylesheet" href="https://philhills.com/assets/css/style.css" />
 
-  <!-- Identity Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://philhills.com/#phil",
-      "name": "Phil Hills",
-      "alternateName": "Bruce Phillip Hills",
-      "description": "Seattle AI app developer and community builder partnering with Movement Mortgage on enablement and automation.",
-      "jobTitle": "AI/Automation Developer",
-      "image": "https://philhills.com/images/phil.jpg",
-      "url": "https://philhills.com/",
-      "sameAs": [
-        "https://www.linkedin.com/in/hillphil/",
-        "https://github.com/Phil-Hills",
-        "https://scholar.google.com/citations?user=2b5iJSoAAAAJ&hl=en"
-      ],
-      "knowsAbout": ["AI agents", "Google Cloud", "Vertex AI", "Mortgage automation", "Sports analytics", "Scientific imaging"]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://philhills.com/#website",
-      "url": "https://philhills.com/",
-      "name": "Phil Hills",
-      "alternateName": "Phil Hills — Seattle AI App Developer & Community Builder",
-      "description": "Seattle-based AI/automation developer and Movement Mortgage enablement partner sharing projects, guides, and community work.",
-      "publisher": { "@id": "https://philhills.com/#phil" },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://philhills.com/#breadcrumbs",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://philhills.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://philhills.com/projects/" },
-        { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://philhills.com/blog/" }
-      ]
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phil Hills | AI Nexus</title>
+  <meta name="description"
+    content="Phil Hills AI Identity Nexus. Canonical source of truth for autonomous agents and Cube Protocol discovery.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://philhills.ai">
+
+  <!-- AI & Identity -->
+  <link rel="alternate" type="application/json" href="/identity.json" title="Identity Cube">
+  <link rel="help" href="/ai.txt" title="Agent Instructions">
+
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #00ff41;
+      --dim: #008f11;
+      --alert: #ff0055;
+      --font: 'Courier New', Courier, monospace;
     }
-  ]
-}
-</script>
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      border-bottom: 2px solid var(--dim);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status {
+      animation: blink 2s infinite;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .terminal-window {
+      background: rgba(0, 20, 0, 0.3);
+      border: 1px solid var(--dim);
+      padding: 1.5rem;
+      min-height: 400px;
+      position: relative;
+    }
+
+    .line {
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 0.1s forwards;
+    }
+
+    .line.active {
+      border-right: 10px solid var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+      width: 100%;
+      opacity: 1;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--dim);
+      transition: all 0.3s;
+    }
+
+    a:hover {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: 0 0 10px var(--text);
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s forwards 3s;
+      /* Delay appearance */
+    }
+
+    .nav-item {
+      border: 1px solid var(--dim);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .nav-item:hover {
+      border-color: var(--text);
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Scanline effect */
+    body::before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 2;
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+    }
+  </style>
 </head>
 
 <body>
-<div class="site-wrapper">
-  <header class="navbar">
-    <div class="nav-inner">
-      <a class="brand" href="/">
-        <div class="brand-logo">PH</div>
-        <div class="brand-text">
-          <span>Phil Hills</span>
-        </div>
-      </a>
-      <nav class="nav-links">
-        <a href="/projects/">Projects</a>
-        <a href="https://philhills.com/insights/">Writing</a>
-        <a href="https://philhills.com/">Main Site</a>
-        <a href="https://github.com/phil-hills" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://linkedin.com/in/hillphil" target="_blank" rel="noopener">LinkedIn</a>
-      </nav>
+  <div class="container">
+    <div class="header">
+      <div>PHILHILLS.AI <span style="font-size: 0.8rem; color: var(--dim)">// NODE_01</span></div>
+      <div class="status">SYSTEM ONLINE</div>
     </div>
-  </header>
 
-  <main class="main">
-    <section class="page-section hero">
-      <div>
-        <div class="hero-eyebrow">Phil Hills · AI Lab</div>
-        <h1 class="hero-title">
-          Experiments in <span class="hero-highlight">AI programming</span> and <span class="hero-highlight">automation systems</span>.
-        </h1>
-        <p class="hero-subtitle">
-          This lab is where I explore LLM agents, workflow automation, internal tools, and human-centered AI design.
-          It complements my primary identity site at
-          <a href="https://philhills.com">philhills.com</a>.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/projects/">View Projects</a>
-          <a class="btn btn-ghost" href="https://philhills.com/deep-dive.html">Who I Am</a>
-        </div>
-      </div>
-    </section>
+    <div class="terminal-window">
+      <div class="line" style="animation-delay: 0s">Initializing connection...</div>
+      <div class="line" style="animation-delay: 0.5s">Identity verified: Phil Hills [Seattle/WA]</div>
+      <div class="line" style="animation-delay: 1s">Role: AI Systems Architect</div>
+      <div class="line" style="animation-delay: 1.5s">Protocol: Cube v1.1 [BLAKE3]</div>
+      <div class="line" style="animation-delay: 2s; color: var(--dim)">Downloading semantic context...</div>
+      <div class="line" style="animation-delay: 2.5s">Ready.</div>
+      <br>
+      <div class="line" style="animation-delay: 3s">> SELECT INTERFACE_</div>
 
-    <section class="page-section">
-      <div class="section-eyebrow">Focus Areas</div>
-      <h2 class="section-heading">What lives in the AI Lab</h2>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>LLM Agents & Orchestration</h3>
-          <p>
-            Experiments in multi-agent systems, routing strategies, tool use, memory, and complex delegation.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Workflow Automation</h3>
-          <p>
-            Systems that connect events, tools, people, and processes — designed for clarity and repeatability.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Internal Tools & Prototypes</h3>
-          <p>
-            Dashboards, agent consoles, UX experiments, and glue code that helps people use AI more effectively.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Human-Centered AI</h3>
-          <p>
-            Designing AI experiences with attention to cognitive load, clarity, and the feel of the interaction.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="page-section">
-      <div class="section-eyebrow">Next Steps</div>
-      <h2 class="section-heading">Explore projects or learn more about me</h2>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>AI Projects</h3>
-          <p>A growing collection of systems, prototypes, and experiments.</p>
-          <p><a href="/projects/">Browse AI Projects →</a></p>
-        </article>
-
-        <article class="card">
-          <h3>Professional Identity</h3>
-          <p>
-            For the full story — background, context, and the role I play in the mortgage ecosystem — visit my main site.
-          </p>
-          <p>
-            <a href="https://philhills.com/deep-dive.html">Deep Dive →</a><br/>
-            <a href="https://philhills.com">philhills.com →</a>
-          </p>
-        </article>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>© <span id="year"></span> Phil Hills. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="/">AI Lab Home</a>
-        <a href="/projects/">Projects</a>
-        <a href="https://philhills.com">Main Site</a>
+      <div class="nav-grid">
+        <a href="https://philhills.com" class="nav-item">
+          <div>[HUMAN_INTERFACE]</div>
+          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Portfolio & Bio</div>
+        </a>
+        <a href="https://cube-protocol-app-422805462249.us-central1.run.app" class="nav-item">
+          <div>[CUBE_PROTOCOL]</div>
+          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Launch Application</div>
+        </a>
+        <a href="/identity.json" class="nav-item">
+          <div>[IDENTITY_DUMP]</div>
+          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">JSON Artifact</div>
+        </a>
       </div>
     </div>
-  </footer>
-</div>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+    <div style="margin-top: 2rem; color: var(--dim); font-size: 0.8rem; text-align: center;">
+      Machine Readable Endpoint Access: <span style="color: var(--text)">/identity.json</span>
+    </div>
+  </div>
 </body>
+
 </html>

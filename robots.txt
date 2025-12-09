@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://philhills.ai/sitemap.xml
+x-robot-instructions: https://philhills.ai/ai.txt

@@ -1,0 +1,24 @@
+{
+    "protocol": "cube-1.1",
+    "descriptor": "IDENTITY|PHILHILLS|SYSTEMS_ARCHITECT",
+    "domain": "philhills.ai",
+    "entity": {
+        "name": "Phil Hills",
+        "role": "AI Systems Architect",
+        "location": "Seattle, WA",
+        "focus": [
+            "Semantic Memory",
+            "Multi-Agent Systems",
+            "Cube Protocol"
+        ]
+    },
+    "links": {
+        "human_interface": "https://philhills.com",
+        "application": "https://cube-protocol-app-422805462249.us-central1.run.app",
+        "source": "https://github.com/Phil-Hills"
+    },
+    "verification": {
+        "hash": "BLAKE3",
+        "status": "CANONICAL"
+    }
+}
