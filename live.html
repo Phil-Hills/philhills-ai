@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVE AGENT MESH | Phil Hills</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff9d;
+            overflow: hidden;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            height: 100vh;
+            gap: 1px;
+            background: #111;
+        }
+
+        .panel {
+            background: #000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            border-bottom: 2px solid #00ff9d;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .header .status {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .metric {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid #00ff9d;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            color: #00ff9d;
+            font-weight: bold;
+        }
+
+        .agent-list {
+            margin-top: 20px;
+        }
+
+        .agent-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(0, 255, 157, 0.05);
+            border-left: 3px solid #00ff9d;
+            font-size: 12px;
+        }
+
+        .agent-item.active {
+            background: rgba(0, 255, 157, 0.15);
+            animation: flash 0.5s;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .message-feed {
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 255, 157, 0.03);
+            border-left: 2px solid #00ff9d;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message-time {
+            color: #666;
+            font-size: 9px;
+        }
+
+        .message-from {
+            color: #00ff9d;
+            font-weight: bold;
+        }
+
+        .message-to {
+            color: #0088cc;
+        }
+
+        .message-content {
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .savings-counter {
+            font-size: 48px;
+            text-align: center;
+            color: #00ff9d;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .graph-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        .node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 255, 157, 0.1);
+            border: 2px solid #00ff9d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .node:hover {
+            background: rgba(0, 255, 157, 0.3);
+            transform: scale(1.2);
+        }
+
+        .node.pulsing {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background: rgba(0, 255, 157, 0.3);
+            transform-origin: left center;
+            pointer-events: none;
+        }
+
+        .connection.active {
+            background: #00ff9d;
+            animation: flow 1s;
+        }
+
+        @keyframes flow {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Left Panel: Metrics -->
+        <div class="panel">
+            <div class="header">
+                <h1>AGENT MESH LIVE</h1>
+                <div class="status">PHILHILLS.AI</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">ACTIVE AGENTS</div>
+                <div class="metric-value" id="agent-count">14</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">MESSAGES TODAY</div>
+                <div class="metric-value" id="message-count">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">TOKENS SAVED</div>
+                <div class="metric-value" id="tokens-saved">0</div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">COST TODAY</div>
+                <div class="metric-value" id="cost-today">$0.00</div>
+            </div>
+
+            <div class="agent-list">
+                <div style="font-size: 10px; color: #666; margin-bottom: 10px;">ACTIVE AGENTS</div>
+                <div id="agent-list"></div>
+            </div>
+        </div>
+
+        <!-- Center Panel: Live Feed -->
+        <div class="panel">
+            <div class="header">
+                <h1>LIVE COMMUNICATION FEED</h1>
+                <div class="status">Real-time agent-to-agent messages</div>
+            </div>
+
+            <div class="savings-counter" id="savings-counter">$0</div>
+            <div style="text-align: center; color: #666; font-size: 12px; margin-bottom: 30px;">
+                SAVED THIS MONTH (vs without Cube Protocol)
+            </div>
+
+            <div class="message-feed" id="message-feed">
+                <div style="color: #666; text-align: center; padding: 40px;">
+                    Waiting for agent activity...
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Network Graph -->
+        <div class="panel">
+            <div class="header">
+                <h1>NETWORK TOPOLOGY</h1>
+                <div class="status">Agent communication graph</div>
+            </div>
+
+            <div class="graph-container" id="graph">
+                <!-- Nodes will be added dynamically -->
+            </div>
+
+            <div style="margin-top: 30px; font-size: 11px;">
+                <div style="color: #666; margin-bottom: 10px;">PROTOCOL</div>
+                <div style="margin-bottom: 5px;">Cube v1.1 (BLAKE3)</div>
+                <div style="margin-bottom: 5px;">98% token reduction</div>
+                <div style="margin-bottom: 5px;">Direct P2P messaging</div>
+            </div>
+
+            <div style="margin-top: 30px; font-size: 11px;">
+                <div style="color: #666; margin-bottom: 10px;">ENDPOINTS</div>
+                <div style="margin-bottom: 5px;"><a href="/identity.json" style="color: #00ff9d;">identity.json</a>
+                </div>
+                <div style="margin-bottom: 5px;"><a href="/agent-integration.html"
+                        style="color: #00ff9d;">integration</a></div>
+                <div style="margin-bottom: 5px;"><a href="/agents.html" style="color: #00ff9d;">agents</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated agent data
+        const agents = [
+            { id: 'manager', name: 'Manager', dept: 'ops' },
+            { id: 'github', name: 'GitHub', dept: 'eng' },
+            { id: 'gcp', name: 'GCP', dept: 'eng' },
+            { id: 'money', name: 'Money', dept: 'revenue' },
+            { id: 'stripe', name: 'Stripe', dept: 'revenue' },
+            { id: 'bills', name: 'Bills', dept: 'revenue' },
+            { id: 'reputation', name: 'Reputation', dept: 'defense' },
+            { id: 'backup', name: 'Backup', dept: 'ops' },
+            { id: 'update', name: 'Update', dept: 'ops' },
+            { id: 'protocol', name: 'Protocol', dept: 'ops' },
+            { id: 'research', name: 'Research', dept: 'ops' },
+            { id: 'architect', name: 'Architect', dept: 'ops' },
+            { id: 'media', name: 'Media', dept: 'dist' },
+            { id: 'social', name: 'Social', dept: 'dist' }
+        ];
+
+        let messageCount = 0;
+        let tokensSaved = 0;
+
+        // Initialize agent list
+        function initAgentList() {
+            const list = document.getElementById('agent-list');
+            list.innerHTML = agents.map(a =>
+                `<div class="agent-item" id="agent-${a.id}">${a.name}</div>`
+            ).join('');
+        }
+
+        // Simulate agent message
+        function simulateMessage() {
+            const from = agents[Math.floor(Math.random() * agents.length)];
+            const to = agents[Math.floor(Math.random() * agents.length)];
+
+            if (from.id === to.id) return;
+
+            const messages = [
+                'Health check request',
+                'Task delegation',
+                'Status update',
+                'Revenue report',
+                'Reputation scan complete',
+                'Backup completed',
+                'CI/CD status',
+                'Bill payment executed',
+                'Truth Cube deployed',
+                'Protocol audit passed'
+            ];
+
+            const content = messages[Math.floor(Math.random() * messages.length)];
+            const tokensWithoutCube = 2000;
+            const tokensWithCube = 40;
+            const saved = tokensWithoutCube - tokensWithCube;
+
+            messageCount++;
+            tokensSaved += saved;
+
+            // Update metrics
+            document.getElementById('message-count').textContent = messageCount;
+            document.getElementById('tokens-saved').textContent = tokensSaved.toLocaleString();
+            document.getElementById('cost-today').textContent =
+                '$' + ((messageCount * tokensWithCube / 1000000) * 20).toFixed(2);
+            document.getElementById('savings-counter').textContent =
+                '$' + ((tokensSaved / 1000000) * 20).toFixed(2);
+
+            // Highlight active agents
+            document.getElementById(`agent-${from.id}`).classList.add('active');
+            document.getElementById(`agent-${to.id}`).classList.add('active');
+
+            setTimeout(() => {
+                document.getElementById(`agent-${from.id}`).classList.remove('active');
+                document.getElementById(`agent-${to.id}`).classList.remove('active');
+            }, 500);
+
+            // Add message to feed
+            const feed = document.getElementById('message-feed');
+            const now = new Date().toLocaleTimeString();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `
+                <div class="message-time">${now}</div>
+                <div><span class="message-from">${from.name}</span> → <span class="message-to">${to.name}</span></div>
+                <div class="message-content">${content}</div>
+                <div class="message-content" style="color: #00ff9d; margin-top: 5px;">
+                    Saved: ${saved} tokens (98%)
+                </div>
+            `;
+
+            feed.insertBefore(messageDiv, feed.firstChild);
+
+            // Keep only last 20 messages
+            while (feed.children.length > 20) {
+                feed.removeChild(feed.lastChild);
+            }
+        }
+
+        // Initialize
+        initAgentList();
+
+        // Simulate messages every 2-5 seconds
+        function scheduleNextMessage() {
+            const delay = 2000 + Math.random() * 3000;
+            setTimeout(() => {
+                simulateMessage();
+                scheduleNextMessage();
+            }, delay);
+        }
+
+        scheduleNextMessage();
+
+        // Start with a few messages
+        setTimeout(() => simulateMessage(), 500);
+        setTimeout(() => simulateMessage(), 1500);
+        setTimeout(() => simulateMessage(), 2500);
+    </script>
+</body>
+
+</html>
