@@ -1,0 +1,76 @@
+name: Daily Trend Cubes
+
+on:
+  schedule:
+    # Run every day at 9 AM UTC (1 AM PST)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  generate-cubes:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Run Trend Pipeline
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CLOUD_PROJECT: oct2525
+        run: |
+          python3 -c "
+          import asyncio
+          import sys
+          sys.path.insert(0, '.')
+          from agents.trend_pipeline import TrendPipelineAgent
+          from agents.platform import MessageBus, TaskRequest
+          
+          async def run_pipeline():
+              bus = MessageBus()
+              agent = TrendPipelineAgent()
+              agent.connect(bus)
+              bus.register(agent)
+              
+              # Start agent
+              asyncio.create_task(agent.start())
+              
+              # Send task
+              request = TaskRequest(
+                  requester_id='github-actions',
+                  content='run'
+              )
+              await agent.send_message(request, target_id=agent.card.uuid)
+              
+              # Wait for completion
+              await asyncio.sleep(60)
+          
+          asyncio.run(run_pipeline())
+          "
+      
+      - name: Commit and push cubes
+        run: |
+          cd philhills_ai_site
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add cubes/
+          git diff --quiet && git diff --staged --quiet || (
+            git commit -m "🤖 Auto-generate trend cubes - $(date +'%Y-%m-%d')" &&
+            git push
+          )
