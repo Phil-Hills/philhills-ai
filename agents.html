@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Control | Phil Hills AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --bg-tertiary: #252b4a;
+            --accent: #00d4ff;
+            --accent-glow: rgba(0, 212, 255, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #0f1629 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #00a8cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .agent-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .agent-card.selected {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .agent-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .agent-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .task-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        button {
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #00a8cc 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-panel {
+            grid-column: 1 / -1;
+        }
+
+        .response-content {
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-height: 200px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-error {
+            background: var(--error);
+            color: white;
+        }
+
+        .status-pending {
+            background: var(--warning);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Agent Control Center</h1>
+            <p class="subtitle">Manage and interact with your AI agents</p>
+        </header>
+
+        <div class="dashboard">
+            <!-- Agent List Panel -->
+            <div class="panel">
+                <div class="panel-header">Available Agents</div>
+                <div id="agentList" class="agent-list">
+                    <div style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                        <div class="loading"></div>
+                        <p style="margin-top: 1rem;">Loading agents...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Submission Panel -->
+            <div class="panel">
+                <div class="panel-header">Send Task</div>
+                <form id="taskForm" class="task-form">
+                    <div>
+                        <label for="selectedAgent">Selected Agent</label>
+                        <input type="text" id="selectedAgent" readonly placeholder="Select an agent from the list">
+                    </div>
+                    <div>
+                        <label for="taskContent">Task / Query</label>
+                        <textarea id="taskContent" placeholder="Enter your task or question here..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn">
+                        Send Task
+                    </button>
+                </form>
+            </div>
+
+            <!-- Response Panel -->
+            <div class="panel response-panel">
+                <div class="panel-header">Response</div>
+                <div id="responseContent" class="response-content">
+                    No response yet. Submit a task to see results.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/a2a';
+        let selectedAgentId = null;
+        let agents = [];
+
+        // Fetch and display agents
+        async function loadAgents() {
+            try {
+                const response = await fetch(`${API_BASE}/agents`);
+                agents = await response.json();
+
+                const agentList = document.getElementById('agentList');
+                agentList.innerHTML = agents.map(agent => `
+                    <div class="agent-card" data-id="${agent.uuid}" onclick="selectAgent('${agent.uuid}')">
+                        <div class="agent-name">
+                            <span class="agent-status"></span>
+                            ${agent.name}
+                        </div>
+                        <div class="agent-desc">${agent.description}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('agentList').innerHTML = `
+                    <div style="color: var(--error); text-align: center; padding: 2rem;">
+                        ❌ Failed to load agents<br>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Select an agent
+        function selectAgent(agentId) {
+            selectedAgentId = agentId;
+            const agent = agents.find(a => a.uuid === agentId);
+
+            // Update UI
+            document.querySelectorAll('.agent-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-id="${agentId}"]`).classList.add('selected');
+            document.getElementById('selectedAgent').value = agent.name;
+        }
+
+        // Submit task
+        document.getElementById('taskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!selectedAgentId) {
+                alert('Please select an agent first');
+                return;
+            }
+
+            const content = document.getElementById('taskContent').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const responseContent = document.getElementById('responseContent');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span> Processing...';
+            responseContent.innerHTML = '<div class="loading"></div> Waiting for agent response...';
+
+            try {
+                const response = await fetch(`${API_BASE}/task`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target_agent_id: selectedAgentId,
+                        content: content
+                    })
+                });
+
+                const result = await response.json();
+
+                // Display response
+                const statusClass = result.status === 'completed' ? 'status-success' :
+                    result.status === 'failed' ? 'status-error' : 'status-pending';
+
+                responseContent.innerHTML = `
+                    <div style="margin-bottom: 1rem;">
+                        <span class="status-badge ${statusClass}">${result.status}</span>
+                        <span style="color: var(--text-secondary); margin-left: 1rem;">
+                            ${new Date(result.timestamp).toLocaleString()}
+                        </span>
+                    </div>
+                    ${result.output}
+                `;
+            } catch (error) {
+                responseContent.innerHTML = `
+                    <span class="status-badge status-error">Error</span>
+                    <div style="margin-top: 1rem; color: var(--error);">
+                        ${error.message}
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Task';
+            }
+        });
+
+        // Load agents on page load
+        loadAgents();
+    </script>
+</body>
+
+</html>
