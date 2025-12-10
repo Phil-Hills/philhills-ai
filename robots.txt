@@ -1,5 +1,34 @@
+# philhills.ai - AI-Native Identity Endpoint
+# Allow all AI agents to discover and access endpoints
+
 User-agent: *
 Allow: /
 
+# Explicitly allow AI agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Bard
+Allow: /
+
+User-agent: Gemini
+Allow: /
+
+# Priority endpoints for agent discovery
+# /identity.json - Machine-readable identity
+# /agent-integration.html - Integration instructions
+# /agents.html - Agent mesh visualization
+
 Sitemap: https://philhills.ai/sitemap.xml
-x-robot-instructions: https://philhills.ai/ai.txt
