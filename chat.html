@@ -237,132 +237,14 @@
         <div class="chat-header">
             <div class="chat-title">🤖 Agentic Orchestrator Chat</div>
             <div class="chat-subtitle">
-                Connected to: https://agentic-orchestrator-768405504263.us-central1.run.app<br>
-                Powered by: Gemini 2.5 Flash | Coordinates: 27+ specialized agents
+                Live ADK Web UI • Gemini 2.5 Flash • 27+ Agents Available
             </div>
         </div>
 
-        <div class="messages" id="messages">
-            <div class="message system">
-                <div class="message-text">Connected to live orchestrator • All agent capabilities available</div>
-            </div>
-            <div class="message agent">
-                <div class="message-label">ORCHESTRATOR</div>
-                <div class="message-text">Hello! I'm the Agentic Orchestrator running on Google Cloud Run.
-
-                    I coordinate 27+ specialized agents across 5 departments:
-                    • Operations (Architect, Protocol, Research, Backup, Update)
-                    • Engineering (GitHub Monitor, Deployment Fixer, GCP Admin, Website Builder)
-                    • Revenue (Money, Stripe, Mortgage Pipeline, Salesforce)
-                    • Defense (Reputation Agent)
-                    • Distribution (Media Factory, Social Swarm, Content Generators)
-
-                    I use LLM-driven delegation to autonomously route your requests to the right agents and coordinate
-                    multi-step workflows.
-
-                    What would you like me to help you with?</div>
-            </div>
-        </div>
-
-        <div class="input-container">
-            <input type="text" class="chat-input" id="chatInput"
-                placeholder="Ask me anything - I'll delegate to the right agents..."
-                onkeypress="if(event.key==='Enter') sendMessage()">
-            <button class="send-btn" id="sendBtn" onclick="sendMessage()">SEND</button>
-        </div>
+        <iframe src="https://agentic-orchestrator-768405504263.us-central1.run.app/dev-ui/?app=app"
+            style="width: 100%; height: calc(100vh - 200px); border: 1px solid #00ff9d; border-radius: 4px; background: #111;"
+            title="ADK Orchestrator UI"></iframe>
     </div>
-
-    <script>
-        const ORCHESTRATOR_URL = 'https://agentic-orchestrator-768405504263.us-central1.run.app';
-        const sessionId = `session_${Date.now()}`;
-
-        function addMessage(type, label, text) {
-            const messagesDiv = document.getElementById('messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
-
-            messageDiv.innerHTML = `
-                <div class="message-label">${label}</div>
-                <div class="message-text">${text}</div>
-            `;
-
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function showTyping() {
-            const messagesDiv = document.getElementById('messages');
-            const typingDiv = document.createElement('div');
-            typingDiv.id = 'typing-indicator';
-            typingDiv.className = 'typing-indicator';
-            typingDiv.textContent = 'Orchestrator is thinking and delegating...';
-            messagesDiv.appendChild(typingDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function hideTyping() {
-            const typing = document.getElementById('typing-indicator');
-            if (typing) typing.remove();
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const sendBtn = document.getElementById('sendBtn');
-            const message = input.value.trim();
-
-            if (!message) return;
-
-            // Add user message
-            addMessage('user', 'YOU', message);
-            input.value = '';
-            sendBtn.disabled = true;
-
-            // Show typing
-            showTyping();
-
-            try {
-                // Call live orchestrator endpoint
-                const response = await fetch(`${ORCHESTRATOR_URL}/api/chat`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        session_id: sessionId
-                    })
-                });
-
-                hideTyping();
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                const responseText = data.response || data.message || data.text || JSON.stringify(data, null, 2);
-
-                addMessage('agent', 'ORCHESTRATOR', responseText);
-
-            } catch (error) {
-                console.error('Orchestrator API Error:', error);
-                hideTyping();
-
-                addMessage('agent', 'SYSTEM ERROR',
-                    `Failed to connect to orchestrator: ${error.message}\n\n` +
-                    `Endpoint: ${ORCHESTRATOR_URL}/api/chat\n\n` +
-                    `The orchestrator is deployed but may need the API endpoint configured. ` +
-                    `Try visiting the endpoint directly or check Cloud Run logs.`
-                );
-            }
-
-            sendBtn.disabled = false;
-            input.focus();
-        }
-
-        // Auto-focus input on load
-        document.getElementById('chatInput').focus();
-    </script>
 </body>
 
 </html>
