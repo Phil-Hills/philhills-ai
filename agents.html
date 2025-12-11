@@ -737,17 +737,75 @@
             addMessage('user', message);
             input.value = '';
 
-            // Simulate agent response (in production, this would call your backend)
+            // Show typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message agent';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-label">${currentAgent.name.toUpperCase()}</div>
+                <div class="message-text">Processing...</div>
+            `;
+            document.getElementById('chatMessages').appendChild(typingDiv);
+
             setTimeout(() => {
-                const responses = [
-                    `Based on my capabilities as ${currentAgent.role}, I can help you with that. Let me analyze your request...`,
-                    `As ${currentAgent.name}, I'm processing your inquiry. ${currentAgent.capabilities[0]}.`,
-                    `I understand. My primary function is ${currentAgent.role.toLowerCase()}. Here's what I can do: ${currentAgent.capabilities.slice(0, 2).join(', ')}.`,
-                    `Great question! As part of the ${currentAgent.department} department, I specialize in: ${currentAgent.capabilities[0].toLowerCase()}.`
-                ];
-                const response = responses[Math.floor(Math.random() * responses.length)];
+                document.getElementById('typing-indicator')?.remove();
+
+                let response = '';
+
+                // Special handling for agents with live endpoints
+                if (currentAgent.endpoint) {
+                    if (currentAgent.name === 'GCP Expert Admin') {
+                        response = `Hello! I'm the GCP Expert Admin powered by the Cube Protocol.
+
+I can help you with:
+• Deploying applications to Cloud Run
+• Managing GCP infrastructure
+• Cost optimization strategies
+• Security audits
+• BigQuery analytics
+
+🔗 **Access my full interface here:**
+${currentAgent.endpoint}/dev-ui/?app=app
+
+I'm live and ready to execute GCP commands via semantic cubes!
+
+What would you like to do?`;
+                    } else if (currentAgent.name === 'Orchestrator') {
+                        response = `Hello! I'm the Agentic Orchestrator running on Cloud Run.
+
+I coordinate all specialized sub-agents including:
+• GitHub Monitor
+• Deployment Fixer
+• Website Builder
+• GCP Expert Admin
+
+I use Gemini 2.5 Flash for intelligent task delegation and autonomous problem-solving.
+
+🔗 **My endpoint:** ${currentAgent.endpoint}
+
+Note: I'm deployed but need an interactive UI to be added. You can integrate me via API calls to my Cloud Run service.
+
+How can I help coordinate the agent mesh for you?`;
+                    } else {
+                        response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nI'm a ${currentAgent.type.toUpperCase()} agent specializing in: ${currentAgent.capabilities.slice(0, 3).join(', ')}.\n\nTo interact with me, you can make API calls to my endpoint or use the orchestrator to delegate tasks to me.`;
+                    }
+                } else {
+                    // Agents without live endpoints
+                    response = `I'm ${currentAgent.name}, ${currentAgent.role}.
+
+My capabilities include:
+${currentAgent.capabilities.slice(0, 3).map(cap => '• ' + cap).join('\n')}
+
+⚠️ **Status:** I'm part of the legacy agent mesh and don't have a dedicated Cloud Run endpoint yet. I operate within the local orchestration system.
+
+Department: ${currentAgent.department.toUpperCase()}
+Type: ${currentAgent.type.toUpperCase()}
+
+Would you like to know more about my specific capabilities?`;
+                }
+
                 addMessage('agent', response);
-            }, 1000);
+            }, 800);
         }
 
         function addMessage(sender, text) {
