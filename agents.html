@@ -22,9 +22,36 @@
             overflow-x: hidden;
         }
 
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid #00ff9d;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-bar a {
+            color: #00ff9d;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .nav-bar a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ff9d;
+        }
+
         .header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 100px 20px 40px;
             border-bottom: 2px solid #00ff9d;
             margin-bottom: 40px;
             position: relative;
@@ -270,6 +297,23 @@
             left: 0;
         }
 
+        .chat-action {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid #00ff9d;
+            text-align: center;
+            font-size: 12px;
+            color: #00ff9d;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chat-action:hover {
+            background: #00ff9d;
+            color: #000;
+        }
+
         .department {
             margin-bottom: 60px;
         }
@@ -291,6 +335,146 @@
         .department-count {
             color: #888;
             font-size: 14px;
+        }
+
+        /* Chatbot Modal */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-modal.active {
+            display: flex;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            max-height: 600px;
+            background: #111;
+            border: 2px solid #00ff9d;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 40px rgba(0, 255, 157, 0.3);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .close-btn {
+            background: none;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #00ff9d;
+            color: #000;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: rgba(0, 255, 157, 0.1);
+            border-left: 3px solid #00ff9d;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.agent {
+            background: rgba(66, 133, 244, 0.1);
+            border-left: 3px solid #4285f4;
+        }
+
+        .message-label {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .message-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #000;
+            border: 1px solid #333;
+            color: #00ff9d;
+            padding: 10px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #00ff9d;
+        }
+
+        .send-btn {
+            background: #00ff9d;
+            border: none;
+            color: #000;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .footer {
@@ -332,11 +516,27 @@
             .stats {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .chat-container {
+                width: 95%;
+                height: 90%;
+            }
         }
     </style>
 </head>
 
 <body>
+    <nav class="nav-bar">
+        <div>
+            <a href="/">← HOME</a>
+            <a href="/identity.json">IDENTITY</a>
+            <a href="https://philhills.com">PORTFOLIO</a>
+        </div>
+        <div style="color: #666; font-size: 11px;">
+            <span class="live-indicator"></span>LIVE
+        </div>
+    </nav>
+
     <div class="header">
         <h1>🤖 PHILHILLS.AI // AGENTIC EMPIRE</h1>
         <div class="status"><span class="live-indicator"></span>SYSTEM ONLINE | <span id="total-agents">30+</span>
@@ -377,6 +577,30 @@
 
     <div id="agents-container"></div>
 
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div>
+                    <div class="chat-title" id="chatAgentName">Agent Chat</div>
+                    <div style="font-size: 11px; color: #666; margin-top: 5px;" id="chatAgentRole"></div>
+                </div>
+                <button class="close-btn" onclick="closeChat()">CLOSE [ESC]</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message agent">
+                    <div class="message-label">AGENT</div>
+                    <div class="message-text">Hello! I'm ready to assist you. How can I help?</div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..."
+                    onkeypress="if(event.key==='Enter') sendMessage()">
+                <button class="send-btn" onclick="sendMessage()">SEND</button>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
         <div style="color: #666; margin-bottom: 20px;">🔗 CONNECT WITH THE EMPIRE</div>
         <div class="footer-links">
@@ -390,282 +614,10 @@
         </div>
     </div>
 
+    <script src="agents-data.js"></script>
     <script>
-        // Agent database - comprehensive list of all agents
-        const agents = [
-            // OPERATIONS
-            {
-                name: 'Orchestrator',
-                role: 'LLM-Driven Multi-Agent Coordinator',
-                department: 'operations',
-                description: 'Main brain using Gemini 2.5 Flash for intelligent task delegation. Coordinates all sub-agents autonomously using LLM decision-making.',
-                capabilities: ['Intelligent delegation to 6+ sub-agents', 'Multi-step workflow coordination', 'Error handling and recovery', 'Autonomous problem solving'],
-                type: 'adk',
-                online: true
-            },
-            {
-                name: 'Manager Agent',
-                role: 'CEO / System Orchestrator',
-                department: 'operations',
-                description: 'Universal Nexus for the Phil Hills Agentic Empire. Oversees Identity, Revenue, Reputation, and Operations.',
-                capabilities: ['Health checks every 15 minutes', 'Task delegation to specialists', 'System-wide coordination'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Backup Agent',
-                role: 'Data Safety Net',
-                department: 'operations',
-                description: 'Syncs critical data to Google Cloud Storage with verification and recovery testing.',
-                capabilities: ['Daily backups to GCS', 'Backup verification', 'Recovery testing'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Update Agent',
-                role: 'System Maintenance',
-                department: 'operations',
-                description: 'Monitors dependencies, checks for security patches, and provides update recommendations.',
-                capabilities: ['Dependency checks daily', 'Security patch detection', 'Update recommendations'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Architect Agent',
-                role: 'System Visualizer',
-                department: 'operations',
-                description: 'Visualizes the agent mesh, maintains system census, and maps data flows.',
-                capabilities: ['Dashboard updates every 6 hours', 'System census', 'Data flow mapping'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Protocol Agent',
-                role: 'Compliance Officer',
-                department: 'operations',
-                description: 'A2A Auditor. Validates CUBE protocol compliance and generates violation alerts.',
-                capabilities: ['Message validation continuous', 'Compliance reporting hourly', 'Violation alerts'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Research Agent',
-                role: 'The Auditor',
-                department: 'operations',
-                description: 'Continuous agent auditing and improvement. Verifies role clarity and suggests improvements.',
-                capabilities: ['Agent audits every 6 hours', 'Role clarity verification', 'Improvement suggestions'],
-                type: 'legacy',
-                online: true
-            },
-
-            // ENGINEERING
-            {
-                name: 'GitHub Monitor',
-                role: 'Deployment Diagnostician',
-                department: 'engineering',
-                description: 'Monitors GitHub repositories, Actions workflows, and Pages deployments. Provides diagnostics for deployment failures.',
-                capabilities: ['GitHub Actions monitoring', 'Pages deployment diagnostics', 'Workflow failure analysis'],
-                type: 'adk',
-                online: true
-            },
-            {
-                name: 'Deployment Fixer',
-                role: 'Autonomous Troubleshooter',
-                department: 'engineering',
-                description: 'Autonomous deployment issue fixer. Analyzes errors and implements fixes for GitHub Pages and Cloud deployments.',
-                capabilities: ['Auto-fix CNAME issues', 'Create .nojekyll files', 'Branch configuration', 'Git commit and push'],
-                type: 'adk',
-                online: true
-            },
-            {
-                name: 'GCP Expert Admin',
-                role: 'Cloud Platform Master (7 Certifications)',
-                department: 'engineering',
-                description: 'Expert-level GCP administrator with knowledge from all 7 professional certifications. Handles Cloud Run, Vertex AI, Storage, BigQuery, IAM, security, and cost optimization.',
-                capabilities: ['Deploy to Cloud Run', 'Deploy to Vertex AI Agent Engine', 'IAM security audits', 'Cost optimization (30-50% savings)', 'BigQuery analytics', 'Storage management'],
-                type: 'adk',
-                online: true
-            },
-            {
-                name: 'GitHub Admin',
-                role: 'VP of Engineering',
-                department: 'engineering',
-                description: 'Manages 190+ GitHub repositories with CI/CD monitoring and sub-agent spawning capabilities.',
-                capabilities: ['CI/CD monitoring hourly', '190+ repos managed', 'Sub-agent spawning (max 50)'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Website Builder',
-                role: 'Full-Stack Web Developer',
-                department: 'engineering',
-                description: 'Orchestrates content generation, deployment, and SEO for philhills.com and philhills.ai.',
-                capabilities: ['Content generation', 'Git deployment', 'SEO optimization', 'CUBE protocol integration'],
-                type: 'adk',
-                online: true
-            },
-            {
-                name: 'Site Reliability',
-                role: 'Link Integrity Guardian',
-                department: 'engineering',
-                description: 'Ensures all external links and internal references remain valid across deployed sites.',
-                capabilities: ['Link checking', 'Health monitoring', 'Automated fixes'],
-                type: 'legacy',
-                online: true
-            },
-
-            // REVENUE
-            {
-                name: 'Money Agent',
-                role: 'Chief Revenue Officer',
-                department: 'revenue',
-                description: 'CRO. Audits repositories for revenue opportunities and tracks ROI.',
-                capabilities: ['Revenue scans every 6 hours', 'Monetization analysis', 'ROI tracking'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Stripe Agent',
-                role: 'Chief Financial Officer',
-                department: 'revenue',
-                description: 'Revenue automation with Stripe. Handles collection and distribution.',
-                capabilities: ['Revenue collection daily 3 AM', 'Revenue distribution', 'Balance monitoring'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Bill Payment Agent',
-                role: 'Accounts Payable',
-                department: 'revenue',
-                description: 'Automated bill payment with scheduling and confirmation.',
-                capabilities: ['Bill checks daily 9 AM', 'Automated payment execution', 'Payment confirmation'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Salesforce Admin',
-                role: 'CRM Manager',
-                department: 'revenue',
-                description: 'Manages Salesforce CRM: creates leads, assigns tasks, and posts updates.',
-                capabilities: ['Lead creation', 'Task assignment', 'CRM updates'],
-                type: 'legacy',
-                online: true
-            },
-
-            // DEFENSE
-            {
-                name: 'Reputation Agent',
-                role: 'The Defender',
-                department: 'defense',
-                description: 'Research & Defense. Monitors identity, detects threats, and deploys Truth Cubes via Social Swarm.',
-                capabilities: ['Identity scans every 6 hours', 'Threat detection', 'Truth Cube deployment to Social Swarm'],
-                type: 'legacy',
-                online: true
-            },
-
-            // DISTRIBUTION
-            {
-                name: 'Media Factory',
-                role: 'Content Studio',
-                department: 'distribution',
-                description: 'Video/Avatar Creation & Trend Analysis. Generates viral content and cubes trending topics.',
-                capabilities: ['Trend analysis every 12 hours', 'Avatar video generation', 'Viral content cubing'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Social Swarm',
-                role: '7-Platform Distribution Network',
-                department: 'distribution',
-                description: 'Manages presence across Reddit, TikTok, YouTube, Facebook, Instagram, WhatsApp, and X (Twitter).',
-                capabilities: ['7 platform agents', 'Daily content posting 10 AM', 'Cross-platform coordination'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Google Trends Agent',
-                role: 'Trend Intelligence',
-                department: 'distribution',
-                description: 'Queries Google Trends data using BigQuery. Tracks search trends, rising topics, and regional interest.',
-                capabilities: ['BigQuery trend queries', 'Rising topic detection', 'Regional analysis'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Trend Pipeline',
-                role: 'Content Automation',
-                department: 'distribution',
-                description: 'Automates the trend-to-cube content generation pipeline. Fetches trends, generates summaries, publishes cubes.',
-                capabilities: ['Automated trend fetching', 'AI summary generation', 'Cube publishing'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Cube Publisher',
-                role: 'Identity Cube Manager',
-                department: 'distribution',
-                description: 'Publishes Identity Cubes to philhills.ai and maintains the cube catalog.',
-                capabilities: ['Cube publishing', 'Catalog maintenance', 'Signature verification'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Content Generator',
-                role: 'AI Content Writer',
-                department: 'distribution',
-                description: 'Generates AI summaries for trending topics with backlinks to Phil Hills\' sites.',
-                capabilities: ['Trend summarization', 'SEO-optimized content', 'Backlink integration'],
-                type: 'legacy',
-                online: true
-            },
-
-            // SPECIALIZED VERTICALS
-            {
-                name: 'Mortgage Pipeline',
-                role: 'Lead Generation Orchestrator',
-                department: 'revenue',
-                description: 'Orchestrates the mortgage lead gen pipeline: Monitor → Generate → Publish.',
-                capabilities: ['Rate monitoring', 'Content generation', 'Auto-publishing'],
-type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Mortgage Rate Monitor',
-                role: 'Rate Tracker',
-                department: 'revenue',
-                description: 'Tracks 30-year, 15-year, and FHA/VA mortgage rates and detects drops.',
-                capabilities: ['Real-time rate tracking', 'Drop detection', 'Alert generation'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Mortgage Content Generator',
-                role: 'Persuasive Writer',
-                department: 'revenue',
-                description: 'Creates persuasive mortgage summaries with Call-to-Actions.',
-                capabilities: ['Persuasive writing', 'CTA optimization', 'Rate analysis'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'Mortgage Cube Publisher',
-                role: 'Vertical Publisher',
-                department: 'revenue',
-                description: 'Publishes signed Identity Cubes to philhills_ai_site/mortgage/',
-                capabilities: ['Mortgage-specific cubes', 'Lead page generation', 'Catalog updates'],
-                type: 'legacy',
-                online: true
-            },
-            {
-                name: 'WA Housing Market',
-                role: 'Real Estate Data Provider',
-                department: 'revenue',
-                description: 'Provides real estate market data for Washington State cities (Seattle, Bellevue, Tacoma, etc.).',
-                capabilities: ['Market data queries', 'City-specific stats', 'Trend analysis'],
-                type: 'legacy',
-                online: true
-            }
-        ];
+        // Current agent being chatted with
+        let currentAgent = null;
 
         // Initialize
         let currentFilter = 'all';
@@ -673,16 +625,16 @@ type: 'legacy',
 
         function renderAgents() {
             const container = document.getElementById('agents-container');
-            
+
             // Filter and search
             const filtered = agents.filter(agent => {
-                const matchesFilter = currentFilter === 'all' || 
-                                     agent.department === currentFilter ||
-                                     (currentFilter === 'adk' && agent.type === 'adk');
-                const matchesSearch = searchQuery === '' || 
-                                     agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                     agent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                     agent.role.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesFilter = currentFilter === 'all' ||
+                    agent.department === currentFilter ||
+                    (currentFilter === 'adk' && agent.type === 'adk');
+                const matchesSearch = searchQuery === '' ||
+                    agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    agent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    agent.role.toLowerCase().includes(searchQuery.toLowerCase());
                 return matchesFilter && matchesSearch;
             });
 
@@ -713,8 +665,9 @@ type: 'legacy',
                             </div>
                             <div class="agent-grid">
                     `;
-                    
-                    dept.agents.forEach(agent => {
+
+                    dept.agents.forEach((agent, index) => {
+                        const agentId = `${agent.department}_${index}`;
                         html += `
                             <div class="agent-card ${agent.online ? 'online' : ''} ${agent.type === 'adk' ? 'adk' : ''}">
                                 <div class="agent-header">
@@ -728,12 +681,15 @@ type: 'legacy',
                                 <div class="agent-description">${agent.description}</div>
                                 <div class="agent-capabilities">
                                     <div class="capability-label">Capabilities</div>
-                                    ${agent.capabilities.map(cap => `<div class="capability-item">${cap}</div>`).join('')}
+                                    ${agent.capabilities.slice(0, 3).map(cap => `<div class="capability-item">${cap}</div>`).join('')}
+                                </div>
+                                <div class="chat-action" onclick='openChat(${JSON.stringify(agent)})'>
+                                    💬 CHAT WITH AGENT
                                 </div>
                             </div>
                         `;
                     });
-                    
+
                     html += `
                             </div>
                         </div>
@@ -742,15 +698,80 @@ type: 'legacy',
             }
 
             container.innerHTML = html || '<div style="text-align: center; color: #666; padding: 60px;">No agents match your filter</div>';
-            
+
             // Update counts
             document.getElementById('agent-count').textContent = filtered.length;
             document.getElementById('total-agents').textContent = agents.length;
         }
 
+        // Chat functions
+        function openChat(agent) {
+            currentAgent = agent;
+            document.getElementById('chatAgentName').textContent = agent.name;
+            document.getElementById('chatAgentRole').textContent = agent.role;
+            document.getElementById('chatModal').classList.add('active');
+            document.getElementById('chatInput').focus();
+
+            // Clear previous messages except welcome
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="message agent">
+                    <div class="message-label">${agent.name.toUpperCase()}</div>
+                    <div class="message-text">Hello! I'm ${agent.name}, ${agent.role}. ${agent.description} How can I assist you today?</div>
+                </div>
+            `;
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').classList.remove('active');
+            currentAgent = null;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+
+            // Simulate agent response (in production, this would call your backend)
+            setTimeout(() => {
+                const responses = [
+                    `Based on my capabilities as ${currentAgent.role}, I can help you with that. Let me analyze your request...`,
+                    `As ${currentAgent.name}, I'm processing your inquiry. ${currentAgent.capabilities[0]}.`,
+                    `I understand. My primary function is ${currentAgent.role.toLowerCase()}. Here's what I can do: ${currentAgent.capabilities.slice(0, 2).join(', ')}.`,
+                    `Great question! As part of the ${currentAgent.department} department, I specialize in: ${currentAgent.capabilities[0].toLowerCase()}.`
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addMessage('agent', response);
+            }, 1000);
+        }
+
+        function addMessage(sender, text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `
+                <div class="message-label">${sender === 'user' ? 'YOU' : currentAgent.name.toUpperCase()}</div>
+                <div class="message-text">${text}</div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeChat();
+            }
+        });
+
         // Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentFilter = this.dataset.filter;
@@ -759,7 +780,7 @@ type: 'legacy',
         });
 
         // Search
-        document.getElementById('search').addEventListener('input', function(e) {
+        document.getElementById('search').addEventListener('input', function (e) {
             searchQuery = e.target.value;
             renderAgents();
         });
@@ -781,18 +802,6 @@ type: 'legacy',
         renderAgents();
         updateTimestamp();
         setInterval(updateTimestamp, 1000);
-
-        // Simulate live updates (optional)
-        setInterval(() => {
-            const count = document.getElementById('agent-count');
-            const current = parseInt(count.textContent);
-            if (Math.random() > 0.8) {
-                count.textContent = current + Math.floor(Math.random() * 2);
-                setTimeout(() => {
-                    count.textContent = agents.length;
-                }, 1500);
-            }
-        }, 10000);
     </script>
 </body>
 
