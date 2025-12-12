@@ -754,48 +754,68 @@
             try {
                 let response = '';
 
-                // For agents with live Cloud Run endpoints, make real API calls
-                if (currentAgent.endpoint && currentAgent.type === 'adk') {
-                    // Currently, ADK agents are deployed with the Dev UI
-                    // For full interaction, users should use the Dev UI directly
-                    response = `🚀 **Live ADK Agent Deployed!**
+                // Call the unified chat API (works for ALL agents)
+                try {
+                    // Determine the API endpoint (local backend or deployed)
+                    const apiEndpoint = window.location.hostname === 'localhost'
+                        ? 'http://localhost:8080/api/chat'
+                        : 'https://your-backend-url.run.app/api/chat'; // TODO: Update with actual backend URL
 
-I'm ${currentAgent.name}, running live on Google Cloud Run with the ADK Dev UI.
+                    const apiResponse = await fetch(apiEndpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            agent_name: currentAgent.name,
+                            message: message,
+                            session_id: 'web-session-' + Date.now()
+                        })
+                    });
 
-**Current Capabilities:**
-${currentAgent.capabilities.slice(0, 4).map(cap => '• ' + cap).join('\n')}
+                    if (!apiResponse.ok) {
+                        throw new Error(`API returned ${apiResponse.status}`);
+                    }
 
-**🔗 Access My Full Interface:**
-${currentAgent.endpoint}/dev-ui/?app=app
+                    const data = await apiResponse.json();
 
-**Why can't I chat here directly?**
-This embedded chat is under development! Right now, the best way to interact with me is through my dedicated Dev UI above, where you'll get:
-- Full conversation history
-- Real-time LLM responses  
-- Agent delegation tracking
-- Complete tool execution logs
+                    if (data.status === 'success') {
+                        response = data.response;
+                    } else if (data.status === 'partial' || data.status === 'timeout') {
+                        response = data.response;
+                        if (data.dev_ui_url) {
+                            response += `\n\n🔗 **Full UI:** ${data.dev_ui_url}`;
+                        }
+                    } else {
+                        response = `⚠️ ${data.response || 'Unknown error'}`;
+                        if (currentAgent.endpoint) {
+                            response += `\n\n🔗 **Try full UI:** ${currentAgent.endpoint}/dev-ui/?app=app`;
+                        }
+                    }
 
-**Coming Soon:**
-Direct API integration in this embedded chat interface.
+                } catch (apiError) {
+                    console.error('API Error:', apiError);
+
+                    // Fallback messaging
+                    if (currentAgent.endpoint && currentAgent.type === 'adk') {
+                        response = `🚀 **${currentAgent.name}** is deployed but the API bridge is unavailable.
 
 **Your message:** "${message}"
-- To get a real response, please use the Dev UI link above! 👆`;
-                } else if (currentAgent.endpoint) {
-                    // For non-ADK agents with endpoints, provide helpful info
-                    response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nI'm a ${currentAgent.type.toUpperCase()} agent specializing in: ${currentAgent.capabilities.slice(0, 3).join(', ')}.\n\nTo interact with me fully, visit my endpoint or use the orchestrator to delegate tasks to me.`;
-                } else {
-                    // Agents without live endpoints
-                    response = `I'm ${currentAgent.name}, ${currentAgent.role}.
 
-My capabilities include:
-${currentAgent.capabilities.slice(0, 3).map(cap => '• ' + cap).join('\n')}
+For now, use the full interface:
+🔗 ${currentAgent.endpoint}/dev-ui/?app=app
 
-⚠️ **Status:** I'm part of the legacy agent mesh and don't have a dedicated Cloud Run endpoint yet. I operate within the local orchestration system.
+**What happened?**
+The backend API at /api/chat couldn't connect. Make sure the backend server is running.`;
+                    } else if (currentAgent.endpoint) {
+                        response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nAPI Error: ${apiError.message}`;
+                    } else {
+                        response = `I'm ${currentAgent.name}, ${currentAgent.role}.
 
-Department: ${currentAgent.department.toUpperCase()}
-Type: ${currentAgent.type.toUpperCase()}
+API Error: ${apiError.message}
 
-Would you like to know more about my specific capabilities?`;
+⚠️ Make sure the backend server is running to chat with agents.`;
+                    }
                 }
 
                 document.getElementById('typing-indicator')?.remove();
