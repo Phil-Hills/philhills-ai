@@ -727,7 +727,7 @@
             currentAgent = null;
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
 
@@ -737,58 +737,52 @@
             addMessage('user', message);
             input.value = '';
 
+            // Disable input while processing
+            input.disabled = true;
+            document.querySelector('.send-btn').disabled = true;
+
             // Show typing indicator
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message agent';
             typingDiv.id = 'typing-indicator';
             typingDiv.innerHTML = `
                 <div class="message-label">${currentAgent.name.toUpperCase()}</div>
-                <div class="message-text">Processing...</div>
+                <div class="message-text">🤖 Thinking...</div>
             `;
             document.getElementById('chatMessages').appendChild(typingDiv);
 
-            setTimeout(() => {
-                document.getElementById('typing-indicator')?.remove();
-
+            try {
                 let response = '';
 
-                // Special handling for agents with live endpoints
-                if (currentAgent.endpoint) {
-                    if (currentAgent.name === 'GCP Expert Admin') {
-                        response = `Hello! I'm the GCP Expert Admin powered by the Cube Protocol.
+                // For agents with live Cloud Run endpoints, make real API calls
+                if (currentAgent.endpoint && currentAgent.type === 'adk') {
+                    // Currently, ADK agents are deployed with the Dev UI
+                    // For full interaction, users should use the Dev UI directly
+                    response = `🚀 **Live ADK Agent Deployed!**
 
-I can help you with:
-• Deploying applications to Cloud Run
-• Managing GCP infrastructure
-• Cost optimization strategies
-• Security audits
-• BigQuery analytics
+I'm ${currentAgent.name}, running live on Google Cloud Run with the ADK Dev UI.
 
-🔗 **Access my full interface here:**
+**Current Capabilities:**
+${currentAgent.capabilities.slice(0, 4).map(cap => '• ' + cap).join('\n')}
+
+**🔗 Access My Full Interface:**
 ${currentAgent.endpoint}/dev-ui/?app=app
 
-I'm live and ready to execute GCP commands via semantic cubes!
+**Why can't I chat here directly?**
+This embedded chat is under development! Right now, the best way to interact with me is through my dedicated Dev UI above, where you'll get:
+- Full conversation history
+- Real-time LLM responses  
+- Agent delegation tracking
+- Complete tool execution logs
 
-What would you like to do?`;
-                    } else if (currentAgent.name === 'Orchestrator') {
-                        response = `Hello! I'm the Agentic Orchestrator running on Cloud Run.
+**Coming Soon:**
+Direct API integration in this embedded chat interface.
 
-I coordinate all specialized sub-agents including:
-• GitHub Monitor
-• Deployment Fixer
-• Website Builder
-• GCP Expert Admin
-
-I use Gemini 2.5 Flash for intelligent task delegation and autonomous problem-solving.
-
-🔗 **My endpoint:** ${currentAgent.endpoint}
-
-Note: I'm deployed but need an interactive UI to be added. You can integrate me via API calls to my Cloud Run service.
-
-How can I help coordinate the agent mesh for you?`;
-                    } else {
-                        response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nI'm a ${currentAgent.type.toUpperCase()} agent specializing in: ${currentAgent.capabilities.slice(0, 3).join(', ')}.\n\nTo interact with me, you can make API calls to my endpoint or use the orchestrator to delegate tasks to me.`;
-                    }
+**Your message:** "${message}"
+- To get a real response, please use the Dev UI link above! 👆`;
+                } else if (currentAgent.endpoint) {
+                    // For non-ADK agents with endpoints, provide helpful info
+                    response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nI'm a ${currentAgent.type.toUpperCase()} agent specializing in: ${currentAgent.capabilities.slice(0, 3).join(', ')}.\n\nTo interact with me fully, visit my endpoint or use the orchestrator to delegate tasks to me.`;
                 } else {
                     // Agents without live endpoints
                     response = `I'm ${currentAgent.name}, ${currentAgent.role}.
@@ -804,8 +798,19 @@ Type: ${currentAgent.type.toUpperCase()}
 Would you like to know more about my specific capabilities?`;
                 }
 
+                document.getElementById('typing-indicator')?.remove();
                 addMessage('agent', response);
-            }, 800);
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('typing-indicator')?.remove();
+                addMessage('agent', `❌ Error: ${error.message}\n\nPlease try again or visit ${currentAgent.endpoint || 'the agent documentation'}.`);
+            } finally {
+                // Re-enable input
+                input.disabled = false;
+                document.querySelector('.send-btn').disabled = false;
+                input.focus();
+            }
         }
 
         function addMessage(sender, text) {
