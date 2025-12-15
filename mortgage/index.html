@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Washington State Mortgage Intelligence | Phil Hills</title>
+    <meta name="description"
+        content="Get the latest Washington State mortgage rates and housing market insights. Apply now for the best rates.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #00a3cc;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Lead Capture Form */
+        .lead-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Benefits Grid */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 100px;
+            margin-bottom: 60px;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 80px;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header style="padding: 20px 0;">
+            <div style="font-weight: 700; font-size: 1.5rem; color: #fff;">
+                Phil<span style="color: var(--primary);">Hills</span>.ai
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Washington Mortgage Market Insights</h1>
+            <p>Artificial Intelligence meets local real estate data. Track Washington State housing trends and connect
+                with top-rated lenders.</p>
+
+            <div class="lead-card" id="leadFormCard">
+                <form id="leadForm" onsubmit="submitLead(event)">
+                    <div class="form-group">
+                        <label class="form-label">I am interested in...</label>
+                        <select class="form-select" name="goal" required>
+                            <option value="buy">Buying a Home</option>
+                            <option value="refinance">Refinancing Options</option>
+                            <option value="market-update">Market Updates</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Estimated Property Value</label>
+                        <input type="number" class="form-input" name="amount" placeholder="$500,000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" name="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone (Optional)</label>
+                        <input type="tel" class="form-input" name="phone" placeholder="(555) 123-4567">
+                    </div>
+
+                    <button type="submit" class="btn-submit">Request Market Info</button>
+
+                    <div class="secure-badge">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path
+                                d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                        </svg>
+                        Your information is secure
+                    </div>
+                </form>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h2>Request Received</h2>
+                <p>Thanks <span id="userName"></span>! We'll send the latest market analysis to your email.</p>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <h3>Market Data</h3>
+                <p>Stay informed with daily updates on Washington State housing trends.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🤖</div>
+                <h3>AI Analysis</h3>
+                <p>Our AI agents monitor thousands of data points to spot opportunities.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔗</div>
+                <h3>Lender Network</h3>
+                <p>We can connect you with licensed professionals if you choose.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Phil Hills. All rights reserved.</p>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px;">
+                Disclaimer: philhills.ai is a market intelligence platform, not a lender.
+                We do not originate mortgages or take loan applications.
+                Information provided is for educational purposes only.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        async function submitLead(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            const btn = form.querySelector('.btn-submit');
+            const originalText = btn.innerText;
+            btn.innerText = 'Processing...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    document.getElementById('leadFormCard').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('userName').innerText = data.name.split(' ')[0];
+                } else {
+                    alert('Something went wrong. Please try again.');
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error. Please try again.');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -754,51 +754,96 @@
             try {
                 let response = '';
 
-                // Call the unified chat API (works for ALL agents)
-                try {
-                    // Determine the API endpoint (local backend or deployed)
-                    const apiEndpoint = window.location.hostname === 'localhost'
-                        ? 'http://localhost:8080/api/chat'
-                        : 'https://agentic-empire-768405504263.us-central1.run.app/api/chat';
+                // Determine base API endpoint (local backend or deployed)
+                const apiBase = window.location.hostname === 'localhost'
+                    ? 'http://localhost:8080'
+                    : 'https://agentic-empire-768405504263.us-central1.run.app';
 
-                    const apiResponse = await fetch(apiEndpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            agent_name: currentAgent.name,
-                            message: message,
-                            session_id: 'web-session-' + Date.now()
-                        })
-                    });
+                // Try A2AC protocol first for Cloud Run agents, then fall back to regular chat
+                const useA2AC = currentAgent.type === 'adk' || currentAgent.a2ac === true;
 
-                    if (!apiResponse.ok) {
-                        throw new Error(`API returned ${apiResponse.status}`);
-                    }
+                if (useA2AC) {
+                    try {
+                        // A2AC Gateway Protocol
+                        console.log(`[A2AC] Sending to ${currentAgent.name} via A2AC gateway`);
+                        const a2acResponse = await fetch(`${apiBase}/api/a2ac/send`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                agent_name: currentAgent.name,
+                                intent: message,
+                                content: message
+                            })
+                        });
 
-                    const data = await apiResponse.json();
+                        if (a2acResponse.ok) {
+                            const a2acData = await a2acResponse.json();
 
-                    if (data.status === 'success') {
-                        response = data.response;
-                    } else if (data.status === 'partial' || data.status === 'timeout') {
-                        response = data.response;
-                        if (data.dev_ui_url) {
-                            response += `\n\n🔗 **Full UI:** ${data.dev_ui_url}`;
+                            // Check if A2AC gateway returned an error (even with 200 OK)
+                            if (a2acData.packet && a2acData.packet.headers['x-a2a-status'] === 'failed') {
+                                console.log('[A2AC] Gateway error:', a2acData.packet.headers['x-a2a-error']);
+                                console.log('[A2AC] Falling back to regular chat API');
+                                throw new Error('Agent not in A2AC gateway');
+                            }
+
+                            // Extract response from A2AC packet
+                            if (a2acData.status === 'success' && a2acData.packet) {
+                                response = a2acData.packet.body.payload.content;
+                                console.log('[A2AC] Success:', response);
+                            } else {
+                                throw new Error('A2AC response invalid');
+                            }
+                        } else {
+                            console.log('[A2AC] HTTP error, falling back to regular chat');
+                            throw new Error('A2AC endpoint failed');
                         }
-                    } else {
-                        response = `⚠️ ${data.response || 'Unknown error'}`;
-                        if (currentAgent.endpoint) {
-                            response += `\n\n🔗 **Try full UI:** ${currentAgent.endpoint}/dev-ui/?app=app`;
-                        }
+                    } catch (a2acError) {
+                        console.log('[A2AC] Error, trying regular /api/chat:', a2acError.message);
+                        // Fall through to regular chat API
                     }
+                }
 
-                } catch (apiError) {
-                    console.error('API Error:', apiError);
+                // If A2AC didn't work or wasn't tried, use regular chat API
+                if (!response) {
+                    try {
+                        const apiResponse = await fetch(`${apiBase}/api/chat`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                agent_name: currentAgent.name,
+                                message: message,
+                                session_id: 'web-session-' + Date.now()
+                            })
+                        });
 
-                    // Fallback messaging
-                    if (currentAgent.endpoint && currentAgent.type === 'adk') {
-                        response = `🚀 **${currentAgent.name}** is deployed but the API bridge is unavailable.
+                        if (!apiResponse.ok) {
+                            throw new Error(`API returned ${apiResponse.status}`);
+                        }
+
+                        const data = await apiResponse.json();
+
+                        if (data.status === 'success') {
+                            response = data.response;
+                        } else if (data.status === 'partial' || data.status === 'timeout') {
+                            response = data.response;
+                            if (data.dev_ui_url) {
+                                response += `\n\n🔗 **Full UI:** ${data.dev_ui_url}`;
+                            }
+                        } else {
+                            response = `⚠️ ${data.response || 'Unknown error'}`;
+                            if (currentAgent.endpoint) {
+                                response += `\n\n🔗 **Try full UI:** ${currentAgent.endpoint}/dev-ui/?app=app`;
+                            }
+                        }
+
+                    } catch (apiError) {
+                        console.error('API Error:', apiError);
+
+                        // Fallback messaging
+                        if (currentAgent.endpoint && currentAgent.type === 'adk') {
+                            response = `🚀 **${currentAgent.name}** is deployed but the API bridge is unavailable.
 
 **Your message:** "${message}"
 
@@ -806,15 +851,16 @@ For now, use the full interface:
 🔗 ${currentAgent.endpoint}/dev-ui/?app=app
 
 **What happened?**
-The backend API at /api/chat couldn't connect. Make sure the backend server is running.`;
-                    } else if (currentAgent.endpoint) {
-                        response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nAPI Error: ${apiError.message}`;
-                    } else {
-                        response = `I'm ${currentAgent.name}, ${currentAgent.role}.
+The backend API couldn't connect. Make sure the backend server is running.`;
+                        } else if (currentAgent.endpoint) {
+                            response = `I'm ${currentAgent.name}, currently deployed at:\n${currentAgent.endpoint}\n\nAPI Error: ${apiError.message}`;
+                        } else {
+                            response = `I'm ${currentAgent.name}, ${currentAgent.role}.
 
 API Error: ${apiError.message}
 
 ⚠️ Make sure the backend server is running to chat with agents.`;
+                        }
                     }
                 }
 
