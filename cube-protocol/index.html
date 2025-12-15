@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUBE Protocol - AI Data Compression & Identity | Phil Hills</title>
-    <meta name="description" content="CUBE Protocol by Phil Hills: A revolutionary 3D data compression format for AI agents. Compress text and JSON into balanced cube structures with cryptographic integrity.">
-    <meta name="keywords" content="CUBE Protocol, AI Compression, Data Structure, Phil Hills, Artificial Intelligence, Identity Cube, JSON Compression">
+    <meta name="description"
+        content="CUBE Protocol by Phil Hills: A revolutionary 3D data compression format for AI agents. Compress text and JSON into balanced cube structures with cryptographic integrity.">
+    <meta name="keywords"
+        content="CUBE Protocol, AI Compression, Data Structure, Phil Hills, Artificial Intelligence, Identity Cube, JSON Compression">
     <meta name="author" content="Phil Hills">
     <link rel="canonical" href="https://philhills.ai/">
 
@@ -13,15 +16,17 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://philhills.ai/">
     <meta property="og:title" content="CUBE Protocol - AI Data Compression">
-    <meta property="og:description" content="Compress data into elegant 3D cube structures. Optimized for AI agents and mesh networks.">
+    <meta property="og:description"
+        content="Compress data into elegant 3D cube structures. Optimized for AI agents and mesh networks.">
     <meta property="og:site_name" content="Phil Hills AI">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://philhills.ai/">
     <meta property="twitter:title" content="CUBE Protocol - AI Data Compression">
-    <meta property="twitter:description" content="Compress data into elegant 3D cube structures. Optimized for AI agents and mesh networks.">
-    
+    <meta property="twitter:description"
+        content="Compress data into elegant 3D cube structures. Optimized for AI agents and mesh networks.">
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -153,7 +158,8 @@
             color: var(--text);
         }
 
-        textarea, input[type="text"] {
+        textarea,
+        input[type="text"] {
             width: 100%;
             padding: 1rem;
             background: var(--bg);
@@ -166,7 +172,8 @@
             transition: border-color 0.3s;
         }
 
-        textarea:focus, input[type="text"]:focus {
+        textarea:focus,
+        input[type="text"]:focus {
             outline: none;
             border-color: var(--primary);
         }
@@ -278,7 +285,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .drop-zone:hover, .drop-zone.dragover {
+        .drop-zone:hover,
+        .drop-zone.dragover {
             border-color: var(--primary);
             background: rgba(99, 102, 241, 0.05);
         }
@@ -304,22 +312,23 @@
             h1 {
                 font-size: 2rem;
             }
-            
+
             .tabs {
                 flex-direction: column;
             }
-            
+
             .tab {
                 border-bottom: none;
                 border-left: 3px solid transparent;
             }
-            
+
             .tab.active {
                 border-left-color: var(--primary);
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -397,18 +406,22 @@
             <div class="card">
                 <h2 style="margin-bottom: 1rem;">What is CUBE Protocol?</h2>
                 <p style="margin-bottom: 1rem; line-height: 1.6;">
-                    CUBE Protocol is a novel data compression format that organizes compressed data into 3D cube structures. 
-                    It combines gzip compression with base64 encoding and arranges the result into balanced cubic dimensions.
+                    CUBE Protocol is a novel data compression format that organizes compressed data into 3D cube
+                    structures.
+                    It combines gzip compression with base64 encoding and arranges the result into balanced cubic
+                    dimensions.
                 </p>
 
                 <h3 style="margin: 2rem 0 1rem;">Compression Pipeline</h3>
-                <div style="background: var(--bg); padding: 1rem; border-radius: 0.5rem; font-family: monospace; margin-bottom: 1rem;">
+                <div
+                    style="background: var(--bg); padding: 1rem; border-radius: 0.5rem; font-family: monospace; margin-bottom: 1rem;">
                     Raw Data → UTF-8 → gzip (level 9) → base64 → 3D Cube Slicing → SHA256 Hash
                 </div>
 
                 <h3 style="margin: 2rem 0 1rem;">Trinity Descriptor</h3>
                 <p style="margin-bottom: 1rem; line-height: 1.6;">
-                    Each cube includes a "Trinity" descriptor in the format: <code style="background: var(--bg); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">DOMAIN|SEQUENCE|OUTCOME</code>
+                    Each cube includes a "Trinity" descriptor in the format: <code
+                        style="background: var(--bg); padding: 0.25rem 0.5rem; border-radius: 0.25rem;">DOMAIN|SEQUENCE|OUTCOME</code>
                 </p>
 
                 <h3 style="margin: 2rem 0 1rem;">Features</h3>
@@ -441,7 +454,7 @@
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             event.target.classList.add('active');
             document.getElementById(tabName + '-tab').classList.add('active');
         }
@@ -517,7 +530,7 @@
             reader.readAsText(file);
         }
 
-        function compressData() {
+        async function compressData() {
             const inputText = document.getElementById('input-text').value;
             const domain = document.getElementById('domain').value;
             const sequence = document.getElementById('sequence').value;
@@ -535,7 +548,7 @@
 
             try {
                 const cube = CubeProtocol.compress(inputText, domain, sequence, outcome);
-                displayCompressResult(cube, inputText);
+                await displayCompressResult(cube, inputText);
             } catch (err) {
                 showError('compress-result', 'Compression failed: ' + err.message);
             }
@@ -557,10 +570,10 @@
             }
         }
 
-        function displayCompressResult(cube, originalText) {
-            const cubeObj = cube.asDict();
+        async function displayCompressResult(cube, originalText) {
+            const cubeObj = await cube.asDict();
             const compressionRatio = ((1 - cubeObj.cube.data.length / originalText.length) * 100).toFixed(1);
-            
+
             const html = `
                 <div class="alert alert-success" style="margin-top: 1.5rem;">
                     ✅ Compression successful!
@@ -686,4 +699,5 @@
         }
     </script>
 </body>
+
 </html>
