@@ -535,6 +535,79 @@
                 height: 90%;
             }
         }
+
+        /* CUBE PROTOCOL VISUALIZATION */
+        .cube-drop-zone {
+            border: 2px dashed #333;
+            transition: all 0.3s;
+        }
+
+        .cube-drop-zone.drag-over {
+            border-color: #00ff9d;
+            background: rgba(0, 255, 157, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .cube-card {
+            background: rgba(0, 20, 10, 0.9);
+            border: 1px solid #00ff9d;
+            margin: 10px 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cube-header {
+            background: rgba(0, 255, 157, 0.15);
+            padding: 8px 12px;
+            font-size: 10px;
+            color: #00ff9d;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cube-grid-visual {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            padding: 10px;
+            background: #000;
+        }
+
+        .voxel {
+            aspect-ratio: 1;
+            background: #111;
+            border: 1px solid #222;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+        }
+
+        .voxel.active {
+            background: #00ff9d;
+            color: #000;
+            box-shadow: 0 0 5px #00ff9d;
+        }
+
+        .cube-instructions {
+            background: rgba(0, 255, 157, 0.05);
+            border-top: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 10px;
+            font-size: 10px;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .cube-instructions code {
+            background: #000;
+            padding: 2px 6px;
+            color: #00ff9d;
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -942,6 +1015,144 @@ API Error: ${apiError.message}
         renderAgents();
         updateTimestamp();
         setInterval(updateTimestamp, 1000);
+    </script>
+
+    <!-- CUBE PROTOCOL TERMINAL v1.3 -->
+    <script>
+        // --- CUBE PROTOCOL EXTENSION v1.3 ---
+        // Enables drag-and-drop cube visualization with self-documenting instructions
+
+        // 1. Initialize Drop Zone
+        const chatContainer = document.querySelector('.chat-container');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            chatContainer.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Visual Feedback
+        chatContainer.addEventListener('dragenter', () => chatContainer.classList.add('drag-over'));
+        chatContainer.addEventListener('dragleave', () => chatContainer.classList.remove('drag-over'));
+
+        // 2. Handle the "Cube Drop"
+        chatContainer.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            chatContainer.classList.remove('drag-over');
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            ([...files]).forEach(file => {
+                // Only process JSON files (Cubes)
+                if (file.type === "application/json" || file.name.endsWith('.json')) {
+                    const reader = new FileReader();
+                    reader.readAsText(file);
+                    reader.onloadend = function () {
+                        try {
+                            const cube = JSON.parse(reader.result);
+                            renderCubeMessage(cube);
+                        } catch (err) {
+                            console.error("Not a valid Cube:", err);
+                            addMessage('agent', '❌ Error: Not a valid JSON cube file.');
+                        }
+                    }
+                }
+            });
+        }
+
+        // 3. The "Unfolder" (Renderer)
+        function renderCubeMessage(cubeData) {
+            const messagesContainer = document.getElementById('chatMessages');
+
+            // Verify Protocol
+            const isCube = cubeData.protocol_version && cubeData.protocol_version.startsWith('cube');
+            const descriptor = isCube ? cubeData.descriptor : "UNKNOWN_ARTIFACT";
+            const instructions = cubeData._instructions || {};
+
+            // Create the HTML Card
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message user'; // Treat upload as user message
+
+            // Generate Voxel Visuals
+            let visualGrid = '';
+            const dimensions = cubeData.cube?.dimensions || [4, 4, 4];
+            const gridSize = Math.min(dimensions[0], 4); // Max 4x4 for display
+
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                // Randomly activate some voxels to simulate "Data Density"
+                const active = Math.random() > 0.7 ? 'active' : '';
+                visualGrid += `<div class="voxel ${active}">${i}</div>`;
+            }
+
+            // Build cube card HTML
+            msgDiv.innerHTML = `
+                <div class="message-label">📦 CUBE UPLOAD: ${cubeData.cube_type || 'DATA CUBE'}</div>
+                <div class="cube-card">
+                    <div class="cube-header">
+                        <span>PROTOCOL: ${cubeData.protocol_version || 'N/A'}</span>
+                        <span>HASH: ${cubeData.hash?.algorithm || 'NONE'}</span>
+                    </div>
+                    <div style="padding: 10px; font-size: 11px; color: #ccc;">
+                        <div><strong>DESCRIPTOR:</strong> ${descriptor}</div>
+                        <div style="margin-top:5px; color: #888;">
+                            Encoding: ${cubeData.cube?.encoding || 'Text'}<br>
+                            Dimensions: [${cubeData.cube?.dimensions || '?'}]
+                            ${cubeData.spatial_version ? `<br>Spatial: ${cubeData.spatial_version}` : ''}
+                            ${cubeData.cube_type ? `<br>Type: ${cubeData.cube_type}` : ''}
+                        </div>
+                    </div>
+                    <div class="cube-grid-visual">
+                        ${visualGrid}
+                    </div>
+                    ${instructions.for_ai_agents ? `
+                    <div class="cube-instructions">
+                        <strong>📖 AI INSTRUCTIONS:</strong><br>
+                        ${instructions.for_ai_agents}<br>
+                        ${instructions.compression ? `<br><strong>Compression:</strong> ${instructions.compression}` : ''}
+                        ${instructions.usage ? `<br><strong>Usage:</strong> ${instructions.usage}` : ''}
+                        ${instructions.decompression_example ? `<br><strong>Example:</strong> <code>${instructions.decompression_example}</code>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+
+            messagesContainer.appendChild(msgDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Simulate Agent Response to the Cube
+            setTimeout(() => {
+                const hashValue = cubeData.hash?.value || 'N/A';
+                const hashPreview = hashValue.length > 16 ? hashValue.substring(0, 16) + '...' : hashValue;
+                addMessage('agent', `✅ Cube Received and Verified<br>Hash: <code>${hashPreview}</code><br>Type: ${cubeData.cube_type || 'DATA'}<br>Analyzing payload...`);
+            }, 1000);
+        }
+
+        // Add helper message on chat open
+        const originalOpenChat = openChat;
+        openChat = function (agent) {
+            originalOpenChat(agent);
+            setTimeout(() => {
+                const messagesContainer = document.getElementById('chatMessages');
+                const helpDiv = document.createElement('div');
+                helpDiv.className = 'message agent';
+                helpDiv.style.opacity = '0.7';
+                helpDiv.innerHTML = `
+                    <div class="message-label">💡 TIP</div>
+                    <div class="message-text" style="font-size: 11px;">
+                        You can drag & drop <strong>cube.json</strong> files directly into this chat window to visualize them!
+                    </div>
+                `;
+                messagesContainer.appendChild(helpDiv);
+            }, 500);
+        };
     </script>
 </body>
 
