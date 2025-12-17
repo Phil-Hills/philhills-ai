@@ -49,6 +49,7 @@
     }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blake3@2.1.7/dist/browser/blake3.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -415,7 +416,7 @@
                 <h3 style="margin: 2rem 0 1rem;">Compression Pipeline</h3>
                 <div
                     style="background: var(--bg); padding: 1rem; border-radius: 0.5rem; font-family: monospace; margin-bottom: 1rem;">
-                    Raw Data → UTF-8 → gzip (level 9) → base64 → 3D Cube Slicing → SHA256 Hash
+                    Raw Data → UTF-8 → gzip (level 9) → base64 → 3D Cube Slicing → BLAKE3 Hash
                 </div>
 
                 <h3 style="margin: 2rem 0 1rem;">Trinity Descriptor</h3>
@@ -428,7 +429,7 @@
                 <ul style="list-style: none; line-height: 2;">
                     <li>✅ Maximum gzip compression (level 9)</li>
                     <li>✅ Optimized 3D dimensions to minimize padding</li>
-                    <li>✅ SHA256 integrity verification</li>
+                    <li>✅ BLAKE3 integrity verification</li>
                     <li>✅ Full compression/decompression roundtrip</li>
                     <li>✅ Browser and Python compatible</li>
                 </ul>
@@ -598,7 +599,7 @@
                         <div class="stat-value">${compressionRatio}%</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-label">SHA256</div>
+                        <div class="stat-label">BLAKE3</div>
                         <div class="stat-value" style="font-size: 0.875rem;">${cubeObj.hash.value.substring(0, 16)}...</div>
                     </div>
                 </div>

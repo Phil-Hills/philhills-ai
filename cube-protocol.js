@@ -115,10 +115,10 @@ class CubeProtocol {
     }
 
     /**
-     * Calculate SHA256 hash
+     * Calculate BLAKE3 hash
      * @private
      */
-    static async _sha256(data) {
+    static async _blake3(data) {
         // Remove padding and re-add proper base64 padding
         let cleaned = data.replace(/=+$/, '');
         const paddingNeeded = (4 - (cleaned.length % 4)) % 4;
@@ -131,12 +131,9 @@ class CubeProtocol {
             bytes[i] = binaryString.charCodeAt(i);
         }
 
-        // Calculate SHA256
-        const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-        return hashHex;
+        // Calculate BLAKE3 using the blake3 library
+        const hash = blake3.hash(bytes);
+        return hash.toString('hex');
     }
 }
 
@@ -152,11 +149,11 @@ class CubeObject {
     }
 
     /**
-     * Calculate SHA256 hash (async)
+     * Calculate BLAKE3 hash (async)
      */
-    async sha256() {
+    async blake3() {
         if (!this._hash) {
-            this._hash = await CubeProtocol._sha256(this.data);
+            this._hash = await CubeProtocol._blake3(this.data);
         }
         return this._hash;
     }
@@ -165,7 +162,7 @@ class CubeObject {
      * Convert to dictionary format (async for hash calculation)
      */
     async asDict() {
-        const hash = await this.sha256();
+        const hash = await this.blake3();
 
         return {
             protocol_version: 'cube-1.0',
@@ -176,7 +173,7 @@ class CubeObject {
                 data: this.data
             },
             hash: {
-                algorithm: 'SHA256',
+                algorithm: 'BLAKE3',
                 value: hash
             }
         };
