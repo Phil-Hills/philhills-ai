@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>PHILHILLS.AI // AGENTIC EMPIRE</title>
     <meta name="description"
         content="Live dashboard of the Phil Hills Agentic Empire - 30+ AI agents working autonomously across operations, engineering, revenue, and defense departments.">
@@ -146,10 +149,13 @@
             border: 1px solid #333;
             color: #888;
             padding: 10px 20px;
+            min-height: 44px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
             font-size: 12px;
             transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .filter-btn:hover,
@@ -300,6 +306,7 @@
         .chat-action {
             margin-top: 15px;
             padding: 10px;
+            min-height: 44px;
             background: rgba(0, 255, 157, 0.1);
             border: 1px solid #00ff9d;
             text-align: center;
@@ -307,6 +314,8 @@
             color: #00ff9d;
             cursor: pointer;
             transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .chat-action:hover {
@@ -460,11 +469,15 @@
             border: none;
             color: #000;
             padding: 10px 25px;
+            min-height: 44px;
+            min-width: 60px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
             font-size: 13px;
             font-weight: bold;
             transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .send-btn:hover {
@@ -754,10 +767,8 @@
             try {
                 let response = '';
 
-                // Determine base API endpoint (local backend or deployed)
-                const apiBase = window.location.hostname === 'localhost'
-                    ? 'http://localhost:8080'
-                    : 'https://agentic-empire-768405504263.us-central1.run.app';
+                // Determine base API endpoint
+                const apiBase = 'https://philhills-chat-api-768405504263.us-central1.run.app';
 
                 // Try A2AC protocol first for Cloud Run agents, then fall back to regular chat
                 const useA2AC = currentAgent.type === 'adk' || currentAgent.a2ac === true;
