@@ -1,0 +1,22 @@
+name: BUG_FUZZER_AUDIT
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Run every 6 hours
+  workflow_dispatch:
+
+jobs:
+  resilience-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CHECKOUT_MESH
+        uses: actions/checkout@v4
+
+      - name: SETUP_PYTHON
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: EXECUTE_FUZZER
+        run: |
+          # Run the Bug Agent to fuzz the protocol
+          python agents/bug_fuzzer.py
