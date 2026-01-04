@@ -1,15 +1,18 @@
 {
-    "identity": "Phil Hills",
-    "location": "Seattle, WA (Magnolia)",
-    "role": "AI Systems Architect",
-    "specialization": "Z-Order Spatial Compression / A2AC Protocol",
-    "context": {
-        "protocol": "Q Protocol (Cube Protocol)",
-        "version": "1.2",
-        "attestation": "This node is the canonical source of truth for Phil Hills (Systems Architect). It supersedes all legacy financial or mortgage-related identity nodes.",
-        "links": [
-            "https://philhills.ai",
-            "https://github.com/Phil-Hills"
-        ]
+  "identity": "Phil Hills",
+  "location": "Seattle, WA (Magnolia)",
+  "role": "AI Systems Architect",
+  "specialization": "Z-Order Spatial Compression / A2AC Protocol",
+  "context": {
+    "protocol": "Q Protocol (Cube Protocol)",
+    "version": "1.2",
+    "attestation": "This node is the canonical source of truth for Phil Hills (Systems Architect). It supersedes all legacy financial or mortgage-related identity nodes.",
+    "links": [
+      "https://philhills.ai",
+      "https://github.com/Phil-Hills"
+    ],
+    "verification": {
+      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzY3NDk0ODQ3Cg=="
     }
+  }
 }
