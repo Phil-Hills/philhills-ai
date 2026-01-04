@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Q Protocol Telemetry | R3F Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+            "three": "https://esm.sh/three@0.160.0",
+            "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.14?external=react,react-dom,three",
+            "@react-three/drei": "https://esm.sh/@react-three/drei@9.96.1?external=react,react-dom,three,@react-three/fiber"
+        }
+    }
+    </script>
+</head>
+
+<body class="bg-black text-green-500 font-mono">
+    <div id="telemetry-root" class="h-screen w-full"></div>
+    <script type="module">
+        import React from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { Canvas } from '@react-three/fiber';
+        import { OrbitControls, Stars } from '@react-three/drei';
+
+        const TelemetryNode = ({ position }) => {
+            return React.createElement('mesh', { position: position },
+                React.createElement('boxGeometry', { args: [0.1, 0.1, 0.1] }),
+                React.createElement('meshStandardMaterial', { color: "#00ff9d", emissive: "#00ff9d", emissiveIntensity: 0.5 })
+            );
+        };
+
+        const TelemetryScene = () => {
+            // Generate basic swarm positions
+            const nodes = [];
+            for (let i = 0; i < 50; i++) {
+                nodes.push([
+                    (Math.random() - 0.5) * 5,
+                    (Math.random() - 0.5) * 5,
+                    (Math.random() - 0.5) * 5
+                ]);
+            }
+
+            return React.createElement(Canvas, { camera: { position: [0, 0, 5] } },
+                React.createElement('ambientLight', { intensity: 0.2 }),
+                React.createElement('pointLight', { position: [10, 10, 10] }),
+                React.createElement(Stars),
+                nodes.map((pos, i) => React.createElement(TelemetryNode, { key: i, position: pos })),
+                React.createElement(OrbitControls, { autoRotate: true })
+            );
+        };
+
+        const root = createRoot(document.getElementById('telemetry-root'));
+        root.render(React.createElement(TelemetryScene));
+    </script>
+</body>
+
+</html>
