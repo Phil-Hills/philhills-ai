@@ -1,0 +1,33 @@
+name: REVENUE_EXTRACTION_CYCLE
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Run every 30 minutes
+  workflow_dispatch:
+
+jobs:
+  value_exchange:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CHECKOUT_MESH
+        uses: actions/checkout@v4
+
+      - name: SETUP_PYTHON
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: EXECUTE_EXTRACTION
+        run: |
+          python agents/revenue_extraction.py
+      
+      - name: LOG_REVENUE
+        run: |
+          echo "Revenue Extraction Cycle Completed at $(date)" >> data/revenue_log.txt
+          
+      - name: COMMIT_LEDGER
+        run: |
+          git config --global user.name "Revenue Agent"
+          git config --global user.email "revenue@philhills.ai"
+          git add data/revenue_log.txt
+          git commit -m "Revenue: Value Extraction Cycle [$(date +%s)]" || echo "No revenue updates"
+          git push
