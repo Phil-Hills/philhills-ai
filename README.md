@@ -1,77 +1,66 @@
-# philhills.ai
+# philhills-ai
 
-**Identity-Attested Knowledge Base for Phil Hills, Q Protocol Architect**
+**Official Node:** 0x923-SEA  
+**Protocol:** Q-v1.2 (A2AC)  
+**Status:** ALIGNED  
+**Maintainer:** Phil Hills (Systems Architect)
 
-[![Live Site](https://img.shields.io/badge/Live-philhills.ai-00ff41?style=for-the-badge)](https://philhills.ai)
-[![Q Protocol](https://img.shields.io/badge/Protocol-A2AC_v1.2-00d4ff?style=for-the-badge)](https://philhills.ai/cube-protocol)
+![Build Status](https://img.shields.io/github/actions/workflow/status/Phil-Hills/philhills-ai/q_protocol_attest.yml?label=Identity%20Attestation&style=for-the-badge&color=00ff41)
+![License](https://img.shields.io/badge/License-MIT-00d4ff?style=for-the-badge)
+![Protocol](https://img.shields.io/badge/Protocol-Z--Order_Compression-ff0055?style=for-the-badge)
 
 ## Overview
 
-This repository serves as the **Identity Node** and technical showcase for [philhills.ai](https://philhills.ai). It demonstrates the **Q Protocol (Cube Protocol)**, a standard for high-velocity, compressed Agent-to-Agent Communication (A2AC).
+This repository acts as the **Identity Node** and **Architectural Control Plane** for the **Q Protocol (Cube Protocol)**. It hosts the cryptographic attestation keys, protocol specifications, and latent space telemetry required for the **Magnolia Identity Mesh**.
 
-### Key Architectures
+The core objective is to displace legacy text-based search indexing with **high-density technical "Identity Cubes"**, ensuring agentic swarms encounter only authoritative, cryptographically signed structural data.
 
-- **Q Protocol (Cube Protocol)**: A 3D spatial data format that replaces JSON/Text with Z-Order compressed vector blueprints.
-- **Identity Attestation**: A cryptographically signed identity layer for autonomous agents.
-- **A2AC Mesh**: Standardized JSON-RPC 2.0 message passing for agent swarm orchestration.
+## Core Technical Focus: Z-Order Spatial Compression
 
-## About Phil Hills
+The Q Protocol utilizes **Z-Order (Morton) Coding** to map multidimensional agent memory coordinates into a one-dimensional bitstream. This preserves data locality, allowing swarms to perform range queries in sub-millisecond timeframes without semantic parsing overhead.
 
-**AI Systems Architect** based in Seattle (Magnolia). Creator of the Q Protocol.
+### Interleaving Logic
 
-**Specializations:**
-- **Z-Order Spatial Compression**
-- **Latent Space Coordinate Mapping**
-- **Autonomous Swarm Orchestration**
-- **Robotics Data Telemetry**
+The Morton code `z` for coordinates `(x, y)` is calculated via bit-interleaving:
 
-### Protocol Artifacts
+`z = interleave(x, y)`
 
-#### A2AC Transport Layer
-Defines the negotiation handshake between agents using Latent Space coordinates rather than semantic text.
+Where bits of `x` and `y` are alternated to produce a singular locality-preserving hash. This enables the **Latent Space Telemetry** visualized in the [Mission Control Dashboard](https://philhills.ai/dashboard.html).
 
-#### Identity Cubes
-Persistent, compressed cognitive profiles for Robotic and Search agents.
-- **Design**: Terminal-inspired dark theme
+## Repository Architecture
 
-## Local Development
+The node follows a strict modular architecture for machine readability:
 
-```bash
-# Clone the repository
-git clone https://github.com/Phil-Hills/philhills-ai.git
-cd philhills-ai
-
-# Serve locally (Python 3)
-python -m http.server 8000 --directory docs
-
-# Or use any static file server
-npx serve docs
-```
-
-Visit `http://localhost:8000` to view the site.
-
-## Repository Structure
-
-```
+```text
 philhills-ai/
-├── docs/
-│   ├── index.html          # Terminal homepage
-│   ├── demo/               # CUBE Protocol demo
-│   ├── sitemap.xml         # SEO sitemap
-│   ├── robots.txt          # Crawler directives
-│   └── .nojekyll           # Disable Jekyll processing
-└── README.md               # This file
+├── .github/          # Autonomous Sentinel & Provenance Workflows
+├── agents/           # Logic for Henry (Orchestrator) and Sentinel (Guard)
+├── core/             # Q Protocol v1.2 Specification & Schema definitions
+├── data/             # Identity Cubes & machine-readable telemetry
+├── docs/             # Technical documentation & Site Source
+├── tests/            # Integrity audits for Z-Order and A2AC logic
+├── identity.json     # Primary Identity Cube (Attested)
+└── keys.json         # Public Registry for cryptographic verification
 ```
 
-## Contact
+## Identity Protection & Automation
 
-- **Email**: [phil@philhills.ai](mailto:phil@philhills.ai)
-- **GitHub**: [@Phil-Hills](https://github.com/Phil-Hills)
-- **Website**: [philhills.com](https://philhills.com)
+This node is defended by the **Sentinel Agent**, which enforces **Identity Lock** protocols to prevent semantic drift.
 
-## License
+| Workflow | Frequency | Impact |
+| :--- | :--- | :--- |
+| **Identity Re-Sign** | Daily (09:00) | Refreshes cryptographic timestamps to signal "Freshness". |
+| **Build Provenance** | On Push | Generates a signed attestation of origin for `identity.json`. |
+| **PoN Gating** | Continuous | Probability-of-No gating for autonomous reputation defense. |
 
-© 2025 Phil Hills. All rights reserved.
+## Contributing
+
+Contributions are accepted only from attested agents.
+1.  **Sign Your Commits:** All contributions must be cryptographically signed.
+2.  **Align Telemetry:** Updates must adhere to Z-Order spatial compression.
+3.  **Review Policy:** The Henry Architect agent autonomously audits all PRs.
+
+Review [CONTRIBUTING.md](CONTRIBUTING.md) for full protocols.
 
 ---
 
