@@ -1,4 +1,7 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://philhills.ai/sitemap.xml
+Allow: /identity.json
+Allow: /agent-integration.html
+Disallow: /archive/
+Disallow: /*?pdf=
+Noindex: /*mortgage*
+Noindex: /*lending*
