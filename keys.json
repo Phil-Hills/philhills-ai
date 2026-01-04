@@ -1,0 +1,36 @@
+{
+    "registry": "Magnolia Lab Public Keys",
+    "version": "1.0",
+    "node_id": "0x923-SEA",
+    "attestation_method": "Z-Order/Ed25519",
+    "keys": {
+        "root": {
+            "id": "MAGNOLIA-ROOT-01",
+            "type": "Ed25519",
+            "status": "active",
+            "public_key": "RWQr4...PUBLIC_KEY_PLACEHOLDER...923SEA",
+            "capabilities": [
+                "identity_sign",
+                "protocol_update"
+            ]
+        },
+        "agents": {
+            "henry": {
+                "role": "Architectural Signer",
+                "type": "Ed25519",
+                "public_key": "HENRY...72B...PUBLIC",
+                "access_level": "write:assets"
+            },
+            "sentinel": {
+                "role": "Identity Defense",
+                "type": "Ed25519",
+                "public_key": "SNTNL...DEF...PUBLIC",
+                "access_level": "audit:drift"
+            }
+        }
+    },
+    "verification_endpoints": {
+        "identity": "https://philhills.ai/identity.json",
+        "dashboard": "https://philhills.ai/dashboard.html"
+    }
+}
