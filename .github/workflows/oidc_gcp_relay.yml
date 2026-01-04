@@ -1,0 +1,28 @@
+name: OIDC_GCP_RELAY
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  relay-sync:
+    runs-on: ubuntu-latest
+    environment: Magnolia-Lab-Production
+    steps:
+      - name: CHECKOUT_MESH
+        uses: actions/checkout@v4
+
+      - name: AUTH_GCP_WIF
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/magnolia-pool/providers/github-provider'
+          service_account: 'sentinel-agent@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+
+      - name: UPDATE_VERTEX_AI_CUBE
+        run: |
+          gcloud ai endpoints raw-predict ${{ secrets.GCP_ENDPOINT_ID }} \
+            --region=us-central1 \
+            --json-request='{"instances": [{"identity_node": "0x923-SEA", "status": "ALIGNED"}]}'
