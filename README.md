@@ -1,46 +1,37 @@
 # philhills.ai
 
-**Professional portfolio and technical showcase for Phil Hills, Agentic Protocol Engineer**
+**Identity-Attested Knowledge Base for Phil Hills, Q Protocol Architect**
 
 [![Live Site](https://img.shields.io/badge/Live-philhills.ai-00ff41?style=for-the-badge)](https://philhills.ai)
-[![CUBE Protocol Demo](https://img.shields.io/badge/Demo-CUBE_Protocol-00d4ff?style=for-the-badge)](https://philhills.ai/demo)
+[![Q Protocol](https://img.shields.io/badge/Protocol-A2AC_v1.2-00d4ff?style=for-the-badge)](https://philhills.ai/cube-protocol)
 
 ## Overview
 
-This repository hosts the source code for [philhills.ai](https://philhills.ai), an interactive terminal-style portfolio showcasing expertise in Agentic Systems, Multi-Agent Communication, and AI Architecture.
+This repository serves as the **Identity Node** and technical showcase for [philhills.ai](https://philhills.ai). It demonstrates the **Q Protocol (Cube Protocol)**, a standard for high-velocity, compressed Agent-to-Agent Communication (A2AC).
 
-### Key Features
+### Key Architectures
 
-- **Interactive Terminal Interface** - Command-line aesthetic with functional shell
-- **CUBE Protocol Demo** - Live demonstration of the 3D semantic data format
-- **SEO Optimized** - Comprehensive meta tags and structured data for discoverability
-- **Mobile Responsive** - Fully functional on all devices
+- **Q Protocol (Cube Protocol)**: A 3D spatial data format that replaces JSON/Text with Z-Order compressed vector blueprints.
+- **Identity Attestation**: A cryptographically signed identity layer for autonomous agents.
+- **A2AC Mesh**: Standardized JSON-RPC 2.0 message passing for agent swarm orchestration.
 
 ## About Phil Hills
 
-**Agentic Protocol Engineer** with 20 years of experience architecting high-stakes fintech automation systems. Now building the nervous system for autonomous AI.
+**AI Systems Architect** based in Seattle (Magnolia). Creator of the Q Protocol.
 
-### Specializations
+**Specializations:**
+- **Z-Order Spatial Compression**
+- **Latent Space Coordinate Mapping**
+- **Autonomous Swarm Orchestration**
+- **Robotics Data Telemetry**
 
-- Multi-Agent Systems (MAS) Architecture
-- Semantic Memory & High-Dimensional Agentic Memory
-- Swarm Orchestration
-- Enterprise Data Safety
-- Agent Communication Protocols
+### Protocol Artifacts
 
-### Key Projects
+#### A2AC Transport Layer
+Defines the negotiation handshake between agents using Latent Space coordinates rather than semantic text.
 
-#### CUBE Protocol (AgentCube)
-A 3D semantic data format for agent memory that replaces JSON/Text handoffs with compressed vector blueprints, creating "Forget-Proof" Context Windows.
-
-#### Orchestration Layer Zero
-A supervised multi-agent framework designed for auditable environments with zero-hallucination routing for 10,000+ concurrent workflows.
-
-## Technical Stack
-
-- **Frontend**: Vanilla HTML/CSS/JavaScript
-- **Hosting**: GitHub Pages
-- **Font**: JetBrains Mono
+#### Identity Cubes
+Persistent, compressed cognitive profiles for Robotic and Search agents.
 - **Design**: Terminal-inspired dark theme
 
 ## Local Development

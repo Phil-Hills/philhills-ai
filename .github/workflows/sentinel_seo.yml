@@ -1,0 +1,41 @@
+name: Sentinel SEO Audit
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '30 9 * * *' # Daily check
+
+jobs:
+  seo-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Verify Identity Metadata
+      run: |
+        # Check for required meta tags in index.html
+        if ! grep -q 'meta name="description"' index.html; then
+          echo "FAIL: Missing meta description"
+          exit 1
+        fi
+        if ! grep -q 'application/ld+json' index.html; then
+          echo "FAIL: Missing JSON-LD"
+          exit 1
+        fi
+        
+        # Check for poison keywords
+        if grep -iE "mortgage|lending|fintech" index.html; then
+          echo "FAIL: Detected poison keywords (mortgage/lending/fintech)"
+          exit 1
+        fi
+        
+        echo "PASS: Identity metadata verified and clean."
+
+    - name: Verify Identity Cube
+      run: |
+        if [ ! -f identity.json ]; then
+            echo "FAIL: identity.json missing"
+            exit 1
+        fi
+        echo "PASS: Identity Cube present."
