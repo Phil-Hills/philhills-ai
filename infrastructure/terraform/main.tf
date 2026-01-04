@@ -36,3 +36,29 @@ resource "google_project_iam_member" "ai_platform_user" {
   role    = "roles/aiplatform.user"
   member  = "serviceAccount:${google_service_account.sentinel_agent.email}"
 }
+
+# --- SCALING OPERATIONS: BATCH_1000x ---
+
+resource "google_service_account" "swarm_agents" {
+  count        = 14
+  account_id   = format("agent-%02d", count.index)
+  display_name = format("Magnolia Swarm Agent %02d", count.index)
+}
+
+resource "google_service_account" "revenue_agent" {
+  account_id   = "revenue-agent"
+  display_name = "Revenue Extraction Agent"
+}
+
+resource "google_service_account" "healer_agent" {
+  account_id   = "healer-agent"
+  display_name = "Self-Healing Mesh Agent"
+}
+
+# Grant Swarm access to Workload Identity
+resource "google_service_account_iam_member" "swarm_wif_binding" {
+  count              = 14
+  service_account_id = google_service_account.swarm_agents[count.index].name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.magnolia_pool.name}/attribute.repository/${var.github_repo}"
+}

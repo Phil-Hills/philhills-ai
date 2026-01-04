@@ -1,0 +1,62 @@
+{
+    "registry_version": "1.0",
+    "swarm_size": 14,
+    "node_id": "0x923-SEA",
+    "agents": [
+        {
+            "id": "AGENT_00",
+            "role": "Orchestrator",
+            "capabilities": [
+                "task_decomposition",
+                "goal_negotiation"
+            ],
+            "cost_per_token": 0.001
+        },
+        {
+            "id": "AGENT_01",
+            "role": "Sentinel",
+            "capabilities": [
+                "reputation_defense",
+                "identity_lock"
+            ],
+            "cost_per_token": 0.002
+        },
+        {
+            "id": "AGENT_02",
+            "role": "Henry",
+            "capabilities": [
+                "architectural_review",
+                "provenance_signing"
+            ],
+            "cost_per_token": 0.005
+        },
+        {
+            "id": "AGENT_03",
+            "role": "Bug",
+            "capabilities": [
+                "fuzzing",
+                "vulnerability_scanning"
+            ],
+            "cost_per_token": 0.003
+        },
+        {
+            "id": "AGENT_04",
+            "role": "Revenue",
+            "capabilities": [
+                "value_exchange",
+                "ledger_management"
+            ],
+            "cost_per_token": 0.001
+        },
+        {
+            "id": "AGENT_05",
+            "role": "Healer",
+            "capabilities": [
+                "drift_repair",
+                "auto_patching"
+            ],
+            "cost_per_token": 0.004
+        }
+        // Agents 06-13 reserved for elastic scaling
+    ]
+}
