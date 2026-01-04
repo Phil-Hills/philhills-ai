@@ -1,0 +1,28 @@
+name: BUILD_PROVENANCE
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'identity.json'
+      - 'keys.json'
+
+jobs:
+  attest:
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: CHECKOUT_MESH
+        uses: actions/checkout@v4
+
+      - name: ATTEST_IDENTITY_CUBE
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'identity.json'
+
+      - name: ATTEST_REGISTRY
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'keys.json'
