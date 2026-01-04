@@ -1,0 +1,63 @@
+name: Sentinel Board Sync
+
+on:
+  schedule:
+    - cron: '15 10 * * *' # Daily check after identity re-sign
+  workflow_dispatch:
+
+jobs:
+  legacy-scan-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Scan for Legacy Content
+      id: scan
+      run: |
+        # Simulated scan for legacy PDF/Doc content
+        FOUND_LEGACY=false
+        # In a real scenario, this would use a tool to scan searching APIs or local files
+        # For now, we simulate a check
+        if [ -f "legacy_content_report.txt" ]; then
+          FOUND_LEGACY=true
+          echo "legacy_found=true" >> $GITHUB_OUTPUT
+        else
+          echo "legacy_found=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create Issue for Legacy Content
+      if: steps.scan.outputs.legacy_found == 'true'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const legacyContent = "Legacy PDF detected during Sentinel scan.";
+          const title = "Sentinel Alert: Legacy Content Detected";
+          const body = `**Sentinel Agent** has detected potential legacy content.\n\nDetails: ${legacyContent}\n\n**Action Required:**\n- Verify content\n- Purge if required\n- Update Identity Cube`;
+          
+          // Check for existing issue to avoid duplicates
+          const { data: issues } = await github.rest.search.issuesAndPullRequests({
+            q: `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open "${title}"`
+          });
+          
+          if (issues.total_count === 0) {
+            const newIssue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['sentinel', 'security', 'identity-purge']
+            });
+            console.log(`Created issue #${newIssue.data.number}`);
+            
+            // Note: Project Item creation typically requires a separate token with project permissions
+            // or using the gh cli with a PAT in a separate step.
+          } else {
+             console.log("Active issue already exists.");
+          }
+
+    - name: Sync to Project Board (Simulated)
+      if: steps.scan.outputs.legacy_found == 'true'
+      run: |
+        echo "Syncing to Agent HQ Project Board..."
+        # In production, use: gh project item-create --project "Agent HQ" --owner "Phil-Hills" --title "Purge Legacy PDF" --body "Detected by Sentinel"
+        echo "Project Item created for Agent: Sentinel"
