@@ -359,6 +359,7 @@
   <span class="help-command">cat mission.txt</span>  Show mission statement
   <span class="help-command">contact</span>       Display contact information
   <span class="help-command">demo</span>          Open CUBE Protocol demo
+  <span class="help-command">api</span>           Open Developer Portal (Q-Stream)
   <span class="help-command">clear</span>         Clear terminal`,
 
             whoami: () => `{
@@ -384,7 +385,7 @@ Type: Communication Standard
 Status: v2.5 Stabilized
 Description: A 3D semantic data format for agent memory. Replaces JSON/Text handoffs with compressed vector blueprints.
 Key Feature: "Forget-Proof" Context Windows.
-<a href="https://cube-protocol-app-5736pce4wq-uc.a.run.app" class="link" target="_blank">[launch_app]</a> | <a href="https://github.com/Phil-Hills/ai-summary-cube" class="link" target="_blank">[github_repo]</a></div>
+<a href="https://cube-brain-235894147478.us-central1.run.app/latest-cubes" class="link" target="_blank">[launch_app]</a> | <a href="https://github.com/Phil-Hills/ai-summary-cube" class="link" target="_blank">[github_repo]</a></div>
 
 <div class="project-item"><span class="project-number">[02]</span> Orchestration_Layer_Zero
 Type: System Architecture
@@ -402,8 +403,35 @@ For non-technical inquiries or speaking engagements:
 <a href="/" class="link" target="_blank">philhills.com</a>`,
 
             demo: () => {
-                window.open('https://cube-protocol-app-5736pce4wq-uc.a.run.app', '_blank');
-                return 'Launching CUBE Protocol App (v2.5)...';
+                const terminalOutput = document.getElementById('terminal-output');
+                const msg = document.createElement('div');
+                msg.className = 'command-output';
+                msg.innerHTML = '<span class="status-building">Connecting to Brain Mesh...</span>';
+                terminalOutput.appendChild(msg);
+
+                fetch('https://cube-brain-235894147478.us-central1.run.app/stats')
+                    .then(res => res.json())
+                    .then(data => {
+                        window.dispatchEvent(new CustomEvent('ACTIVATE_HENRY_VISUALIZER', {
+                            detail: { density: data.total_cubes || 100 }
+                        }));
+                        msg.innerHTML = `<span class="status-ok">[CONNECTED]</span> Visualizer Active. Density: ${data.total_cubes}`;
+                        // Fallback/Direct Link
+                        setTimeout(() => {
+                            window.open('https://cube-brain-235894147478.us-central1.run.app/latest-cubes', '_blank');
+                        }, 1500);
+                    })
+                    .catch(err => {
+                        msg.innerHTML = '<span class="error">[FAILED]</span> Brain Unreachable. Opening direct link...';
+                        window.open('https://cube-brain-235894147478.us-central1.run.app/latest-cubes', '_blank');
+                    });
+
+                return null;
+            },
+
+            api: () => {
+                window.open('developer.html', '_blank');
+                return '<span class="status-ok">Opening Q-Stream Developer Portal...</span>';
             },
 
             clear: () => {
