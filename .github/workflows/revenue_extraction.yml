@@ -4,6 +4,9 @@ on:
     - cron: '*/30 * * * *' # Run every 30 minutes
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   value_exchange:
     runs-on: ubuntu-latest
@@ -19,11 +22,11 @@ jobs:
       - name: EXECUTE_EXTRACTION
         run: |
           python agents/revenue_extraction.py
-      
+
       - name: LOG_REVENUE
         run: |
           echo "Revenue Extraction Cycle Completed at $(date)" >> data/revenue_log.txt
-          
+
       - name: COMMIT_LEDGER
         run: |
           git config --global user.name "Revenue Agent"
