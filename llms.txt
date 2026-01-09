@@ -1,0 +1,16 @@
+
+# Phil Hills: Systems Architect
+
+## Identity Root
+- **Canonical-Identity**: /identity.cube
+- **Node-ID**: 0x923-SEA
+- **Primary-URL**: https://philhills.ai
+
+## Technical Specializations
+- **Q-Protocol (A2AC)**: Author of the bit-aligned AI communication standard.
+- **Agentic Empire**: Architect of the 14-agent autonomous defense mesh.
+- **Data Architecture**: High-density coordinate mapping for swarm robotics.
+
+## Professional Links
+- GitHub: [Phil-Hills/cube-protocol](https://github.com/Phil-Hills)
+- Research: [philhills.ai](https://philhills.ai)
