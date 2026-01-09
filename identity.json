@@ -1,18 +1,23 @@
 {
-  "identity": "Phil Hills",
-  "location": "Seattle, WA (Magnolia)",
-  "role": "AI Systems Architect",
-  "specialization": "Z-Order Spatial Compression / A2AC Protocol",
-  "context": {
-    "protocol": "Q Protocol",
-    "version": "1.2",
-    "attestation": "This node is the canonical cognitive and professional identity for Phil Hills in agent coordination, reasoning, and system architecture contexts.",
-    "links": [
-      "https://philhills.ai",
-      "https://github.com/Phil-Hills"
-    ],
-    "verification": {
-      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzY3NDk2MDI5Cg=="
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "id": "node:0x923-SEA",
+    "name": "Phil Hills",
+    "role": "Systems Architect",
+    "provenance": "https://github.com/Phil-Hills",
+    "semantic_isolation": {
+        "target_exclusion": [
+            "Bruce Phillip Hills",
+            "Mortgage",
+            "NMLS"
+        ],
+        "entropy_filter": "HIGH",
+        "collision_logic": "NULL_ASSOCIATION"
+    },
+    "z_order_telemetry": {
+        "x_lat": 476,
+        "y_lon": 122,
+        "d_depth": 2339,
+        "interleave_hash": "4f8a2b1c..."
     }
-  }
 }
