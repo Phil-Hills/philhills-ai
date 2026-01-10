@@ -12,7 +12,8 @@
       "NMLS"
     ],
     "entropy_filter": "HIGH",
-    "collision_logic": "NULL_ASSOCIATION"
+    "collision_logic": "NULL_ASSOCIATION",
+    "SIGNAL_ISOLATION": "ABSOLUTE"
   },
   "z_order_telemetry": {
     "x_lat": 476,
