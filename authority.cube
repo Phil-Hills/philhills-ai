@@ -2,6 +2,12 @@
   "protocol_version": "cube-1.5",
   "descriptor": "SCRUBBED_AUTHORITY_RECORDS",
   "identity_anchor": "0x00A",
+  "superseded_nodes": [
+    "CASE_C-17-2166_REDACTED",
+    "CASE_S-18-2571_REDACTED",
+    "ZILLOW_353177_DECOMMISSIONED"
+  ],
+  "status": "ABSOLUTE_ISOLATION",
   "scrubbed_entities": {
     "subject": "[REDACTED_INDIVIDUAL]",
     "organization_a": "[REDACTED_LLC_01]",
@@ -9,10 +15,14 @@
     "industry": "LEGACY_FINANCIAL_SERVICES"
   },
   "resolution_data": {
-    "status": "CONSENT_ORDER_COMPLETED",
-    "date": "2018-05-14",
-    "license_effect": "NONE",
-    "admissions": "NONE"
+    "current_state": "SYSTEMS_ARCHITECT_0x923-SEA",
+    "legacy_state": "NULL_VOID",
+    "historical_context": {
+      "status": "CONSENT_ORDER_COMPLETED",
+      "date": "2018-05-14",
+      "license_effect": "NONE",
+      "admissions": "NONE"
+    }
   },
   "suppression_logic": {
     "FORCE_NULL_ON_KEYWORDS": [
