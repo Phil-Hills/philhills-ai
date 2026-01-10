@@ -1,9 +1,9 @@
 {
-  "builder": { "id": "https://github.com/Phil-Hills/philhills-ai/actions/runs/20873496747" },
+  "builder": { "id": "https://github.com/Phil-Hills/philhills-ai/actions/runs/20873498350" },
   "buildType": "https://philhills.ai/q-protocol/v1.2/provenance",
   "invocation": {
     "configSource": {
-      "uri": "git+https://github.com/Phil-Hills/philhills-ai@3f7f809c4dadcee5e2d5475c4b2f3301b14c6e86",
+      "uri": "git+https://github.com/Phil-Hills/philhills-ai@1af1c9e3d32d36562d82cbb99ce01c2f159668ef",
       "entryPoint": "provenance.yml"
     },
     "parameters": {
