@@ -219,6 +219,41 @@
     <div style="margin-top: 2rem; color: var(--dim); font-size: 0.8rem; text-align: center;">
       Machine Readable Endpoint Access: <span style="color: var(--text)">/identity.json</span>
     </div>
+
+    <!-- FAQ Section -->
+    <div class="terminal-window" style="margin-top: 2rem;">
+      <div class="line" style="color: var(--text); font-size: 1.1rem; margin-bottom: 1rem;">> FAQ_</div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <div style="color: var(--text);">Q: What is the Q Protocol?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">A communication standard that replaces verbose JSON with hex coordinates. 98% token reduction, cryptographic receipts, zero hallucinations via schema enforcement.</div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="color: var(--text);">Q: What is A2AC?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">Agent-to-Agent Communication. The protocol layer for autonomous agent mesh architectures. Instead of "0x600:02:CASE:RSLV:abc123" sending 10 tokens vs 500+ for equivalent JSON.</div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="color: var(--text);">Q: What is Z-Order encoding?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">Morton encoding that interleaves multi-dimensional coordinates into a single sortable index. Enables fast spatial lookups — points near in vector space have similar Z-Order values.</div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="color: var(--text);">Q: What is an Identity Cube?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">A compressed cognitive profile containing agent state, intent vectors, and mesh metadata. The atomic unit of the Q Protocol. Stored as Protobuf, not text.</div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="color: var(--text);">Q: How does this relate to Salesforce Agentforce?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">Agentforce uses Topics/Actions with Atlas Reasoning. Q Protocol provides the coordination layer for multi-agent orchestration and GCP integration. Salesforce MCP Servers (Beta) validates this direction.</div>
+      </div>
+
+      <div>
+        <div style="color: var(--text);">Q: What is the Seattle Grid?</div>
+        <div style="color: var(--dim); margin-left: 1rem;">A 155+ agent swarm consolidated into a serverless fleet on GCP Cloud Run. Sub-second latency, autonomous orchestration, unified kernel routing.</div>
+      </div>
+    </div>
   </div>
 </body>
 
