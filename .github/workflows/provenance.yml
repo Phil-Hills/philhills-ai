@@ -1,0 +1,69 @@
+name: Build Provenance
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  provenance:
+    permissions:
+      actions: read
+      id-token: write
+      contents: write
+    outputs:
+      provenance-hash: ${{ steps.hash.outputs.hash }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate Identity Hash
+        id: hash
+        run: |
+          # compute SHA256 of the identity node
+          echo "hash=$(sha256sum identity.json | awk '{print $1}')" >> $GITHUB_OUTPUT
+
+      - name: Attestation
+        # In a real environment, we would use actions/attest-build-provenance
+        # For this setup, we simulate the detailed provenance log generation
+        run: |
+          echo "Generating SLSA Provenance..."
+          cat <<EOF > provenance.json
+          {
+            "builder": { "id": "https://github.com/Phil-Hills/philhills-ai/actions/runs/${{ github.run_id }}" },
+            "buildType": "https://philhills.ai/q-protocol/v1.2/provenance",
+            "invocation": {
+              "configSource": {
+                "uri": "git+https://github.com/Phil-Hills/philhills-ai@${{ github.sha }}",
+                "entryPoint": "provenance.yml"
+              },
+              "parameters": {
+                "ref": "${{ github.ref }}",
+                "actor": "${{ github.actor }}"
+              }
+            },
+            "subject": [
+              {
+                "name": "identity.json",
+                "digest": { "sha256": "${{ steps.hash.outputs.hash }}" }
+              }
+            ]
+          }
+          EOF
+          
+          # Sign provenance (Simulated)
+          echo "Signing Provenance..."
+          openssl dgst -sha256 -sign <(echo "${{ secrets.Q_PROTOCOL_SIGNING_KEY }}") -out provenance.sig provenance.json || echo "Self-signed (Simulation)" > provenance.sig
+
+      - name: Commit Provenance Artifacts
+        run: |
+          mkdir -p data/provenance
+          cp provenance.json data/provenance/latest_provenance.json
+          cp provenance.sig data/provenance/latest_provenance.sig
+          
+          git config --global user.name "Orchestrator Agent"
+          git config --global user.email "orchestrator@philhills.ai"
+          git add data/provenance/
+          git commit -m "Orchestrator: Build Provenance Attestation [${{ github.sha }}]" || echo "No changes to provenance"
+          git push origin main

@@ -1,0 +1,40 @@
+name: Sentinel Identity Re-Sign
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Daily at 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  sign-identity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Update Identity Timestamp and Keywords
+      run: |
+        # Update timestamp in identity.json
+        if [ -f identity.json ]; then
+            curr_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            # Creating a temp file for jq operation
+            echo "$(jq --arg date "$curr_date" '.context.verification.last_signed = $date' identity.json)" > identity.json
+        fi
+        
+        # Inject Priority Keywords
+        KEYWORDS="systems-architect, q-protocol, a2ac-v1.2, magnolia-ai-lab, seattle-robotics"
+        # Replace existing keywords or add if missing (simple sed replacement for demo)
+        sed -i 's/content="Phil Hills, AI, Artificial Intelligence.*/content="Phil Hills, '"$KEYWORDS"', AI, Artificial Intelligence, CUBE Protocol"/' index.html
+        
+        # Update index.html meta date if present
+        sed -i "s/Last Signed: .*/Last Signed: $(date)/" index.html || true
+
+    - name: Commit and Push
+      run: |
+        git config --global user.name "Sentinel Agent"
+        git config --global user.email "sentinel@philhills.ai"
+        git add identity.json index.html
+        git commit -m "Sentinel: Identity Re-Sign $(date)" || echo "No changes to commit"
+        git push

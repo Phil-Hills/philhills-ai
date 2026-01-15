@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnolia Mission Control | Phil Hills</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Import Map for R3F and React without bundler -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+            "three": "https://esm.sh/three@0.160.0",
+            "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.14?external=react,react-dom,three",
+            "@react-three/drei": "https://esm.sh/@react-three/drei@9.96.1?external=react,react-dom,three,@react-three/fiber",
+            "lucide-react": "https://esm.sh/lucide-react@0.309.0?external=react,react-dom"
+        }
+    }
+    </script>
+</head>
+
+<body class="bg-[#050505] text-[#e0e0e0] font-mono">
+    <div id="root"></div>
+
+    <script type="module">
+        import React, { useState, useEffect, useRef } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { Canvas, useFrame } from '@react-three/fiber';
+        import { OrbitControls, MeshDistortMaterial } from '@react-three/drei';
+        import { Shield, Activity, Terminal, HardDrive } from 'lucide-react';
+
+        // --- R3F Component: Memory Cube ---
+        const MemoryCube = ({ coordinate = [0, 0, 0] }) => {
+            const meshRef = useRef()
+            const [hovered, setHover] = useState(false)
+
+            // Z-Order Latent Alignment Animation
+            useFrame((state) => {
+                if (meshRef.current) {
+                    meshRef.current.rotation.x = meshRef.current.rotation.y += 0.01
+                    meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.2
+                }
+            })
+
+            return React.createElement('mesh', {
+                ref: meshRef,
+                scale: hovered ? 1.2 : 1,
+                onPointerOver: () => setHover(true),
+                onPointerOut: () => setHover(false)
+            },
+                React.createElement('boxGeometry', { args: [1, 1, 1] }),
+                React.createElement(MeshDistortMaterial, {
+                    color: hovered ? "#00ff9d" : "#444",
+                    speed: 2,
+                    distort: 0.4,
+                    wireframe: true
+                })
+            )
+        }
+
+        const CubeTerminal = () => {
+            return React.createElement('div', { className: "h-64 w-full bg-black border border-[#222]" },
+                React.createElement(Canvas, { camera: { position: [0, 0, 3] } },
+                    React.createElement('ambientLight', { intensity: 0.5 }),
+                    React.createElement('pointLight', { position: [10, 10, 10] }),
+                    React.createElement(MemoryCube, null),
+                    React.createElement(OrbitControls, { enableZoom: false })
+                )
+            );
+        }
+
+        // --- Main Dashboard ---
+        const MagnoliaDashboard = () => {
+            const [alignment, setAlignment] = useState(0.99);
+            const [logs, setLogs] = useState([
+                { id: 1, agent: 'Sentinel', msg: 'Daily Reputation Sweep: 100% Clean', status: 'success' },
+                { id: 2, agent: 'Henry', msg: 'Identity Cube re-signed (Node: 0x923-SEA)', status: 'info' },
+                { id: 3, agent: 'Bug', msg: 'Vulnerability Mesh Scan: No drift detected', status: 'success' },
+            ]);
+
+            return React.createElement('div', { className: "bg-[#050505] text-[#e0e0e0] p-8 font-mono min-h-screen border border-[#222]" },
+                // Header
+                React.createElement('header', { className: "border-b border-[#222] pb-4 mb-8 flex justify-between items-center" },
+                    React.createElement('div', null,
+                        React.createElement('h1', { className: "text-[#00ff9d] text-2xl font-bold tracking-tighter" }, "MAGNOLIA_MESH_CONTROL v1.2"),
+                        React.createElement('p', { className: "text-xs text-[#666]" }, "IDENTITY_NODE: 0x923-SEA // SEATTLE, WA"),
+                        React.createElement('a', { href: "/", className: "text-xs text-[#00ff9d] hover:underline mt-2 block" }, "< RETURN TO TERMINAL")
+                    ),
+                    React.createElement('div', { className: "text-right" },
+                        React.createElement('div', { className: "text-xs uppercase text-[#666]" }, "Overall Alignment"),
+                        React.createElement('div', { className: "text-2xl text-[#00ff9d] font-bold" }, (alignment * 100).toFixed(1) + "%")
+                    )
+                ),
+
+                // Grid: Cube + Agents
+                React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" },
+                    // Left Col: 3D Terminal
+                    React.createElement('div', null,
+                        React.createElement('h2', { className: "text-xs uppercase mb-2 text-[#666]" }, "Memory Cube Visualization"),
+                        React.createElement(CubeTerminal, null)
+                    ),
+                    // Right Col: Agent Cards
+                    React.createElement('div', { className: "grid grid-cols-1 gap-4" },
+                        [
+                            { name: 'SENTINEL', icon: Shield, status: 'ACTIVE', color: 'text-[#00ff9d]' },
+                            { name: 'HENRY', icon: Terminal, status: 'IDLE', color: 'text-[#666]' },
+                            { name: 'BUG', icon: Activity, status: 'SCANNING', color: 'text-yellow-500' },
+                        ].map((agent) =>
+                            React.createElement('div', { key: agent.name, className: "border border-[#222] p-4 bg-[#111] flex items-center justify-between" },
+                                React.createElement('div', { className: "flex items-center gap-2 text-xs text-[#666]" },
+                                    React.createElement(agent.icon, { size: 20 }),
+                                    React.createElement('span', null, agent.name + "_AGENT")
+                                ),
+                                React.createElement('div', { className: `text-xl font-bold ${agent.color}` }, agent.status)
+                            )
+                        )
+                    )
+                ),
+
+                // Logs
+                React.createElement('section', { className: "border border-[#222] bg-[#0a0a0a] p-4" },
+                    React.createElement('h2', { className: "text-xs uppercase mb-4 text-[#666] flex items-center gap-2" },
+                        React.createElement(HardDrive, { size: 14 }),
+                        " Latent Space Telemetry"
+                    ),
+                    React.createElement('div', { className: "space-y-2" },
+                        logs.map(log =>
+                            React.createElement('div', { key: log.id, className: "text-sm border-l-2 border-[#222] pl-4 py-1 hover:border-[#00ff9d] transition-colors" },
+                                React.createElement('span', { className: "text-[#666] mr-2" }, `[${log.agent}]`),
+                                React.createElement('span', { className: "text-gray-300" }, log.msg)
+                            )
+                        )
+                    )
+                )
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(React.createElement(MagnoliaDashboard));
+    </script>
+</body>
+
+</html>

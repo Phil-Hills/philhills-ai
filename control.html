@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phil Hills Agentic Empire - Control Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr 400px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 12px;
+            padding: 20px 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #00ff9d;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Sidebar - Agent Categories */
+        .sidebar {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+        }
+
+        .department {
+            margin-bottom: 25px;
+        }
+
+        .department-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00ff9d;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .agent-item {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .agent-item:hover {
+            background: rgba(0, 255, 157, 0.15);
+            border-color: #00ff9d;
+            transform: translateX(5px);
+        }
+
+        .agent-item.active {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: #00ff9d;
+        }
+
+        .agent-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .agent-status {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00ff9d;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Main Content - Agent Details */
+        .main-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+        }
+
+        .agent-detail-header {
+            margin-bottom: 30px;
+        }
+
+        .agent-detail-header h2 {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .agent-detail-header .protocol {
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(0, 255, 157, 0.05);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00ff9d;
+        }
+
+        /* Chat Panel */
+        .chat-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 140px);
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-header h3 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-content {
+            display: inline-block;
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: #00ff9d;
+            color: #0a0a0a;
+        }
+
+        .message.agent .message-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .message-time {
+            font-size: 10px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: #00ff9d;
+        }
+
+        .chat-input button {
+            background: #00ff9d;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #0a0a0a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #00cc7d;
+            transform: scale(1.05);
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff9d;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Phil Hills Agentic Empire</h1>
+            <p>Control Center - 24/7 Autonomous Operation</p>
+        </div>
+
+        <div class="sidebar">
+            <div class="department">
+                <div class="department-title">⚙️ Operations</div>
+                <div class="agent-item" data-agent="Manager">
+                    <div class="agent-name">Manager (CEO)</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Backup">
+                    <div class="agent-name">Backup Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Update">
+                    <div class="agent-name">Update Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Architect">
+                    <div class="agent-name">Architect Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Protocol">
+                    <div class="agent-name">Protocol Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+            </div>
+
+            <div class="department">
+                <div class="department-title">🔧 Engineering</div>
+                <div class="agent-item" data-agent="GitHub">
+                    <div class="agent-name">GitHub Admin</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="GCP">
+                    <div class="agent-name">GCP Admin</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+            </div>
+
+            <div class="department">
+                <div class="department-title">💰 Revenue</div>
+                <div class="agent-item" data-agent="Money">
+                    <div class="agent-name">Money Agent (CRO)</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Stripe">
+                    <div class="agent-name">Stripe Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="BillPayment">
+                    <div class="agent-name">Bill Payment</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+            </div>
+
+            <div class="department">
+                <div class="department-title">🛡️ Defense</div>
+                <div class="agent-item" data-agent="Reputation">
+                    <div class="agent-name">Reputation Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+            </div>
+
+            <div class="department">
+                <div class="department-title">📡 Distribution</div>
+                <div class="agent-item" data-agent="Media">
+                    <div class="agent-name">Media Factory</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="Reddit">
+                    <div class="agent-name">Reddit Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="TikTok">
+                    <div class="agent-name">TikTok Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+                <div class="agent-item" data-agent="YouTube">
+                    <div class="agent-name">YouTube Agent</div>
+                    <div class="agent-status"><span class="status-dot"></span>Online</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="agent-detail-header">
+                <h2 id="agent-name">Manager Agent (CEO)</h2>
+                <div class="protocol" id="agent-protocol">Protocol: CUBE|ORCHESTRATE</div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-label">Total Agents</div>
+                    <div class="metric-value" id="total-agents">20+</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Uptime</div>
+                    <div class="metric-value" id="uptime">99.95%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Tasks Today</div>
+                    <div class="metric-value" id="tasks-today">0</div>
+                </div>
+            </div>
+
+            <div id="agent-details">
+                <h3 style="color: #00ff9d; margin-bottom: 15px;">Description</h3>
+                <p style="line-height: 1.8; color: #ccc;">
+                    The Manager Agent is the CEO of the Agentic Empire. It orchestrates all specialized agents,
+                    routes commands, and ensures the system operates autonomously 24/7/365.
+                </p>
+
+                <h3 style="color: #00ff9d; margin: 25px 0 15px;">Capabilities</h3>
+                <ul style="line-height: 2; color: #ccc; list-style-position: inside;">
+                    <li>System health monitoring</li>
+                    <li>Task delegation to specialized agents</li>
+                    <li>Identity protection coordination</li>
+                    <li>Revenue optimization</li>
+                    <li>Reputation defense orchestration</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h3>💬 Manager AI</h3>
+                <p>Direct line to the CEO</p>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message agent">
+                    <div class="message-content">
+                        Hello! I'm the Manager Agent. I oversee the entire Agentic Empire.
+                        How can I assist you today?
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Ask the Manager anything..." />
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agent selection
+        document.querySelectorAll('.agent-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.agent-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                const agentName = this.dataset.agent;
+                document.getElementById('agent-name').textContent = this.querySelector('.agent-name').textContent;
+            });
+        });
+
+        // Chat functionality
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message agent';
+            typingDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+            document.getElementById('chat-messages').appendChild(typingDiv);
+            scrollToBottom();
+
+            // Call Manager API
+            try {
+                const response = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        requester_id: 'control-panel',
+                        content: message
+                    })
+                });
+
+                const data = await response.json();
+
+                // Remove typing indicator
+                typingDiv.remove();
+
+                // Add agent response
+                addMessage(data.response || 'No response', 'agent');
+
+            } catch (error) {
+                typingDiv.remove();
+                addMessage('Error: Could not reach Manager Agent', 'agent');
+            }
+        }
+
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.innerHTML = `
+                <div class="message-content">${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            const messagesDiv = document.getElementById('chat-messages');
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Enter key to send
+        document.getElementById('chat-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Load agent count
+        fetch('/api/a2a/agents')
+            .then(r => r.json())
+            .then(agents => {
+                document.getElementById('total-agents').textContent = agents.length;
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Phil Hills AI</title>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --secondary: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .login-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .g_id_signin {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="logo">PH</div>
+        <h1>Welcome Back</h1>
+        <p>Sign in to access the Phil Hills AI Assistant</p>
+
+        <div id="g_id_onload" data-client_id="768405504263-pg010729352195304.apps.googleusercontent.com"
+            data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+            data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin_with"
+            data-size="large" data-logo_alignment="left">
+        </div>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+
+            // Store token in localStorage
+            localStorage.setItem('google_token', response.credential);
+
+            // Decode token to get user info (simple base64 decode)
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            const payload = JSON.parse(jsonPayload);
+            localStorage.setItem('user_email', payload.email);
+            localStorage.setItem('user_name', payload.name);
+
+            // Redirect to chat
+            window.location.href = 'chat.html';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phil Hills - Agentic Protocol Engineer | AI & Robotics Systems Architect Seattle</title>
+    <meta name="description"
+        content="Phil Hills: Agentic Protocol Engineer with 20 years experience in fintech automation. Specializing in Multi-Agent Systems, Semantic Memory, Swarm Orchestration. Creator of CUBE Protocol. Based in Seattle, WA.">
+    <meta name="keywords"
+        content="Phil Hills, AI Engineer, Agentic Protocol Engineer, CUBE Protocol, Multi-Agent Systems, Semantic Memory, Swarm Orchestration, Seattle AI, Protocol Engineering, AI Architecture, Agent Communication, Fintech Automation">
+    <meta name="author" content="Phil Hills">
+    <meta name="copyright" content="Phil Hills">
+    <link rel="canonical" href="https://philhills.ai">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://philhills.ai">
+    <meta property="og:title" content="Phil Hills AI - Agentic Protocol Engineer">
+    <meta property="og:description"
+        content="Building the nervous system for autonomous AI. Specializing in high-dimensional agentic memory and swarm orchestration.">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://philhills.ai">
+    <meta property="twitter:title" content="Phil Hills AI - Agentic Protocol Engineer">
+    <meta property="twitter:description" content="Building the nervous system for autonomous AI.">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Phil Hills",
+      "jobTitle": "Agentic Protocol Engineer",
+      "description": "AI & Robotics Systems Architect specializing in Multi-Agent Systems, Semantic Memory, and Swarm Orchestration. 20 years experience in fintech automation.",
+      "url": "/ai/",
+      "email": "phil@philhills.ai",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Seattle",
+        "addressRegion": "WA",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://github.com/Phil-Hills",
+        "https://philhills.com"
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "Multi-Agent Systems",
+        "Semantic Memory",
+        "Protocol Engineering",
+        "Swarm Orchestration",
+        "Enterprise Data Safety",
+        "Agentic Systems",
+        "CUBE Protocol",
+        "Agent Communication",
+        "Fintech Automation"
+      ],
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Professional Experience",
+        "description": "20 years architecting high-stakes fintech automation systems"
+      },
+      "workExample": [
+        {
+          "@type": "CreativeWork",
+          "name": "CUBE Protocol",
+          "description": "A 3D semantic data format for agent memory that replaces JSON/Text handoffs with compressed vector blueprints",
+          "url": "https://philhills.ai/demo"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Orchestration Layer Zero",
+          "description": "A supervised multi-agent framework designed for auditable environments with zero-hallucination routing"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            background: #0a0e27;
+            color: #00ff41;
+            padding: 2rem;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .terminal-header {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .terminal-output {
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            animation-delay: 0.2s;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .prompt {
+            color: #00d4ff;
+            margin-right: 0.5rem;
+            user-select: none;
+        }
+
+        #terminal-input {
+            background: transparent;
+            border: none;
+            color: #00ff41;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            flex: 1;
+            caret-color: #00ff41;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.6rem;
+            height: 1.2rem;
+            background: #00ff41;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            49% {
+                opacity: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .command-output {
+            margin: 1rem 0;
+            padding-left: 0;
+        }
+
+        .json-key {
+            color: #10b981;
+        }
+
+        .json-string {
+            color: #fbbf24;
+        }
+
+        .json-number {
+            color: #60a5fa;
+        }
+
+        .link {
+            color: #00d4ff;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .link:hover {
+            border-bottom-color: #00d4ff;
+        }
+
+        .status-ok {
+            color: #10b981;
+        }
+
+        .status-building {
+            color: #fbbf24;
+        }
+
+        .section-title {
+            color: #00d4ff;
+            margin: 1.5rem 0 0.5rem;
+            font-weight: 700;
+        }
+
+        .project-item {
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid #00d4ff;
+        }
+
+        .project-number {
+            color: #00d4ff;
+            font-weight: 700;
+        }
+
+        .help-command {
+            color: #fbbf24;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                font-size: 0.875rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        .history-line {
+            margin: 0.5rem 0;
+            opacity: 0.8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* SEO Content Layer - Hidden but crawlable */
+        .seo-content {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hidden SEO Content for Search Engines -->
+    <div class="seo-content" aria-hidden="true">
+        <h1>Phil Hills - Agentic Protocol Engineer</h1>
+        <h2>AI & Robotics Systems Architect Specializing in Multi-Agent Systems</h2>
+        <p>
+            Phil Hills is an Agentic Protocol Engineer with 20 years of experience architecting high-stakes fintech
+            automation systems.
+            Based in Seattle, WA, Phil specializes in Multi-Agent Systems (MAS), Semantic Memory, Swarm Orchestration,
+            and Enterprise Data Safety.
+        </p>
+        <h3>Professional Background</h3>
+        <p>
+            With two decades of experience in fintech automation, Phil Hills is now building the nervous system for
+            autonomous AI.
+            His work focuses on solving the critical bottleneck in Multi-Agent Systems: context preservation and
+            semantic communication between agents.
+        </p>
+        <h3>Core Expertise</h3>
+        <ul>
+            <li>Agentic Protocol Engineering</li>
+            <li>Multi-Agent Systems (MAS) Architecture</li>
+            <li>Semantic Memory and High-Dimensional Agentic Memory</li>
+            <li>Swarm Orchestration</li>
+            <li>Enterprise Data Safety</li>
+            <li>Agent Communication Protocols</li>
+            <li>Fintech Automation Systems</li>
+        </ul>
+        <h3>Key Projects</h3>
+        <h4>CUBE Protocol (AgentCube)</h4>
+        <p>
+            The CUBE Protocol is a revolutionary 3D semantic data format for agent memory. It replaces traditional
+            JSON/Text handoffs
+            with compressed vector blueprints, creating "Forget-Proof" Context Windows. This communication standard
+            ensures that when
+            Agent A hands a task to Agent B, the intent is mathematically preserved, eliminating the lossy, slow, and
+            hallucinogenic
+            nature of text-heavy prompts.
+        </p>
+        <h4>Orchestration Layer Zero</h4>
+        <p>
+            A supervised multi-agent framework designed for auditable environments, featuring zero-hallucination routing
+            for 10,000+
+            concurrent workflows. This system architecture demonstrates Phil's expertise in building reliable, scalable
+            agentic systems.
+        </p>
+        <h3>Mission Statement</h3>
+        <p>
+            The bottleneck in Multi-Agent Systems is not intelligence—it is context. Most agent frameworks rely on
+            fragile, text-heavy
+            prompts passed between nodes, which is lossy, slow, and hallucinogenic. Phil Hills builds protocols that fix
+            this by designing
+            systems where agents communicate via structured, compressed Semantic Payloads.
+        </p>
+        <h3>Contact Information</h3>
+        <p>
+            For system architecture consulting, research collaboration, or speaking engagements, contact Phil Hills at
+            <a href="mailto:phil@philhills.ai">phil@philhills.ai</a> or visit
+            <a href="https://github.com/Phil-Hills">github.com/Phil-Hills</a>.
+        </p>
+    </div>
+
+    <div class="container">
+        <div class="terminal-header">
+            <div>> phil@node-01:~$ ./init_session.sh --user=guest --mode=architect</div>
+            <div>Initializing Handshake... <span class="status-ok">[OK]</span></div>
+            <div>Loading Semantic Memory... <span class="status-ok">[OK]</span></div>
+            <div>Decryption Complete.</div>
+            <div style="margin-top: 1rem;">================================</div>
+            <div>WELCOME TO PHILHILLS.AI [v2.5.0]</div>
+            <div>================================</div>
+            <div>The Lab of Phil Hills | AI & Robotics Systems Architect | Seattle, WA</div>
+            <div>> Status: <span class="status-building">BUILDING</span></div>
+            <div>> Current Focus: High-Dimensional Agentic Memory</div>
+        </div>
+
+        <div id="terminal-output" class="terminal-output"></div>
+
+        <div class="terminal-input-line">
+            <span class="prompt">> phil@node-01:~$</span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
+            <span class="cursor"></span>
+        </div>
+    </div>
+
+    <script>
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const commandHistory = [];
+        let historyIndex = -1;
+
+        const commands = {
+            help: () => `Available commands:
+  <span class="help-command">help</span>          Show this help message
+  <span class="help-command">whoami</span>        Display professional identity
+  <span class="help-command">ls</span>            List active projects
+  <span class="help-command">cat mission.txt</span>  Show mission statement
+  <span class="help-command">contact</span>       Display contact information
+  <span class="help-command">demo</span>          Open CUBE Protocol demo
+  <span class="help-command">clear</span>         Clear terminal`,
+
+            whoami: () => `{
+  <span class="json-key">"role"</span>: <span class="json-string">"Agentic Protocol Engineer"</span>,
+  <span class="json-key">"specialization"</span>: [<span class="json-string">"Semantic Memory"</span>, <span class="json-string">"Swarm Orchestration"</span>, <span class="json-string">"Enterprise Data Safety"</span>],
+  <span class="json-key">"background"</span>: <span class="json-string">"20 years architecting high-stakes fintech automation. Now building the nervous system for autonomous AI."</span>,
+  <span class="json-key">"location"</span>: <span class="json-string">"Seattle, WA"</span>,
+  <span class="json-key">"github_repos"</span>: <span class="json-number">180</span>
+}`,
+
+            'cat mission.txt': () => `The bottleneck in Multi-Agent Systems (MAS) is not intelligence—it is context.
+
+Most agent frameworks rely on fragile, text-heavy prompts passed between nodes. This is lossy, slow, and hallucinogenic.
+
+I build protocols that fix this.
+
+I design systems where agents communicate via structured, compressed Semantic Payloads—ensuring that when Agent A hands a task to Agent B, the intent is mathematically preserved.`,
+
+            ls: () => `<span class="section-title">./projects/active</span>
+
+<div class="project-item"><span class="project-number">[01]</span> PH-Cube Protocol (AgentCube)
+Type: Communication Standard
+Status: v1.0 Alpha
+Description: A 3D semantic data format for agent memory. Replaces JSON/Text handoffs with compressed vector blueprints.
+Key Feature: "Forget-Proof" Context Windows.
+<a href="/demo" class="link">[view_demo]</a> | <a href="https://github.com/Phil-Hills/ai-summary-cube" class="link" target="_blank">[github_repo]</a></div>
+
+<div class="project-item"><span class="project-number">[02]</span> Orchestration_Layer_Zero
+Type: System Architecture
+Description: A supervised multi-agent framework designed for auditable environments.
+Metric: Zero-hallucination routing for 10k+ concurrent workflows.</div>`,
+
+            contact: () => `Encrypted Channel Open:
+
+To discuss system architecture, consulting, or research collaboration:
+
+Email: <a href="mailto:phil@philhills.ai" class="link">phil@philhills.ai</a>
+GitHub: <a href="https://github.com/Phil-Hills" class="link" target="_blank">github.com/Phil-Hills</a>
+
+For non-technical inquiries or speaking engagements:
+<a href="/" class="link" target="_blank">philhills.com</a>`,
+
+            demo: () => {
+                window.location.href = '/demo';
+                return 'Redirecting to CUBE Protocol demo...';
+            },
+
+            clear: () => {
+                terminalOutput.innerHTML = '';
+                return null;
+            }
+        };
+
+        function executeCommand(cmd) {
+            const trimmedCmd = cmd.trim();
+
+            if (!trimmedCmd) return;
+
+            // Add to history
+            commandHistory.push(trimmedCmd);
+            historyIndex = commandHistory.length;
+
+            // Display command
+            const commandLine = document.createElement('div');
+            commandLine.className = 'history-line';
+            commandLine.innerHTML = `<span class="prompt">> phil@node-01:~$</span> ${trimmedCmd}`;
+            terminalOutput.appendChild(commandLine);
+
+            // Execute command
+            const output = commands[trimmedCmd];
+            if (output) {
+                const result = output();
+                if (result !== null) {
+                    const outputDiv = document.createElement('div');
+                    outputDiv.className = 'command-output';
+                    outputDiv.innerHTML = result;
+                    terminalOutput.appendChild(outputDiv);
+                }
+            } else {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'command-output error';
+                errorDiv.textContent = `Command not found: ${trimmedCmd}. Type 'help' for available commands.`;
+                terminalOutput.appendChild(errorDiv);
+            }
+
+            // Scroll to bottom
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executeCommand(terminalInput.value);
+                terminalInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    terminalInput.value = '';
+                }
+            } else if (e.key === 'Tab') {
+                e.preventDefault();
+                const partial = terminalInput.value;
+                const matches = Object.keys(commands).filter(cmd => cmd.startsWith(partial));
+                if (matches.length === 1) {
+                    terminalInput.value = matches[0];
+                }
+            }
+        });
+
+        // Auto-run help on load
+        setTimeout(() => {
+            executeCommand('help');
+        }, 1000);
+
+        // Keep input focused
+        document.addEventListener('click', () => {
+            terminalInput.focus();
+        });
+    </script>
+</body>
+
+</html>

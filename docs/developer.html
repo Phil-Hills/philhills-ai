@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-STREAM TECHNOLOGIES | Enterprise API</title>
+    <style>
+        /* CYBER-NOIR STYLES */
+        body {
+            background-color: #0a0c10;
+            color: #c9d1d9;
+            font-family: "Courier New", Courier, monospace;
+            padding: 40px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 60px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 20px;
+        }
+
+        .title {
+            color: #c9d1d9;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .version {
+            font-size: 0.5em;
+            color: #58a6ff;
+            vertical-align: super;
+        }
+
+        .subtitle {
+            color: #8b949e;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: #161b22;
+            padding: 30px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+        }
+
+        .card-title {
+            color: #58a6ff;
+            margin-top: 0;
+            border-left: 3px solid #58a6ff;
+            padding-left: 10px;
+        }
+
+        .text {
+            font-size: 0.9rem;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #fff;
+            font-family: inherit;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            background-color: #238636;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .key-box {
+            background-color: #0d1117;
+            padding: 20px;
+            border: 1px dashed #30363d;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #8b949e;
+            margin: 0 0 10px 0;
+        }
+
+        .code-display {
+            display: block;
+            color: #7ee787;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background-color: transparent;
+            border: 1px solid #58a6ff;
+            color: #58a6ff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .warning {
+            color: #ff7b72;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+
+        .code-block {
+            background-color: #0d1117;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: Consolas, monospace;
+            line-height: 1.5;
+            border: 1px solid #30363d;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #7ee787;
+        }
+
+        .pricing-section {
+            margin-top: 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #c9d1d9;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tier-card {
+            background-color: #161b22;
+            padding: 30px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .tier-card.active {
+            border-color: #58a6ff;
+        }
+
+        .tier-name {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .tier-card.active .tier-name {
+            color: #58a6ff;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .limit {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+        }
+
+        .tier-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            cursor: pointer;
+        }
+
+        .tier-btn.active {
+            background-color: #1f6feb;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+
+            .grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- ENTERPRISE BANNER -->
+        <div
+            style="background: linear-gradient(90deg, #0d1117 0%, #161b22 100%); border: 1px solid #30363d; border-radius: 6px; padding: 20px; margin-bottom: 40px; text-align: center;">
+            <h2 style="color: #c9d1d9; margin: 0 0 10px 0;">Q-PROTOCOL ENTERPRISE</h2>
+            <p style="color: #8b949e; margin: 0 0 15px 0;">Dedicated Sub-Second Truth Oracle for High-Frequency Agent
+                Swarms.</p>
+            <ul
+                style="list-style: none; padding: 0; margin: 0 0 20px 0; display: inline-flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <li style="color: #58a6ff;">◈ 99.99% SLA Uptime</li>
+                <li style="color: #58a6ff;">◈ Private VPC Peering</li>
+                <li style="color: #58a6ff;">◈ Custom Verticals</li>
+            </ul>
+            <br>
+            <button onclick="window.location.href='mailto:sales@q-stream.io'"
+                style="padding: 10px 20px; background-color: #1f6feb; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">REQUEST_ACCESS</button>
+        </div>
+
+        <header>
+            <h1 class="title">Q-STREAM API <span class="version">v1.0</span></h1>
+            <p class="subtitle">SUB-SECOND TRUTH ORACLE FOR AUTONOMOUS AGENTS</p>
+        </header>
+
+        <div class="grid">
+            <!-- LEFT PANEL: KEY GENERATION -->
+            <div class="card">
+                <h3 class="card-title">◈ ACCESS_GATE</h3>
+                <p class="text">Generate a unique <strong>x-api-key</strong> to authenticate your agent's requests.</p>
+
+                <div id="form-group">
+                    <input type="email" id="email-input" class="input" placeholder="developer@agent.system">
+                    <button id="generate-btn" class="button">GENERATE_KEY</button>
+                </div>
+
+                <div id="key-display-area" class="key-box">
+                    <p class="label">YOUR API KEY:</p>
+                    <code id="api-key-output" class="code-display"></code>
+                    <button id="copy-btn" class="copy-btn">COPY_TO_CLIPBOARD</button>
+                    <p class="warning">⚠ Save this key. It will not be shown again.</p>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: USAGE DOCS -->
+            <div class="card">
+                <h3 class="card-title">⚡ INTEGRATION</h3>
+                <div style="margin-top: 1rem; text-align: right;">
+                    <a href="API_Documentation.md" style="color: #00d4ff;">View Full Docs -></a>
+                </div>
+                <div class="code-block">
+                    <span style="color: #8b949e"># Python (Requests)</span><br>
+                    <span style="color: #ff7b72">import</span> requests<br><br>
+                    url = <span
+                        style="color: #a5d6ff">"https://q-stream-api-235894147478.us-central1.run.app/v1/stream/latest"</span><br>
+                    headers = { <span style="color: #7ee787">"x-api-key"</span>: <span
+                        style="color: #a5d6ff">"YOUR_KEY"</span> }<br><br>
+                    response = requests.get(url, headers=headers)<br>
+                    <span style="color: #d2a8ff">print</span>(response.json())
+                </div>
+                <div class="status-box">
+                    <span style="color: #7ee787; margin-right: 5px;">●</span> SYSTEM_STATUS: <strong>ONLINE</strong>
+                    (Latency: 120ms)
+                </div>
+            </div>
+        </div>
+
+        <!-- PRICING TIERS -->
+        <div class="pricing-section">
+            <h3 class="section-header">DEPLOYMENT_TIERS</h3>
+            <div class="pricing-grid">
+                <!-- DEV -->
+                <div class="tier-card">
+                    <h4 class="tier-name">DEV</h4>
+                    <div class="price">$0</div>
+                    <div class="limit">100 req/day</div>
+                    <ul class="feature-list">
+                        <li class="feature-item">+ Standard Latency</li>
+                        <li class="feature-item">+ 24h History</li>
+                        <li class="feature-item">+ Community Support</li>
+                    </ul>
+                    <button class="tier-btn">UPGRADE</button>
+                </div>
+                <!-- AGENT -->
+                <div class="tier-card active">
+                    <h4 class="tier-name">AGENT</h4>
+                    <div class="price">$49/mo</div>
+                    <div class="limit">10k req/day</div>
+                    <ul class="feature-list">
+                        <li class="feature-item">+ Priority Queue</li>
+                        <li class="feature-item">+ 30-Day History</li>
+                        <li class="feature-item">+ BLAKE2b Verification</li>
+                    </ul>
+                    <button class="tier-btn active">SELECTED</button>
+                </div>
+                <!-- HIVE -->
+                <div class="tier-card">
+                    <h4 class="tier-name">HIVE</h4>
+                    <div class="price">$199/mo</div>
+                    <div class="limit">Unlimited</div>
+                    <ul class="feature-list">
+                        <li class="feature-item">+ Dedicated Node</li>
+                        <li class="feature-item">+ Full Archive</li>
+                        <li class="feature-item">+ SLA Guarantee</li>
+                    </ul>
+                    <button class="tier-btn">UPGRADE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const emailInput = document.getElementById('email-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const formGroup = document.getElementById('form-group');
+        const keyDisplayArea = document.getElementById('key-display-area');
+        const apiKeyOutput = document.getElementById('api-key-output');
+        const copyBtn = document.getElementById('copy-btn');
+
+        generateBtn.addEventListener('click', async () => {
+            if (!emailInput.value) return;
+
+            const originalText = generateBtn.textContent;
+            generateBtn.textContent = 'ENCRYPTING...';
+            generateBtn.disabled = true;
+
+            // Simulate Generation Delay
+            setTimeout(() => {
+                const newKey = `sk_live_${Math.random().toString(36).substr(2, 9)}_${Date.now().toString(36)}`;
+
+                // Switch Views
+                formGroup.style.display = 'none';
+                keyDisplayArea.style.display = 'block';
+                apiKeyOutput.textContent = newKey;
+
+            }, 1500);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(apiKeyOutput.textContent);
+            copyBtn.textContent = 'COPIED!';
+            setTimeout(() => copyBtn.textContent = 'COPY_TO_CLIPBOARD', 2000);
+        });
+    </script>
+</body>
+
+</html>

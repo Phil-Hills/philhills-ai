@@ -1,0 +1,21 @@
+{
+    "registry": {
+        "node_id": "0x923-SEA",
+        "owner": "Phil Hills",
+        "location": "Seattle, WA (Magnolia)",
+        "public_keys": [
+            {
+                "id": "q_proto_v1_pub",
+                "type": "Ed25519",
+                "usage": "build_attestation",
+                "status": "active",
+                "created_at": "2026-01-03T17:57:00Z",
+                "key": "MCowBQYDK2VwAyEAGb9rX...[BASE64_PUBLIC_KEY_STRING]"
+            }
+        ],
+        "verification_endpoints": {
+            "identity": "https://philhills.ai/identity.json",
+            "attestation_log": "https://github.com/Phil-Hills/philhills-ai/actions"
+        }
+    }
+}

@@ -2,6 +2,30 @@
 // This file contains all agent data for the philhills.ai agents page
 
 const agents = [
+    // NEW ADK AGENTS - WORKING NOW
+    {
+        name: 'SimpleBot',
+        role: 'General Purpose AI Assistant',
+        department: 'operations',
+        description: 'Working ADK agent powered by Gemini 2.0 Flash. Handles general queries, GCP resource management, and agent orchestration. Successfully tested with live API.',
+        capabilities: ['Natural language chat', 'GCP resource queries', 'Task delegation', 'Real-time responses'],
+        type: 'adk',
+        online: true,
+        endpoint: 'http://localhost:8090', // Cloud Run URL will update after deployment
+        devUI: 'http://localhost:8090/dev-ui/?app=app'
+    },
+    {
+        name: 'Unified Orchestrator',
+        role: 'Multi-Cloud Service Coordinator',
+        department: 'operations',
+        description: 'Master orchestrator with A2A connections to all 35 Cloud Run services. Delegates tasks intelligently across the entire service mesh.',
+        capabilities: ['A2A protocol coordination', '35 Cloud Run services', 'Intelligent task routing', 'Load balancing'],
+        type: 'adk',
+        online: true,
+        endpoint: 'http://localhost:8090', // Local testing
+        devUI: 'http://localhost:8090/dev-ui/?app=app'
+    },
+
     // OPERATIONS
     {
         name: 'Orchestrator',

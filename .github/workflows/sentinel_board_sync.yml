@@ -1,0 +1,43 @@
+name: SENTINEL_BOARD_SYNC
+on:
+  issues:
+    types: [opened, edited, labeled]
+  workflow_dispatch: # Manual trigger for emergency re-sync
+
+jobs:
+  triage-and-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      repository-projects: write
+    steps:
+      - name: DETECT_LEGACY_NOISE
+        id: noise_check
+        run: |
+          # Scans issue content for 'poison tokens'
+          CONTENT="${{ github.event.issue.title }} ${{ github.event.issue.body }}"
+          if [[ "$CONTENT" =~ "mortgage" || "$CONTENT" =~ "DFI" || "$CONTENT" =~ "lending" ]]; then
+            echo "DRIFT_DETECTED=true" >> $GITHUB_ENV
+            echo "::warning::Legacy Industry Token Detected. Triggering Purge Protocol."
+          fi
+
+      - name: UPDATE_MAGNOLIA_DASHBOARD
+        if: env.DRIFT_DETECTED == 'true'
+        uses: zzzze/webhook-trigger@master
+        with:
+          webhook_url: ${{ secrets.MAGNOLIA_WEBHOOK_URL }}
+          data: |
+            {
+              "agent": "SENTINEL",
+              "event": "IDENTITY_DRIFT_DETECTED",
+              "issue_url": "${{ github.event.issue.html_url }}",
+              "status": "URGENT_PURGE_REQUIRED"
+            }
+
+      - name: ALIGN_PROJECT_BOARD
+        if: env.DRIFT_DETECTED == 'true'
+        uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: "Magnolia Mesh Control"
+          column: "In Flight"
+          repo-token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
