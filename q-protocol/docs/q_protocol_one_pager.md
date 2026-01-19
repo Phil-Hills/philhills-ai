@@ -69,7 +69,7 @@ A2AC:        "◈ git:clone:repo" (3 tokens)
 
 ## Real Production Results
 
-**Movement Mortgage Deployment:**
+**Production Deployment:**
 - 155 agents coordinating via A2AC
 - 21 knowledge cubes in .qmem format
 - Zero hallucination/amnesia

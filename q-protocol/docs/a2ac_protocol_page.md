@@ -399,7 +399,7 @@ Total: ~10 tokens (just coordinates + receipts)
 
 ### Real Production Metrics
 
-**Movement Mortgage Deployment (155 agents):**
+**Production Deployment (155 agents):**
 
 ```
 Communication Efficiency:
