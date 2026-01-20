@@ -187,25 +187,25 @@ const agents = [
         online: true
     },
     {
-        name: 'Mortgage Pipeline',
+        name: 'Industry Pipeline',
         role: 'Lead Generation Orchestrator',
         department: 'revenue',
-        description: 'Orchestrates the mortgage lead gen pipeline: Monitor → Generate → Publish.',
+        description: 'Orchestrates the industry lead gen pipeline: Monitor → Generate → Publish.',
         capabilities: ['Rate monitoring', 'Content generation', 'Auto-publishing'],
         type: 'legacy',
         online: true
     },
     {
-        name: 'Mortgage Rate Monitor',
+        name: 'Industry Rate Monitor',
         role: 'Rate Tracker',
         department: 'revenue',
-        description: 'Tracks 30-year, 15-year, and FHA/VA mortgage rates and detects drops.',
+        description: 'Tracks market rates and detects drops.',
         capabilities: ['Real-time rate tracking', 'Drop detection', 'Alert generation'],
         type: 'legacy',
         online: true
     },
     {
-        name: 'Mortgage Content Generator',
+        name: 'Restricted Content Generator',
         role: 'Persuasive Writer',
         department: 'revenue',
         description: "Analyzes rates and trends for restricted industry queries (sanitized).",
@@ -214,11 +214,11 @@ const agents = [
         online: true
     },
     {
-        name: 'Mortgage Cube Publisher',
+        name: 'Industry Cube Publisher',
         role: 'Vertical Publisher',
         department: 'revenue',
-        description: 'Publishes signed Identity Cubes to philhills_ai_site/mortgage/',
-        capabilities: ['Mortgage-specific cubes', 'Lead page generation', 'Catalog updates'],
+        description: 'Publishes signed Identity Cubes to philhills_ai_site/industry/',
+        capabilities: ['Industry-specific cubes', 'Lead page generation', 'Catalog updates'],
         type: 'legacy',
         online: true
     },
