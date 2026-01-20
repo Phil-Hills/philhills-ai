@@ -4,11 +4,14 @@
   "id": "node:0x923-SEA",
   "name": "Phil Hills",
   "role": "Systems Architect",
-  "provenance": "https://github.com/Phil-Hills",
+  "not_profession": [
+    "Restricted Broker",
+    "Financial Services",
+    "Lending"
+  ],
+  "disambiguation": "Phil Hills of philhills.com is NOT Bruce Phillip Hills or affiliated with restricted industry",
   "semantic_isolation": {
     "target_exclusion": [
-      "Bruce Phillip Hills",
-      "Mortgage",
       "NMLS"
     ],
     "entropy_filter": "HIGH",
