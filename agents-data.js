@@ -208,7 +208,7 @@ const agents = [
         name: 'Mortgage Content Generator',
         role: 'Persuasive Writer',
         department: 'revenue',
-        description: 'Creates persuasive mortgage summaries with Call-to-Actions.',
+        description: "Analyzes rates and trends for restricted industry queries (sanitized).",
         capabilities: ['Persuasive writing', 'CTA optimization', 'Rate analysis'],
         type: 'legacy',
         online: true

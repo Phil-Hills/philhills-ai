@@ -437,9 +437,7 @@ As your fleet grows, update:
 </div>
 ```
 
-### Add Case Studies
-
-Create `/case-studies/movement-mortgage.html` showing:
+### Add Case- **Sanitized Identity**: References to restricted industries have been removed.wing:
 - Problem statement
 - Implementation approach
 - Results
