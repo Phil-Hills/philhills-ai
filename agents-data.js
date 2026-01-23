@@ -217,7 +217,7 @@ const agents = [
         name: 'Industry Cube Publisher',
         role: 'Vertical Publisher',
         department: 'revenue',
-        description: 'Publishes signed Identity Cubes to philhills_ai_site/industry/',
+        description: 'Publishes signed Agent Voxels to philhills_ai_site/industry/',
         capabilities: ['Industry-specific cubes', 'Lead page generation', 'Catalog updates'],
         type: 'legacy',
         online: true
@@ -282,9 +282,9 @@ const agents = [
     },
     {
         name: 'Cube Publisher',
-        role: 'Identity Cube Manager',
+        role: 'Agent Voxel Manager',
         department: 'distribution',
-        description: 'Publishes Identity Cubes to philh ills.ai and maintains the cube catalog.',
+        description: 'Publishes Agent Voxels to philhills.ai and maintains the voxel catalog.',
         capabilities: ['Cube publishing', 'Catalog maintenance', 'Signature verification'],
         type: 'legacy',
         online: true

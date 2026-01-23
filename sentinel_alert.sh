@@ -12,7 +12,7 @@ echo "🚨 SENTINEL ALERT PULSE INITIALIZED..."
 if [ -f "$LOG_FILE.1.gz" ]; then
     echo "✅ ROTATION CONFIRMED: Archive generated."
     # Visual Pulse (macOS Notification)
-    osascript -e 'display notification "Identity Cube Audit Log Rotated" with title "Magnolia Mesh" subtitle "Node 0x923-SEA"' 2>/dev/null || true
+    osascript -e 'display notification "Agent Voxel Audit Log Rotated" with title "Magnolia Mesh" subtitle "Node 0x923-SEA"' 2>/dev/null || true
 else
     echo "⚠️  ROTATION WARNING: No recent archive found."
 fi

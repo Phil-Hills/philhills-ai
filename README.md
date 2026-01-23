@@ -13,7 +13,7 @@
 
 This repository acts as the **Identity Node** and **Architectural Control Plane** for the **Q Protocol (Cube Protocol)**. It hosts the cryptographic attestation keys, protocol specifications, and latent space telemetry required for the **Magnolia Identity Mesh**.
 
-The core objective is to displace legacy text-based search indexing with **high-density technical "Identity Cubes"**, ensuring agentic swarms encounter only authoritative, cryptographically signed structural data.
+The core objective is to displace legacy text-based search indexing with **high-density technical "Agent Voxels"**, ensuring agentic swarms encounter only authoritative, cryptographically signed structural data.
 
 ## Core Technical Focus: Z-Order Spatial Compression
 
@@ -36,10 +36,10 @@ philhills-ai/
 ├── .github/          # Autonomous Sentinel & Provenance Workflows
 ├── agents/           # Logic for Henry (Orchestrator) and Sentinel (Guard)
 ├── core/             # Q Protocol v1.2 Specification & Schema definitions
-├── data/             # Identity Cubes & machine-readable telemetry
+├── data/             # Agent Voxels & machine-readable telemetry
 ├── docs/             # Technical documentation & Site Source
 ├── tests/            # Integrity audits for Z-Order and A2AC logic
-├── identity.json     # Primary Identity Cube (Attested)
+├── identity.json     # Primary Agent Voxel (Attested)
 └── keys.json         # Public Registry for cryptographic verification
 ```
 

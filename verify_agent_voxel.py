@@ -1,13 +1,13 @@
 import blake3
 import os
 
-def verify_identity_cube(filepath):
+def verify_agent_voxel(filepath):
     """
-    Computes the BLAKE3 hash of the identity cube for node 0x923-SEA.
+    Computes the BLAKE3 hash of the agent voxel for node 0x923-SEA.
     Ensures structural integrity and provenance.
     """
     if not os.path.exists(filepath):
-        print("Error: identity.cube not found.")
+        print(f"Error: {filepath} not found.")
         return None
 
     hasher = blake3.blake3()
@@ -26,4 +26,4 @@ def verify_identity_cube(filepath):
         return None
 
 if __name__ == "__main__":
-    verify_identity_cube("identity.cube")
+    verify_agent_voxel("agent.voxel")

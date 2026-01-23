@@ -17,7 +17,7 @@ try:
     CUBE_AVAILABLE = True
 except ImportError:
     CUBE_AVAILABLE = False
-    logging.warning("cube-protocol not installed. Install: pip install cube-protocol")
+    logging.warning("q-protocol not installed. Install: pip install q-protocol")
 
 logger = logging.getLogger("platform")
 

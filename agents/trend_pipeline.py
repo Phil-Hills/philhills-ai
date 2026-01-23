@@ -80,7 +80,7 @@ class TrendPipelineAgent(BaseAgent):
                     await self.send_message(content_request, target_id=content_gen_id)
                     content_response = await self._wait_for_response(content_request.task_id, timeout=60)
                     
-                    # Extract Identity Cube JSON from artifacts
+                    # Extract Agent Voxel JSON from artifacts
                     if content_response.artifacts:
                         cube_json = content_response.artifacts[0]
                         
