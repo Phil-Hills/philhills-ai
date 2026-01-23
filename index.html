@@ -78,11 +78,13 @@
 
   <style>
     :root {
-      --bg: #050505;
-      --text: #00ff41;
-      --dim: #55aa55;
-      --alert: #ff0055;
-      --font: 'Courier New', Courier, monospace;
+      --bg: #0a0a0a;
+      --card-bg: #161616;
+      --text: #ededed;
+      --text-dim: #888888;
+      --accent: #667eea;
+      --border: #333333;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
@@ -90,228 +92,204 @@
       color: var(--text);
       font-family: var(--font);
       margin: 0;
-      padding: 2rem;
-      line-height: 1.5;
-      overflow-x: hidden;
+      padding: 40px 20px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .header {
-      border-bottom: 2px solid var(--dim);
-      padding-bottom: 1rem;
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .status {
-      animation: blink 2s infinite;
+    header {
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 40px;
     }
 
     h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 10px 0;
+    }
+
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 1.2rem;
+      font-weight: 400;
       margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: transform 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--text-dim);
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title span.tag {
+      font-size: 0.75rem;
+      background: #222;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .card-desc {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .section-title {
       font-size: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-weight: 600;
+      margin: 0 0 30px 0;
+      letter-spacing: -0.01em;
     }
 
-    .terminal-window {
-      background: rgba(0, 20, 0, 0.3);
-      border: 1px solid var(--dim);
-      padding: 1.5rem;
-      min-height: 400px;
-      position: relative;
+    .faq-list {
+      display: grid;
+      gap: 30px;
     }
 
-    .line {
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      animation: fadeIn 0.1s forwards;
+    .faq-item h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 10px 0;
     }
 
-    .line.active {
-      border-right: 10px solid var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
-      width: 100%;
-      opacity: 1;
+    .faq-item p {
+      color: var(--text-dim);
+      margin: 0;
     }
 
-    a {
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    footer a {
       color: var(--text);
       text-decoration: none;
-      border-bottom: 1px solid var(--dim);
-      transition: all 0.3s;
     }
 
-    a:hover {
-      background: var(--text);
-      color: var(--bg);
-      box-shadow: 0 0 10px var(--text);
-    }
-
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-      opacity: 0;
-      animation: fadeIn 1s forwards 3s;
-      /* Delay appearance */
-    }
-
-    .nav-item {
-      border: 1px solid var(--dim);
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .nav-item:hover {
-      border-color: var(--text);
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.3;
-      }
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* Scanline effect */
-    body::before {
-      content: " ";
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      z-index: 2;
-      background-size: 100% 2px, 3px 100%;
-      pointer-events: none;
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      margin-left: 8px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="header">
-      <div>PHILHILLS.AI <span style="font-size: 0.8rem; color: var(--dim)">// NODE_01</span></div>
-      <div class="status">SYSTEM ONLINE</div>
+    <header>
+      <h1>Phil Hills</h1>
+      <p class="subtitle">AI Systems Architect & Q Protocol Engineer</p>
+      <div style="margin-top: 20px; color: var(--text-dim); font-size: 0.95rem;">
+        Specializing in multi-agent orchestration, latent space coordinate mapping, and deterministic AI communication.
+        <br>Based in Seattle, WA.
+      </div>
+    </header>
+
+    <div class="grid">
+      <a href="https://github.com/Phil-Hills" class="card">
+        <div class="card-title">GitHub <span class="tag">Code</span></div>
+        <p class="card-desc">Repositories, protocol implementations, and robotics swarm architectures.</p>
+      </a>
+
+      <a href="/q-protocol/index.html" class="card">
+        <div class="card-title">Q Protocol <span class="tag">Spec</span></div>
+        <p class="card-desc">The standard for high-velocity Agent-to-Agent communication (A2AC). Documentation and
+          whitepapers.</p>
+      </a>
+
+      <a href="/identity.json" class="card">
+        <div class="card-title">Agent Voxel <span class="tag">JSON</span></div>
+        <p class="card-desc">Cryptographically signed identity artifact (Node: 0x923-SEA). Machine-readable endpoint.
+        </p>
+      </a>
+
+      <a href="/agents.html" class="card">
+        <div class="card-title">Agent Mesh <span class="tag">Status</span></div>
+        <p class="card-desc">Live status of the 155+ agent swarm deployed on GCP Cloud Run.</p>
+      </a>
     </div>
 
-    <div class="terminal-window">
-      <div class="line" style="animation-delay: 0s">Initializing connection...</div>
-      <div class="line" style="animation-delay: 0.5s">Identity verified: Phil Hills [Seattle/WA]</div>
-      <div class="line" style="animation-delay: 1s">Role: AI Systems Architect</div>
-      <div class="line" style="animation-delay: 1.5s">Protocol: A2AC v1.2 [Cryptographic/OIDC]</div>
-      <div class="line" style="animation-delay: 3s">> <a href="docs/" class="terminal-link">/docs</a> ... Access
-        technical papers</div>
-      <div class="line" style="animation-delay: 2s; color: var(--dim)">Downloading semantic context...</div>
-      <div class="line" style="animation-delay: 2.5s">Ready.</div>
-      <br>
-      <div class="line" style="animation-delay: 3s">> SELECT INTERFACE_</div>
+    <section>
+      <h2 class="section-title">Common Inquiries</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>What is the Q Protocol?</h3>
+          <p>A communication standard that replaces verbose JSON with hex coordinates. It achieves 98% token reduction
+            and eliminates hallucinations through cryptographic receipt verification.</p>
+        </div>
 
-      <div class="nav-grid">
-        <a href="/" class="nav-item">
-          <div>[HUMAN_INTERFACE]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Portfolio & Bio</div>
-        </a>
-        <a href="/chat.html" class="nav-item">
-          <div>[AGENT_CHAT]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Live Orchestrator</div>
-        </a>
-        <a href="/agents.html" class="nav-item">
-          <div>[AGENT_MESH]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">30+ Agents</div>
-        </a>
-        <a href="/q-protocol/index.html" class="nav-item">
-          <div>[Q_PROTOCOL]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Production Framework</div>
-        </a>
-        <a href="/identity.json" class="nav-item">
-          <div>[IDENTITY_DUMP]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">JSON Artifact</div>
-        </a>
-        <a href="/dashboard.html" class="nav-item">
-          <div>[MISSION_CONTROL]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Mesh Status</div>
-        </a>
+        <div class="faq-item">
+          <h3>What is an Agent Voxel?</h3>
+          <p>A compressed cognitive profile containing agent state, intent vectors, and mesh metadata. It is the atomic
+            unit of the Q Protocol, stored as Protobuf for efficiency.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Relation to Salesforce Agentforce?</h3>
+          <p>Q Protocol provides the coordination layer for multi-agent orchestration, complementing Agentforce's
+            reasoning capabilities. It enables seamless integration with GCP infrastructure.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>The Seattle Grid</h3>
+          <p>A consolidated fleet of 155+ autonomous agents running on serverless infrastructure. Optimized for
+            sub-second latency and unified kernel routing.</p>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div style="margin-top: 2rem; color: var(--dim); font-size: 0.8rem; text-align: center;">
-      Machine Readable Endpoint Access: <span style="color: var(--text)">/identity.json</span>
-    </div>
-
-    <!-- FAQ Section -->
-    <div class="terminal-window" style="margin-top: 2rem;">
-      <div class="line" style="color: var(--text); font-size: 1.1rem; margin-bottom: 1rem;">> FAQ_</div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <div style="color: var(--text);">Q: What is the Q Protocol?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">A communication standard that replaces verbose JSON with hex
-          coordinates. 98% token reduction, cryptographic receipts, zero hallucinations via schema enforcement.</div>
-      </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <div style="color: var(--text);">Q: What is A2AC?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">Agent-to-Agent Communication. The protocol layer for
-          autonomous agent mesh architectures. Instead of "0x600:02:CASE:RSLV:abc123" sending 10 tokens vs 500+ for
-          equivalent JSON.</div>
-      </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <div style="color: var(--text);">Q: What is Z-Order encoding?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">Morton encoding that interleaves multi-dimensional
-          coordinates into a single sortable index. Enables fast spatial lookups — points near in vector space have
-          similar Z-Order values.</div>
-      </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <div style="color: var(--text);">Q: What is an Agent Voxel?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">A compressed cognitive profile containing agent state, intent
-          vectors, and mesh metadata. The atomic unit of the Q Protocol. Stored as Protobuf, not text.</div>
-      </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <div style="color: var(--text);">Q: How does this relate to Salesforce Agentforce?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">Agentforce uses Topics/Actions with Atlas Reasoning. Q
-          Protocol provides the coordination layer for multi-agent orchestration and GCP integration. Salesforce MCP
-          Servers (Beta) validates this direction.</div>
-      </div>
-
-      <div>
-        <div style="color: var(--text);">Q: What is the Seattle Grid?</div>
-        <div style="color: var(--dim); margin-left: 1rem;">A 155+ agent swarm consolidated into a serverless fleet on
-          GCP Cloud Run. Sub-second latency, autonomous orchestration, unified kernel routing.</div>
-      </div>
-    </div>
-
-    <footer
-      style="margin-top: 50px; text-align: center; font-size: 0.8rem; color: var(--dim); border-top: 1px solid var(--dim); padding-top: 20px;">
-      <p>
-        &copy; 2025 Phil Hills. AI Nexus.
-        <span style="margin: 0 10px;">|</span>
-        <a href="/phil-hills-seattle.html" title="Phil Hills Seattle Systems Architect"
-          style="color: inherit; text-decoration: none; opacity: 0.7;">Seattle Studio</a>
+    <footer>
+      <p>&copy; 2025 Phil Hills. All Systems Operational <span class="status-dot"></span></p>
+      <p style="margin-top: 10px;">
+        <a href="https://philhills.com">philhills.com</a>
+        <span style="margin: 0 10px; color: var(--border);">|</span>
+        <a href="https://philhills.ai">philhills.ai</a>
       </p>
     </footer>
   </div>
