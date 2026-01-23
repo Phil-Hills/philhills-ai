@@ -7,24 +7,26 @@
   <title>Phil Hills | AI Nexus</title>
 
   <meta name="description"
-    content="Phil Hills AI: Advanced AI Agents, CUBE Protocol, and Future Tech. Explore the frontier of artificial intelligence.">
+    content="Phil Hills: Compliance-Ready Agent Infrastructure for FinTech. Architecting high-performance, auditable agent swarms using Rust and Q-Protocol.">
   <meta name="keywords"
-    content="Phil Hills, systems-architect, q-protocol, a2ac-v1.2, magnolia-ai-lab, seattle-robotics, AI, Artificial Intelligence, CUBE Protocol"
-    <meta name="author" content="Phil Hills">
+    content="Phil Hills, systems-architect, q-protocol, a2ac, fintech-ai, seattle-research-hub, compliance-engineering, rust-agents">
+  <meta name="author" content="Phil Hills">
   <link rel="canonical" href="https://philhills.ai/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://philhills.ai/">
-  <meta property="og:title" content="Phil Hills AI - The Feature of Intelligence">
-  <meta property="og:description" content="Explore advanced AI agents and the revolutionary CUBE protocol.">
+  <meta property="og:title" content="Phil Hills - FinTech Agent Infrastructure">
+  <meta property="og:description"
+    content="Compliance-Ready Agent Infrastructure. Reduced telemetry costs by 90% with Q-Protocol.">
   <meta property="og:site_name" content="Phil Hills AI">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://philhills.ai/">
-  <meta property="twitter:title" content="Phil Hills AI">
-  <meta property="twitter:description" content="Explore advanced AI agents and the revolutionary CUBE protocol.">
+  <meta property="twitter:title" content="Phil Hills - FinTech Agent Infrastructure">
+  <meta property="twitter:description"
+    content="Compliance-Ready Agent Infrastructure. Reduced telemetry costs by 90% with Q-Protocol.">
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
@@ -37,53 +39,25 @@
         "@type": "Person",
         "name": "Phil Hills"
       },
-      "description": "Portfolio and demonstration of AI agents and CUBE protocol."
+      "description": "Compliance-Ready Agent Infrastructure for FinTech."
     }
-    </script>
+  </script>
 
-  <meta name="description"
-    content="Phil Hills AI Identity Nexus. Canonical source of truth for autonomous agents and Cube Protocol discovery.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://philhills.ai">
-
-  <!-- AI & Identity -->
   <link rel="alternate" type="application/json" href="/identity.json" title="Agent Voxel">
   <link rel="help" href="/ai.txt" title="Agent Instructions">
 
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Phil Hills",
-  "jobTitle": "AI Systems Architect & Q Protocol Engineer",
-  "url": "https://philhills.ai/",
-  "sameAs": [
-    "https://github.com/Phil-Hills",
-    "https://twitter.com/PhilHills"
-  ],
-  "knowsAbout": [
-    "Q Protocol (Cube Protocol)",
-    "Agent-to-Agent Communication (A2AC)",
-    "Z-Order Spatial Compression",
-    "Robotics Swarm Architecture"
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Phil Hills AI Labs",
-    "url": "https://philhills.ai"
-  },
-  "description": "Phil Hills is the creator of the Q Protocol (Cube Protocol), a standard for high-velocity Agent-to-Agent communication. He specializes in latent space coordinate mapping and autonomous robotics systems."
-}
-</script>
-
   <style>
     :root {
-      --bg: #0a0a0a;
-      --card-bg: #161616;
-      --text: #ededed;
-      --text-dim: #888888;
-      --accent: #667eea;
-      --border: #333333;
+      /* FinTech Palette: Stripe/Linear Inspired */
+      --bg: #ffffff;
+      --card-bg: #f7f9fc;
+      --text: #1a1f36;
+      --text-dim: #4f566b;
+      --accent: #0066cc;
+      /* Electric Blue */
+      --border: #e3e8ee;
+      --success: #057a55;
+      --alert: #e02424;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -92,130 +66,200 @@
       color: var(--text);
       font-family: var(--font);
       margin: 0;
-      padding: 40px 20px;
+      padding: 60px 20px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     header {
-      margin-bottom: 60px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
       padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
     }
 
+    /* Hero Typography */
     h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 10px 0;
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px 0;
+      color: var(--text);
     }
 
     .subtitle {
       color: var(--text-dim);
-      font-size: 1.2rem;
+      font-size: 1.35rem;
       font-weight: 400;
-      margin: 0;
+      margin: 0 0 30px 0;
+      max-width: 700px;
     }
 
+    .cta-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: white;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: #0052a3;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    /* Card Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 60px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
     }
 
     .card {
-      background: var(--card-bg);
+      background: white;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 24px;
-      transition: transform 0.2s, border-color 0.2s;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--text-dim);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-color: #d0d7de;
     }
 
     .card-title {
-      font-weight: 600;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: var(--text);
     }
 
-    .card-title span.tag {
-      font-size: 0.75rem;
-      background: #222;
-      padding: 2px 8px;
-      border-radius: 4px;
+    .tag {
+      font-size: 0.7rem;
+      background: #f0f4f8;
+      padding: 4px 10px;
+      border-radius: 99px;
       color: var(--text-dim);
-      font-weight: 500;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .card-desc {
       color: var(--text-dim);
       font-size: 0.95rem;
       margin: 0;
-      flex-grow: 1;
+      line-height: 1.5;
     }
 
+    /* Section Styles */
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 40px 0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .demo-block {
+      background: #f7f9fc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 80px;
+    }
+
+    .log-window {
+      background: #1a1f36;
+      color: #a0aec0;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.85rem;
+      padding: 20px;
+      border-radius: 8px;
+      line-height: 1.7;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: #f7f9fc;
+      text-align: left;
+      padding: 16px 24px;
       font-weight: 600;
-      margin: 0 0 30px 0;
-      letter-spacing: -0.01em;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 30px;
-    }
-
-    .faq-item h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0 0 10px 0;
-    }
-
-    .faq-item p {
       color: var(--text-dim);
-      margin: 0;
+      border-bottom: 1px solid var(--border);
     }
 
+    td {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* Footer */
     footer {
-      margin-top: 80px;
       border-top: 1px solid var(--border);
-      padding-top: 40px;
-      text-align: center;
+      padding-top: 60px;
       color: var(--text-dim);
       font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     footer a {
       color: var(--text);
       text-decoration: none;
-    }
-
-    .status-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background-color: #10b981;
-      border-radius: 50%;
-      margin-left: 8px;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -223,74 +267,141 @@
 <body>
   <div class="container">
     <header>
-      <h1>Phil Hills</h1>
-      <p class="subtitle">AI Systems Architect & Q Protocol Engineer</p>
-      <div style="margin-top: 20px; color: var(--text-dim); font-size: 0.95rem;">
-        Specializing in multi-agent orchestration, latent space coordinate mapping, and deterministic AI communication.
-        <br>Based in Seattle, WA.
+      <h1>Compliance-Ready Agent Infrastructure for FinTech</h1>
+      <p class="subtitle">Architecting high-performance, auditable agent swarms using Rust and Q-Protocol. Reduced
+        telemetry costs by 90%.</p>
+
+      <div class="cta-group">
+        <a href="https://github.com/Phil-Hills" class="btn btn-primary">View the Architecture</a>
+        <a href="Phil_Hills_Seattle_Agent_Compliance_Architecture.pdf" class="btn btn-secondary">Read Whitepaper
+          (PDF)</a>
+        <a href="#mortgage-demo" class="btn btn-secondary"
+          style="color: var(--success); border-color: var(--success); background: #f0fdf4;">Live Demo: Rate Watch</a>
       </div>
     </header>
 
     <div class="grid">
       <a href="https://github.com/Phil-Hills" class="card">
-        <div class="card-title">GitHub <span class="tag">Code</span></div>
-        <p class="card-desc">Repositories, protocol implementations, and robotics swarm architectures.</p>
+        <div class="card-title">GitHub <span class="tag">Codebase</span></div>
+        <p class="card-desc">Repositories, protocol implementations, and robotics swarm architectures. Featuring
+          Rust-based kernels.</p>
       </a>
 
       <a href="/q-protocol/index.html" class="card">
-        <div class="card-title">Q Protocol <span class="tag">Spec</span></div>
-        <p class="card-desc">The standard for high-velocity Agent-to-Agent communication (A2AC). Documentation and
-          whitepapers.</p>
+        <div class="card-title">Q Protocol <span class="tag">Standard</span></div>
+        <p class="card-desc">The industry standard for high-velocity A2AC (Agent-to-Agent Communication).
+          Zero-hallucination compliance.</p>
       </a>
 
-      <a href="/identity.json" class="card">
-        <div class="card-title">Agent Voxel <span class="tag">JSON</span></div>
-        <p class="card-desc">Cryptographically signed identity artifact (Node: 0x923-SEA). Machine-readable endpoint.
-        </p>
-      </a>
-
-      <a href="/agents.html" class="card">
-        <div class="card-title">Agent Mesh <span class="tag">Status</span></div>
-        <p class="card-desc">Live status of the 155+ agent swarm deployed on GCP Cloud Run.</p>
-      </a>
+      <div class="card">
+        <div class="card-title">Identify Verification <span class="tag">SEC/DFI</span></div>
+        <p class="card-desc">Combining deep financial regulatory experience with systems-level engineering. <br><a
+            href="/identity.json"
+            style="color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem; margin-top: 10px; display: block;">View
+            Agent Voxel Artifact (JSON) &rarr;</a></p>
+      </div>
     </div>
 
+    <!-- Optimization Layer Section -->
     <section>
-      <h2 class="section-title">Common Inquiries</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <h3>What is the Q Protocol?</h3>
-          <p>A communication standard that replaces verbose JSON with hex coordinates. It achieves 98% token reduction
-            and eliminates hallucinations through cryptographic receipt verification.</p>
-        </div>
+      <h2 class="section-title">The Optimization Layer for MCP & A2A</h2>
+      <p style="color: var(--text-dim); margin-bottom: 30px; font-size: 1.1rem; max-width: 700px;">
+        Q Protocol acts as the compression and compliance layer for Model Context Protocol (MCP) and Google A2A
+        standards. It does not replace them—it makes them production-ready for regulated industries.
+      </p>
 
-        <div class="faq-item">
-          <h3>What is an Agent Voxel?</h3>
-          <p>A compressed cognitive profile containing agent state, intent vectors, and mesh metadata. It is the atomic
-            unit of the Q Protocol, stored as Protobuf for efficiency.</p>
-        </div>
+      <div class="table-container" style="margin-bottom: 80px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Standard MCP (JSON)</th>
+              <th style="color: var(--accent);">Q Protocol (Rust/gRPC)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Payload Overhead</td>
+              <td>High (Verbose Text)</td>
+              <td style="font-weight: 600;">Low (Hex/Protobuf)</td>
+            </tr>
+            <tr>
+              <td>Compliance Log</td>
+              <td>Optional / Ad-hoc</td>
+              <td style="font-weight: 600;">Mandatory (Immutable)</td>
+            </tr>
+            <tr>
+              <td>Latency</td>
+              <td>~150ms</td>
+              <td style="font-weight: 600;">~12ms</td>
+            </tr>
+            <tr>
+              <td>Identity</td>
+              <td>Session-based</td>
+              <td style="font-weight: 600;">Cryptographic (BLAKE3)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <div class="faq-item">
-          <h3>Relation to Salesforce Agentforce?</h3>
-          <p>Q Protocol provides the coordination layer for multi-agent orchestration, complementing Agentforce's
-            reasoning capabilities. It enables seamless integration with GCP infrastructure.</p>
+    <!-- Mortgage Alert Demo (Featured) -->
+    <section id="mortgage-demo">
+      <h2 class="section-title">Real-Time Rate Watch: Event-Driven Alert System</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        Real-time market monitoring powered by autonomous agents. This system aggregates treasury yields and lender rate
+        sheets to detect sub-market arbitrage opportunities.
+      </p>
+      <div class="demo-block">
+        <div class="log-window" style="background: white; border: 1px solid var(--border); color: var(--text);">
+          <div
+            style="margin-bottom: 12px; font-weight: 600; color: var(--text-dim); border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+            LIVE FEED: SEATTLE_MKT_01
+            <span style="float: right; color: var(--success);">● CONNECTED</span>
+          </div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--text-dim);">[14:02:11]</span> Monitoring 10-Year
+            Treasury Yield: <span style="font-weight: 600;">3.92%</span></div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--text-dim);">[14:02:45]</span> <span
+              style="color: var(--accent);">[EVENT]</span> Spread Compression Detected (>15bps)</div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--text-dim);">[14:03:01]</span> <span
+              style="color: var(--success); font-weight: 700;">[ALERT]</span> 30-Year Fixed Par Rate dropped to
+            <strong>5.875%</strong></div>
+          <div style="margin-bottom: 8px;"><span style="color: var(--text-dim);">[14:03:02]</span> Dispatching
+            Notification to Refinance Queue (ID: 0x9928A)</div>
         </div>
+      </div>
+    </section>
 
-        <div class="faq-item">
-          <h3>The Seattle Grid</h3>
-          <p>A consolidated fleet of 155+ autonomous agents running on serverless infrastructure. Optimized for
-            sub-second latency and unified kernel routing.</p>
+    <!-- Sentinel Section -->
+    <section>
+      <h2 class="section-title">The Sentinel Architecture</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        Real-time audit logging for autonomous agents. Designed for environments requiring SEC/DFI grade audit trails.
+      </p>
+      <div class="demo-block" style="background: #111; border: none;">
+        <div class="log-window">
+          <div style="margin-bottom: 8px;"><span style="color: #667eea;">[SENTINEL]</span> Initializing Audit Stream...
+          </div>
+          <div style="margin-bottom: 8px;"><span style="color: #667eea;">[SENTINEL]</span> Monitoring Node: Seattle
+            Research Hub</div>
+          <div style="margin-bottom: 8px;"><span style="color: #10b981;">[PASS]</span> Transaction 0x8a1... Verified
+            (BLAKE3)</div>
+          <div style="margin-bottom: 8px;"><span style="color: #10b981;">[PASS]</span> A2AC Handshake: Sentinel <->
+              Treasury_Agent</div>
+          <div style="margin-bottom: 8px;"><span style="color: #ff0055;">[BLOCK]</span> Non-Compliant Action Detected:
+            "Unsigned_State_Mutation"</div>
+          <div><span style="color: #667eea;">[SENTINEL]</span> Violation Logged. Compliance report generated.</div>
         </div>
       </div>
     </section>
 
     <footer>
-      <p>&copy; 2025 Phil Hills. All Systems Operational <span class="status-dot"></span></p>
-      <p style="margin-top: 10px;">
+      <div>&copy; 2026 Phil Hills. Seattle Research Hub.</div>
+      <div>
         <a href="https://philhills.com">philhills.com</a>
-        <span style="margin: 0 10px; color: var(--border);">|</span>
-        <a href="https://philhills.ai">philhills.ai</a>
-      </p>
+        <span style="color: var(--border); margin: 0 12px;">|</span>
+        <a href="https://linkedin.com/in/philhills">LinkedIn</a>
+      </div>
     </footer>
   </div>
 </body>
