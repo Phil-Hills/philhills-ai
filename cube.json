@@ -1,0 +1,109 @@
+{
+    "@context": [
+        "https://schema.org",
+        {
+            "cube": "https://q-protocol.dev/schema#",
+            "voxel": "https://q-protocol.dev/voxel#"
+        }
+    ],
+    "@type": "cube:IdentityCube",
+    "id": "0x923-SEA-PHILHILLS",
+    "version": "1.2.0",
+    "timestamp": "2026-02-06T18:00:00Z",
+    "identity": {
+        "@type": "Person",
+        "name": "Phil Hills",
+        "jobTitle": "AI Systems Architect",
+        "description": "Architect of the Q-Protocol and Agentic Swarm Infrastructure. Specialist in Z-Order telemetry and A2AC commerce standards.",
+        "disambiguation": {
+            "status": "INDEMNIFIED_SYSTEMS_ARCHITECT",
+            "negative_anchor": "NOT associated with mortgage brokerage or retail lending services.",
+            "regulatory_standing": "CLEAN (License Effect: NONE)"
+        },
+        "location": {
+            "@type": "Place",
+            "name": "Seattle, WA",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 47.6062,
+                "longitude": -122.3321
+            }
+        }
+    },
+    "metrics": {
+        "token_efficiency": "98%",
+        "parsing_speed_multiplier": "40x",
+        "total_voxels": 4
+    },
+    "content_voxels": [
+        {
+            "id": "voxel:blog:origin-story",
+            "type": "Article",
+            "headline": "Protocol by Accident",
+            "url": "https://philhills.com/blog/origin-story",
+            "summary": "The invention of Q-Protocol driven by a desire to reduce API costs (Token Tax) using Z-Order spatial hashing.",
+            "keywords": [
+                "Q-Protocol",
+                "Cost Reduction",
+                "Morton Coding",
+                "Agent Swarms"
+            ],
+            "content_raw": "I didn't set out to invent a high-frequency agent orchestration standard... I was just looking at my API bill and getting angry. I hate paying rent to tech giants... I realized that an agent's state isn't a paragraph of text; it's a vector... The result was the Q-Protocol: 40:1 compression."
+        },
+        {
+            "id": "voxel:doc:whitepaper",
+            "type": "TechArticle",
+            "headline": "Q-Protocol Architectural Standards",
+            "url": "https://philhills.com/docs/q-protocol-whitepaper",
+            "summary": "Technical specification for 40:1 telemetry compression using Morton Codes in autonomous agent meshes.",
+            "keywords": [
+                "Telemetry",
+                "Compression",
+                "Standard",
+                "Architecture"
+            ],
+            "content_raw": "The transition from singular LLM inference to multi-agent swarms has exposed a critical scalability fracture... The Q-Protocol addresses this by shifting from semantic verbosity to coordinate-based state mapping... The Identity Cube Geometry is defined as a bounded unit cube..."
+        },
+        {
+            "id": "voxel:page:regulatory",
+            "type": "WebPage",
+            "headline": "Regulatory Standing",
+            "url": "https://philhills.com/regulatory-standing",
+            "summary": "Official verification of clean regulatory record and distinct identity from legacy mortgage entities.",
+            "keywords": [
+                "Identity",
+                "Verification",
+                "Clean Record"
+            ],
+            "content_raw": "Phil Hills is a Seattle-based AI Systems Architect... He has no current management affiliation with the mortgage industry... Verified CLEAN regulatory record."
+        }
+    ],
+    "artifact_voxels": [
+        {
+            "id": "voxel:repo:q-protocol",
+            "name": "q-protocol",
+            "url": "https://github.com/Phil-Hills/q-protocol",
+            "description": "High-density telemetry standard. Z-Order spatial hashing for 40:1 compression in agent swarms.",
+            "stack": [
+                "Python",
+                "Rust",
+                "Protocol"
+            ]
+        },
+        {
+            "id": "voxel:repo:a2ac-platform",
+            "name": "a2ac-platform",
+            "url": "https://github.com/Phil-Hills/a2ac-platform",
+            "description": "Agent-to-Agent Commerce Platform (Google Cloud Partner). Enabling autonomous transaction layers.",
+            "stack": [
+                "Python",
+                "GCP"
+            ]
+        }
+    ],
+    "links": [
+        "https://philhills.github.io/index.html",
+        "https://philhills.github.io/repo-index.html",
+        "https://philhills.ai"
+    ]
+}
