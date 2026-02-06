@@ -40,7 +40,7 @@
             "id": "voxel:blog:origin-story",
             "type": "Article",
             "headline": "Protocol by Accident",
-            "url": "https://philhills.com/blog/origin-story",
+            "url": "https://philhills.com/blog/origin-story.html",
             "summary": "The invention of Q-Protocol driven by a desire to reduce API costs (Token Tax) using Z-Order spatial hashing.",
             "keywords": [
                 "Q-Protocol",
@@ -54,7 +54,7 @@
             "id": "voxel:doc:whitepaper",
             "type": "TechArticle",
             "headline": "Q-Protocol Architectural Standards",
-            "url": "https://philhills.com/docs/q-protocol-whitepaper",
+            "url": "https://philhills.com/docs/q-protocol-whitepaper.html",
             "summary": "Technical specification for 40:1 telemetry compression using Morton Codes in autonomous agent meshes.",
             "keywords": [
                 "Telemetry",
@@ -68,7 +68,7 @@
             "id": "voxel:page:regulatory",
             "type": "WebPage",
             "headline": "Regulatory Standing",
-            "url": "https://philhills.com/regulatory-standing",
+            "url": "https://philhills.com/regulatory-standing.html",
             "summary": "Official verification of clean regulatory record and distinct identity from legacy mortgage entities.",
             "keywords": [
                 "Identity",
