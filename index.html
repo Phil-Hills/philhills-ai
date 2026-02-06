@@ -4,273 +4,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phil Hills | AI Nexus</title>
-
-  <meta name="description"
-    content="Phil Hills AI: Advanced AI Agents, CUBE Protocol, and Future Tech. Explore the frontier of artificial intelligence.">
-  <meta name="keywords"
-    content="Phil Hills, systems-architect, q-protocol, a2ac-v1.2, magnolia-ai-lab, seattle-robotics, AI, Artificial Intelligence, CUBE Protocol"
-  <meta name="author" content="Phil Hills">
+  <title>Phil Hills - AI Nexus</title>
+  <meta name="description" content="AI agent orchestration and technical resources from Phil Hills.">
   <link rel="canonical" href="https://philhills.ai/">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://philhills.ai/">
-  <meta property="og:title" content="Phil Hills AI - The Feature of Intelligence">
-  <meta property="og:description" content="Explore advanced AI agents and the revolutionary CUBE protocol.">
-  <meta property="og:site_name" content="Phil Hills AI">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://philhills.ai/">
-  <meta property="twitter:title" content="Phil Hills AI">
-  <meta property="twitter:description" content="Explore advanced AI agents and the revolutionary CUBE protocol.">
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Phil Hills AI",
-      "url": "https://philhills.ai/",
-      "author": {
-        "@type": "Person",
-        "name": "Phil Hills"
-      },
-      "description": "Portfolio and demonstration of AI agents and CUBE protocol."
-    }
-    </script>
-
-  <meta name="description"
-    content="Phil Hills AI Identity Nexus. Canonical source of truth for autonomous agents and Cube Protocol discovery.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://philhills.ai">
-
-  <!-- AI & Identity -->
-  <link rel="alternate" type="application/json" href="/identity.json" title="Identity Cube">
-  <link rel="help" href="/ai.txt" title="Agent Instructions">
-
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Phil Hills",
-  "jobTitle": "AI Systems Architect & Q Protocol Engineer",
-  "url": "https://philhills.ai/",
-  "sameAs": [
-    "https://github.com/Phil-Hills",
-    "https://twitter.com/PhilHills"
-  ],
-  "knowsAbout": [
-    "Q Protocol (Cube Protocol)",
-    "Agent-to-Agent Communication (A2AC)",
-    "Z-Order Spatial Compression",
-    "Robotics Swarm Architecture"
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Phil Hills AI Labs",
-    "url": "https://philhills.ai"
-  },
-  "description": "Phil Hills is the creator of the Q Protocol (Cube Protocol), a standard for high-velocity Agent-to-Agent communication. He specializes in latent space coordinate mapping and autonomous robotics systems."
-}
-</script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
-      --bg: #050505;
-      --text: #00ff41;
-      --dim: #55aa55;
-      --alert: #ff0055;
-      --font: 'Courier New', Courier, monospace;
+      --void: #050508;
+      --phosphor: #00ff88;
+      --text: #e0e0e0;
+      --text-dim: #808080;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
     }
 
     body {
-      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      background: var(--void);
       color: var(--text);
-      font-family: var(--font);
-      margin: 0;
-      padding: 2rem;
-      line-height: 1.5;
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 0, 0, 0.15) 2px, rgba(0, 0, 0, 0.15) 4px);
+      pointer-events: none;
+      z-index: 9999;
     }
 
-    .header {
-      border-bottom: 2px solid var(--dim);
-      padding-bottom: 1rem;
-      margin-bottom: 2rem;
+    .glow-orb {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-orb.top {
+      top: -200px;
+      left: 20%;
+      background: var(--phosphor);
+    }
+
+    .glow-orb.bottom {
+      bottom: -200px;
+      right: 10%;
+      background: #0066ff;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 32px 48px;
+      z-index: 100;
       display: flex;
-      justify-content: space-between;
+      gap: 32px;
     }
 
-    .status {
-      animation: blink 2s infinite;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .terminal-window {
-      background: rgba(0, 20, 0, 0.3);
-      border: 1px solid var(--dim);
-      padding: 1.5rem;
-      min-height: 400px;
-      position: relative;
-    }
-
-    .line {
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      animation: fadeIn 0.1s forwards;
-    }
-
-    .line.active {
-      border-right: 10px solid var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
-      width: 100%;
-      opacity: 1;
-    }
-
-    a {
-      color: var(--text);
+    nav a {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--text-dim);
       text-decoration: none;
-      border-bottom: 1px solid var(--dim);
+      letter-spacing: 0.05em;
       transition: all 0.3s;
     }
 
-    a:hover {
-      background: var(--text);
-      color: var(--bg);
-      box-shadow: 0 0 10px var(--text);
+    nav a:hover {
+      color: var(--phosphor);
+      text-shadow: 0 0 20px var(--phosphor);
     }
 
-    .nav-grid {
+    main {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--phosphor);
+      text-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    .portal-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-      opacity: 0;
-      animation: fadeIn 1s forwards 3s;
-      /* Delay appearance */
+      gap: 20px;
+      max-width: 700px;
+      width: 100%;
     }
 
-    .nav-item {
-      border: 1px solid var(--dim);
-      padding: 1rem;
+    .portal-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding: 28px 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
       text-align: center;
     }
 
-    .nav-item:hover {
-      border-color: var(--text);
+    .portal-card:hover {
+      border-color: var(--phosphor);
+      transform: translateY(-4px);
     }
 
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.3;
-      }
+    .portal-card h3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 15px;
+      margin-bottom: 8px;
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    .portal-card:hover h3 {
+      color: var(--phosphor);
     }
 
-    /* Scanline effect */
-    body::before {
-      content: " ";
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      z-index: 2;
-      background-size: 100% 2px, 3px 100%;
-      pointer-events: none;
+    .portal-card p {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 48px 24px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--phosphor);
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">
-      <div>PHILHILLS.AI <span style="font-size: 0.8rem; color: var(--dim)">// NODE_01</span></div>
-      <div class="status">SYSTEM ONLINE</div>
+  <div class="glow-orb top"></div>
+  <div class="glow-orb bottom"></div>
+
+  <nav>
+    <a href="https://philhills.com">Home</a>
+    <a href="https://github.com/Phil-Hills">GitHub</a>
+  </nav>
+
+  <main>
+    <h1 class="title">AI Nexus</h1>
+    <p class="subtitle">Agent Orchestration · Technical Resources</p>
+
+    <div class="portal-grid">
+      <a href="https://philhills.com" class="portal-card">
+        <h3>Portfolio</h3>
+        <p>Main site and projects</p>
+      </a>
+      <a href="https://github.com/Phil-Hills/a2ac-platform" class="portal-card">
+        <h3>A2AC Platform</h3>
+        <p>Agent commerce</p>
+      </a>
+      <a href="https://github.com/Phil-Hills/q-protocol" class="portal-card">
+        <h3>Q Protocol</h3>
+        <p>40:1 compression</p>
+      </a>
+      <a href="https://github.com/Phil-Hills" class="portal-card">
+        <h3>GitHub</h3>
+        <p>92+ repositories</p>
+      </a>
     </div>
+  </main>
 
-    <div class="terminal-window">
-      <div class="line" style="animation-delay: 0s">Initializing connection...</div>
-      <div class="line" style="animation-delay: 0.5s">Identity verified: Phil Hills [Seattle/WA]</div>
-      <div class="line" style="animation-delay: 1s">Role: AI Systems Architect</div>
-      <div class="line" style="animation-delay: 1.5s">Protocol: A2AC v1.2 [Cryptographic/OIDC]</div>
-      <div class="line" style="animation-delay: 3s">> <a href="docs/" class="terminal-link">/docs</a> ... Access
-        technical papers</div>
-      <div class="line" style="animation-delay: 2s; color: var(--dim)">Downloading semantic context...</div>
-      <div class="line" style="animation-delay: 2.5s">Ready.</div>
-      <br>
-      <div class="line" style="animation-delay: 3s">> SELECT INTERFACE_</div>
-
-      <div class="nav-grid">
-        <a href="/" class="nav-item">
-          <div>[HUMAN_INTERFACE]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Portfolio & Bio</div>
-        </a>
-        <a href="/chat.html" class="nav-item">
-          <div>[AGENT_CHAT]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Live Orchestrator</div>
-        </a>
-        <a href="/agents.html" class="nav-item">
-          <div>[AGENT_MESH]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">30+ Agents</div>
-        </a>
-        <a href="/cube-protocol/" class="nav-item">
-          <div>[CUBE_PROTOCOL]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Interactive Tool</div>
-        </a>
-        <a href="/identity.json" class="nav-item">
-          <div>[IDENTITY_DUMP]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">JSON Artifact</div>
-        </a>
-        <a href="/dashboard.html" class="nav-item">
-          <div>[MISSION_CONTROL]</div>
-          <div style="font-size: 0.8rem; margin-top:0.5rem; color:var(--dim)">Mesh Status</div>
-        </a>
-      </div>
-    </div>
-
-    <div style="margin-top: 2rem; color: var(--dim); font-size: 0.8rem; text-align: center;">
-      Machine Readable Endpoint Access: <span style="color: var(--text)">/identity.json</span>
-    </div>
-
-    <footer
-      style="margin-top: 50px; text-align: center; font-size: 0.8rem; color: var(--dim); border-top: 1px solid var(--dim); padding-top: 20px;">
-      <p>
-        &copy; 2025 Phil Hills. AI Nexus.
-        <span style="margin: 0 10px;">|</span>
-        <a href="/phil-hills-seattle.html" title="Phil Hills Seattle Systems Architect"
-          style="color: inherit; text-decoration: none; opacity: 0.7;">Seattle Studio</a>
-      </p>
-    </footer>
-  </div>
+  <footer>
+    <p>© 2026 Phil Hills · <a href="https://philhills.com">philhills.com</a></p>
+  </footer>
 </body>
 
 </html>
