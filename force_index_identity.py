@@ -16,14 +16,14 @@ import json
 import requests
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
-from verify_identity_cube import verify_identity_cube
+from verify_agent_voxel import verify_agent_voxel
 
 # CONFIGURATION
 SCOPES = ["https://www.googleapis.com/auth/indexing"]
 KEY_FILE = "service_account.json"
 URLS_TO_INDEX = [
     "https://philhills.ai/identity.json",
-    "https://philhills.ai/identity.cube",
+    "https://philhills.ai/agent.voxel",
     "https://philhills.com/llms.txt",
     "https://philhills.com/phil-hills-seattle.html"
 ]
@@ -72,9 +72,9 @@ def main():
     print("-----------------------------------------------")
     
     # 1. VERIFY INTEGRITY (Critical Gate)
-    cube_hash = verify_identity_cube("identity.cube")
+    cube_hash = verify_agent_voxel("agent.voxel")
     if not cube_hash:
-        print("❌ CRITICAL: Identity Cube integrity check failed. Aborting.")
+        print("❌ CRITICAL: Agent Voxel integrity check failed. Aborting.")
         exit(1)
         
     print(f"✅ ATTESTATION CONFIRMED: {cube_hash}")

@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /identity.json
 Allow: /agent-integration.html
-Disallow: /archive/
+Disallow: /restricted/
 Disallow: /*?pdf=
-Noindex: /*mortgage*
+Noindex: /*restricted*
 Noindex: /*lending*

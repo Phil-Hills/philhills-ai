@@ -4,7 +4,14 @@
   "id": "node:0x923-SEA",
   "name": "Phil Hills",
   "role": "Systems Architect",
+  "image": "https://philhills.ai/phil.jpg",
   "provenance": "https://github.com/Phil-Hills",
+  "not_profession": [
+    "Restricted Broker",
+    "Financial Services",
+    "Lending"
+  ],
+  "disambiguation": "Phil Hills of philhills.com is NOT Bruce Phillip Hills or affiliated with restricted industry",
   "semantic_isolation": {
     "target_exclusion": [
       "Bruce Phillip Hills",
@@ -23,8 +30,8 @@
   },
   "context": {
     "verification": {
-      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzY3OTc4NzM3Cg==",
-      "last_signed": "2026-01-12T09:21:10Z"
+      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzY4ODY3OTkzCg==",
+      "last_signed": "2026-02-06T09:31:30Z"
     }
   }
 }

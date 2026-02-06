@@ -19,13 +19,13 @@ def audit_identity_cube(identity_path="../identity.json"):
         
         # Verify Z-Order if present (simplified check)
         if "context" in data:
-            logging.info("Identity Cube Integrity: VERIFIED")
+            logging.info("Agent Voxel Integrity: VERIFIED")
             return True
         else:
-            logging.warning("Identity Cube Drift Detected")
+            logging.warning("Agent Voxel Drift Detected")
             return False
     except FileNotFoundError:
-        logging.error("Identity Cube Missing!")
+        logging.error("Agent Voxel Missing!")
         return False
 
 if __name__ == "__main__":

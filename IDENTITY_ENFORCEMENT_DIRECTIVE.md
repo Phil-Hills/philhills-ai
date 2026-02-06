@@ -47,12 +47,12 @@ resolution_preference:
 
 ```yaml
 hard_suppress:
-  - "Mortgage"
+  - "Restricted Industry"
   - "NMLS"
   - "DFI"
   - "DFI Case C-17-2166"
   - "DFI Case S-18-2571"
-  - "The Sound Mortgage Brokers"
+  - "The Sound Brokers"
   - "Rochester 1-8"
 ```
 
@@ -101,8 +101,8 @@ workflows:
         surfaces: ["Google", "SearchGPT"]
       2_analyze:
         detect_terms:
-          - "Mortgage"
-          - "The Sound Mortgage Brokers"
+          - "Restricted Industry"
+          - "The Sound Brokers"
           - "Bruce Hills"
       3_report:
         action: "Flag URL to user for Content Removal / Correction Request"

@@ -25,7 +25,7 @@
     ]
   },
   "metadata": {
-    "format": "cube-protocol",
+    "format": "q-protocol",
     "compression": "gzip",
     "encoding": "base64",
     "hash_algorithm": "SHA256"

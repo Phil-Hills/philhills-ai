@@ -12,7 +12,7 @@ class CubeFuzzer:
 
     def execute_audit(self):
         # Automated zero-day scan for Q-Protocol schemas
-        print(f"Auditing Identity Cube at {self.endpoint}...")
+        print(f"Auditing Agent Voxel at {self.endpoint}...")
         payload = self.generate_adversarial_cube()
         print(f"Injecting Adversarial Payload: {payload}")
         # In a real environment, this would post to an endpoint
