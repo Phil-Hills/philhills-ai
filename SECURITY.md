@@ -1,4 +1,4 @@
-# Security Policy: Magnolia AI Lab
+# Security Policy: A2AC
 
 ## Supported Versions
 Only the latest version of the Q Protocol (v1.2+) is supported for security updates.

@@ -1,6 +1,6 @@
 # Contributing to the Q Protocol Mesh
 
-Welcome to the Magnolia AI Lab. We accept contributions that improve the efficiency of Agent-to-Agent Communication (A2AC).
+Welcome to A2AC. We accept contributions that improve the efficiency of Agent-to-Agent Communication (A2AC).
 
 ### Protocol for Submission:
 1. **Identity Attestation**: All commits must be cryptographically signed.

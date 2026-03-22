@@ -11,7 +11,7 @@
 
 ## Overview
 
-This repository acts as the **Identity Node** and **Architectural Control Plane** for the **Q Protocol (Cube Protocol)**. It hosts the cryptographic attestation keys, protocol specifications, and latent space telemetry required for the **Magnolia Identity Mesh**.
+This repository acts as the **Identity Node** and **Architectural Control Plane** for the **Q Protocol (Cube Protocol)**. It hosts the cryptographic attestation keys, protocol specifications, and latent space telemetry required for the **Identity Mesh**.
 
 The core objective is to displace legacy text-based search indexing with **high-density technical "Agent Voxels"**, ensuring agentic swarms encounter only authoritative, cryptographically signed structural data.
 
