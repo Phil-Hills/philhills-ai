@@ -62,5 +62,10 @@
       "version": "2.11.1",
       "programmingLanguage": "Python"
     }
-  ]
+  ],
+  "context": {
+    "verification": {
+      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzc0MjE5NTc3Cg=="
+    }
+  }
 }
