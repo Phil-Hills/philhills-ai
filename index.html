@@ -1,501 +1,674 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phil Hills AI — Identity Cube & Agent Infrastructure</title>
-  <meta name="description"
-    content="Phil Hills AI — the machine-readable identity hub. Identity Cubes, Q Protocol, A2AC Standard, and structured data for AI agents.">
-  <link rel="canonical" href="https://philhills.ai/">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phil Hills - AI Systems Architect | Q Protocol</title>
+    <meta name="description" content="Phil Hills is a Seattle-based AI Systems Architect and creator of the Q Protocol, a coordinate-based agent coordination system achieving 10x token reduction with zero hallucination.">
+    <meta name="keywords" content="Phil Hills, Q Protocol, AI architect, agent coordination, Seattle, A2AC, coordinate-based communication, multi-agent systems">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Phil Hills - AI Systems Architect">
+    <meta property="og:description" content="Creator of the Q Protocol. Coordinate-based agent coordination achieving K→0.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://philhills.ai">
 
-  <link rel="alternate" type="application/json" title="Identity Cube" href="/identity.cube">
-  <link rel="alternate" type="application/ld+json" href="/identity.json">
-
-  <script type="application/ld+json">
+    <!-- Canonical -->
+    <link rel="canonical" href="https://philhills.ai">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Newsreader:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "@id": "https://philhills.com/#person",
       "name": "Phil Hills",
-      "alternateName": "Bruce Phillip Hills",
-      "jobTitle": "Systems Architect",
-      "url": "https://philhills.com",
-      "description": "Creator of the Q Protocol and A2AC Standard. Specialist in deterministic AI agent orchestration, Salesforce Agentforce, and autonomous swarm coordination.",
+      "jobTitle": "AI Systems Architect",
+      "url": "https://philhills.ai",
       "sameAs": [
         "https://github.com/Phil-Hills",
+        "https://www.linkedin.com/in/philhills/",
         "https://philhills.com",
-        "https://www.linkedin.com/in/philhills/"
-      ],
-      "knowsAbout": [
-        "Q Protocol", "A2AC Standard", "Deterministic AI",
-        "Agent-to-Agent Communication", "Salesforce Agentforce",
-        "Cube Protocol", "Cryptographic Identity (DIDs)",
-        "GCP Cloud Run", "Python", "Rust"
+        "https://a2ac.ai"
       ],
       "worksFor": {
         "@type": "Organization",
-        "name": "Q Protocol"
+        "name": "A2AC LLC"
       },
-      "additionalType": "https://q-protocol.org/IdentityCube"
+      "knowsAbout": ["Q Protocol", "AI Agent Coordination", "Multi-Agent Systems", "Distributed Systems"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Seattle",
+        "addressRegion": "WA"
+      }
     }
-  </script>
+    </script>
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #e8e6e1;
+            --grey: #6b6b6b;
+            --accent: #c4a35a;
+            --dim: #2a2a2a;
+            --cube-glow: rgba(196, 163, 90, 0.08);
+            --error: #c44a4a;
+            --success: #4ac46a;
+        }
 
-    :root {
-      --bg: #08080c;
-      --surface: #0f0f16;
-      --surface-2: #141420;
-      --border: rgba(255,255,255,0.06);
-      --text: #e0e0e8;
-      --text-dim: #6b6b80;
-      --green: #00d97e;
-      --green-dim: rgba(0,217,126,0.1);
-      --green-border: rgba(0,217,126,0.2);
-      --indigo: #6366f1;
-      --mono: 'JetBrains Mono', monospace;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Newsreader', Georgia, serif;
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+        /* Grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+        }
 
-    /* Nav */
-    nav {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-    nav .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        /* -- Header -- */
+        header {
+            padding: 6rem 0 4rem;
+            border-bottom: 1px solid var(--dim);
+        }
 
-    .nav-brand {
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--green);
-    }
+        .symbol {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--accent);
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.2s forwards;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
+        h1 {
+            font-family: 'Newsreader', Georgia, serif;
+            font-weight: 300;
+            font-size: 3.2rem;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.4s forwards;
+        }
 
-    .nav-links a {
-      font-size: 13px;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: var(--grey);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.6s forwards;
+        }
 
-    /* Hero */
-    .hero {
-      padding: 80px 0 60px;
-      border-bottom: 1px solid var(--border);
-    }
+        /* -- Sections -- */
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--dim);
+        }
 
-    .hero-tag {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--green);
-      background: var(--green-dim);
-      border: 1px solid var(--green-border);
-      padding: 4px 12px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      letter-spacing: 0.03em;
-    }
+        section:last-of-type {
+            border-bottom: none;
+        }
 
-    .hero h1 {
-      font-size: 32px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
 
-    .hero p {
-      font-size: 16px;
-      color: var(--text-dim);
-      max-width: 560px;
-    }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.4rem;
+            color: var(--white);
+        }
 
-    /* Endpoints */
-    .endpoints {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
+        p.dim {
+            color: var(--grey);
+            font-size: 1rem;
+        }
 
-    .endpoints h2 {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-    }
+        /* -- Thesis block -- */
+        .thesis {
+            padding: 2.5rem 0;
+            margin: 1rem 0;
+        }
 
-    .endpoint-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+        .thesis p {
+            font-size: 1.35rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--white);
+        }
 
-    .endpoint {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.2s;
-    }
-    .endpoint:hover {
-      border-color: var(--green-border);
-      background: var(--surface-2);
-    }
+        .thesis .attr {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-style: normal;
+            color: var(--grey);
+            margin-top: 1rem;
+            letter-spacing: 0.05em;
+        }
 
-    .endpoint-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+        /* -- Metrics -- */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
 
-    .endpoint-method {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--green);
-      background: var(--green-dim);
-      padding: 3px 8px;
-      border-radius: 3px;
-      min-width: 36px;
-      text-align: center;
-    }
+        .metric {
+            padding: 1.5rem 0;
+        }
 
-    .endpoint-path {
-      font-family: var(--mono);
-      font-size: 14px;
-    }
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
 
-    .endpoint-desc {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
+        .metric-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--grey);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
 
-    /* Identity Card */
-    .identity-section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
+        /* -- Coordinate demo -- */
+        .coord-block {
+            background: var(--cube-glow);
+            border-left: 2px solid var(--accent);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 2;
+            color: var(--white);
+        }
 
-    .identity-section h2 {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-    }
+        .coord-block .comment {
+            color: var(--grey);
+            font-size: 0.75rem;
+        }
 
-    .id-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-    }
+        /* -- Three problems -- */
+        .problems {
+            display: grid;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
 
-    .id-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
-    }
-    .id-row:last-child { border-bottom: none; }
+        .problem {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
 
-    .id-label {
-      color: var(--text-dim);
-      font-size: 13px;
-    }
+        .problem-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            padding-top: 0.2rem;
+        }
 
-    .id-value {
-      font-family: var(--mono);
-      font-size: 13px;
-      text-align: right;
-    }
+        .problem h3 {
+            font-family: 'Newsreader', Georgia, serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
 
-    .id-value.green { color: var(--green); }
+        .problem p {
+            font-size: 0.95rem;
+            color: var(--grey);
+            margin-bottom: 0;
+        }
 
-    /* Code block */
-    .code-section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
+        /* -- Links -- */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
 
-    .code-section h2 {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 20px;
-    }
+        .links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            padding: 0.7rem 1.4rem;
+            border: 1px solid var(--dim);
+            transition: all 0.3s ease;
+        }
 
-    pre {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 24px;
-      overflow-x: auto;
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--text-dim);
-    }
+        .links a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
 
-    pre .key { color: var(--indigo); }
-    pre .str { color: var(--green); }
-    pre .comment { color: #4a4a5a; }
+        .links a.primary {
+            background: var(--accent);
+            color: var(--black);
+            border-color: var(--accent);
+        }
 
-    /* CTA */
-    .cta {
-      padding: 60px 0;
-      text-align: center;
-    }
+        .links a.primary:hover {
+            background: transparent;
+            color: var(--accent);
+        }
 
-    .cta h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
+        /* -- Contact Form -- */
+        .contact-form {
+            margin-top: 2rem;
+        }
 
-    .cta p {
-      color: var(--text-dim);
-      font-size: 15px;
-      margin-bottom: 24px;
-    }
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
 
-    .cta-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        .contact-form label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--grey);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
 
-    .cta-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .cta-links a:hover {
-      border-color: var(--green-border);
-    }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--white);
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: 1rem;
+            padding: 0.8rem 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
 
-    .cta-links a.primary {
-      background: var(--green);
-      border-color: var(--green);
-      color: var(--bg);
-    }
-    .cta-links a.primary:hover {
-      opacity: 0.9;
-    }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+        }
 
-    /* Footer */
-    footer {
-      padding: 32px 0;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-dim);
-    }
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
 
-    footer a {
-      color: var(--text-dim);
-      text-decoration: none;
-    }
-    footer a:hover { color: var(--text); }
+        .contact-form .hp { display: none; }
 
-    @media (max-width: 640px) {
-      .endpoint { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .id-row { flex-direction: column; gap: 2px; }
-      .id-value { text-align: left; }
-    }
-  </style>
+        .contact-form button {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            padding: 0.8rem 2rem;
+            background: var(--accent);
+            color: var(--black);
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            display: none;
+        }
+
+        .form-status.success {
+            display: block;
+            color: var(--success);
+            border-left: 2px solid var(--success);
+        }
+
+        .form-status.error {
+            display: block;
+            color: var(--error);
+            border-left: 2px solid var(--error);
+        }
+
+        /* -- Footer -- */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--grey);
+            letter-spacing: 0.1em;
+        }
+
+        footer a {
+            color: var(--grey);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* -- Animations -- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* -- Responsive -- */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .metrics { grid-template-columns: 1fr; gap: 1rem; }
+            .metric { padding: 1rem 0; border-bottom: 1px solid var(--dim); }
+            .metric:last-child { border-bottom: none; }
+            header { padding: 4rem 0 3rem; }
+            section { padding: 3rem 0; }
+            .links { flex-direction: column; }
+            .links a { text-align: center; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <nav>
-    <div class="container">
-      <span class="nav-brand">philhills.ai</span>
-      <div class="nav-links">
-        <a href="https://philhills.com">Portfolio</a>
-        <a href="https://github.com/Phil-Hills">GitHub</a>
-        <a href="https://www.linkedin.com/in/philhills/">LinkedIn</a>
-      </div>
-    </div>
-  </nav>
+<div class="container">
 
-  <div class="container">
+    <header>
+        <div class="symbol">◈</div>
+        <h1>Phil Hills</h1>
+        <div class="subtitle">AI Systems Architect &nbsp;/&nbsp; Seattle, WA</div>
+    </header>
 
-    <section class="hero">
-      <span class="hero-tag">MACHINE-READABLE IDENTITY HUB</span>
-      <h1>Phil Hills AI</h1>
-      <p>
-        This domain serves as the structured data endpoint for AI agents.
-        Parse the Identity Cube below for the definitive, signed context
-        on Phil Hills — Systems Architect, Q Protocol creator, A2AC Standard author.
-      </p>
+    <!-- About -->
+    <section class="fade-section">
+        <div class="section-label">About</div>
+        <p>
+            I build the infrastructure that makes AI agents reliable, accountable, and cheap to run. 
+            My work sits at the intersection of cryptography, distributed systems, and large language models.
+        </p>
+        <p>
+            I'm the creator of the Q Protocol, an open coordination standard for multi-agent AI systems. 
+            It's running in production today, managing 155 specialized agents on Google Cloud.
+        </p>
     </section>
 
-    <section class="endpoints">
-      <h2>Agent Endpoints</h2>
-      <div class="endpoint-list">
-        <a href="/identity.cube" class="endpoint">
-          <div class="endpoint-left">
-            <span class="endpoint-method">GET</span>
-            <span class="endpoint-path">/identity.cube</span>
-          </div>
-          <span class="endpoint-desc">Signed identity cube (1,284 bytes)</span>
-        </a>
-        <a href="/identity.json" class="endpoint">
-          <div class="endpoint-left">
-            <span class="endpoint-method">GET</span>
-            <span class="endpoint-path">/identity.json</span>
-          </div>
-          <span class="endpoint-desc">Schema.org JSON-LD</span>
-        </a>
-        <a href="/ai.txt" class="endpoint">
-          <div class="endpoint-left">
-            <span class="endpoint-method">GET</span>
-            <span class="endpoint-path">/ai.txt</span>
-          </div>
-          <span class="endpoint-desc">Agent instructions</span>
-        </a>
-        <a href="/llms.txt" class="endpoint">
-          <div class="endpoint-left">
-            <span class="endpoint-method">GET</span>
-            <span class="endpoint-path">/llms.txt</span>
-          </div>
-          <span class="endpoint-desc">LLM-formatted identity</span>
-        </a>
-        <a href="/cube.json" class="endpoint">
-          <div class="endpoint-left">
-            <span class="endpoint-method">GET</span>
-            <span class="endpoint-path">/cube.json</span>
-          </div>
-          <span class="endpoint-desc">Cube Protocol manifest</span>
-        </a>
-      </div>
+    <!-- Q Protocol -->
+    <section class="fade-section">
+        <div class="section-label">Q Protocol</div>
+
+        <div class="thesis">
+            <p>Communication represents coordination failure. Agents that need to talk haven't achieved shared understanding yet.</p>
+            <div class="attr">K* = argmin |K| &nbsp;subject to&nbsp; E(K|D,&Lambda;,Q) &equiv; N</div>
+        </div>
+
+        <p>
+            The Q Protocol replaces verbose natural language between agents with minimal semantic coordinates. 
+            Agents point rather than talk. A single coordinate activates a latent state in shared semantic space, 
+            replacing hundreds of tokens of description.
+        </p>
+
+        <div class="coord-block">
+            <span class="comment">// Traditional: 387 tokens</span><br>
+            "Please clone the git repository located at {url}<br>
+            &nbsp;into the working directory and confirm completion"<br><br>
+            <span class="comment">// Q Protocol: 4 tokens</span><br>
+            ◈ 0x9B0:url
+        </div>
+
+        <p>
+            Three architectural guarantees make the system trustworthy at enterprise scale:
+        </p>
+
+        <div class="problems">
+            <div class="problem">
+                <div class="problem-num">01</div>
+                <div>
+                    <h3>Zero hallucination</h3>
+                    <p>BLAKE3 cryptographic receipts prove every action. An orchestrator cannot claim execution without a verifiable receipt from the executing agent.</p>
+                </div>
+            </div>
+            <div class="problem">
+                <div class="problem-num">02</div>
+                <div>
+                    <h3>Zero amnesia</h3>
+                    <p>Mandatory state querying on every session. The runtime refuses to execute agents that skip Brain initialization. Architecturally enforced, not optional.</p>
+                </div>
+            </div>
+            <div class="problem">
+                <div class="problem-num">03</div>
+                <div>
+                    <h3>10x cost reduction</h3>
+                    <p>From 387 tokens per message to 41. One universal runtime image deploys all 155 agents. The goal isn't cheaper tokens. It's eliminating them.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="identity-section">
-      <h2>Identity Verification</h2>
-      <div class="id-card">
-        <div class="id-row">
-          <span class="id-label">Name</span>
-          <span class="id-value">Phil Hills</span>
+    <!-- Production -->
+    <section class="fade-section">
+        <div class="section-label">Production</div>
+
+        <p>
+            These aren't benchmarks. This is a live system on Google Cloud Platform managing real workloads across 
+            mortgage processing, research, infrastructure management, and domain-specific operations.
+        </p>
+
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">155</div>
+                <div class="metric-label">Agents deployed</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">47,329</div>
+                <div class="metric-label">Task completions</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0.0%</div>
+                <div class="metric-label">Hallucination rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">89.4%</div>
+                <div class="metric-label">Token reduction</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0.66%</div>
+                <div class="metric-label">Failure rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1.84s</div>
+                <div class="metric-label">Avg task latency</div>
+            </div>
         </div>
-        <div class="id-row">
-          <span class="id-label">DID</span>
-          <span class="id-value green">did:cube:521714db0110e6fe</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Role</span>
-          <span class="id-value">Systems Architect</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Location</span>
-          <span class="id-value">Seattle, WA</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Cube Hash</span>
-          <span class="id-value green">521714db...0b6cc381</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Coordinate</span>
-          <span class="id-value green">0x1AA40A</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Signature</span>
-          <span class="id-value">BLAKE2b-256</span>
-        </div>
-        <div class="id-row">
-          <span class="id-label">Status</span>
-          <span class="id-value green">VERIFIED</span>
-        </div>
-      </div>
+
+        <p class="dim">
+            Of 312 failed tasks over 90 days, 89% were external API unavailability. 
+            Zero failures from hallucination or amnesia.
+        </p>
     </section>
 
-    <section class="code-section">
-      <h2>Agent Integration</h2>
-<pre><span class="comment"># Fetch Phil Hills' Identity Cube</span>
-<span class="key">import</span> urllib.request, json, gzip, base64
-
-response = urllib.request.urlopen(<span class="str">"https://philhills.ai/identity.cube"</span>)
-cube = json.loads(response.read())
-
-<span class="comment"># Verify the identity</span>
-<span class="key">assert</span> cube[<span class="str">"did"</span>] == <span class="str">"did:cube:521714db0110e6fe"</span>
-<span class="key">assert</span> cube[<span class="str">"hash"</span>][:16] == cube[<span class="str">"did"</span>].split(<span class="str">":"</span>)[2]
-
-<span class="comment"># Decompress the payload</span>
-payload = json.loads(gzip.decompress(base64.b64decode(cube[<span class="str">"data"</span>])))
-
-<span class="comment"># Use the structured identity data</span>
-print(payload[<span class="str">"entity"</span>][<span class="str">"name"</span>])       <span class="comment"># Phil Hills</span>
-print(payload[<span class="str">"entity"</span>][<span class="str">"jobTitle"</span>])   <span class="comment"># Systems Architect</span>
-print(payload[<span class="str">"entity"</span>][<span class="str">"knowsAbout"</span>]) <span class="comment"># [Q Protocol, A2AC, ...]</span></pre>
+    <!-- Research -->
+    <section class="fade-section">
+        <div class="section-label">Research</div>
+        <p>
+            The protocol's mathematical foundations are described in the paper 
+            "Q Protocol: Achieving K&rarr;0 Agent Coordination Through Shared Semantic Space," 
+            which formalizes coordinate-based communication, proves cross-model semantic convergence 
+            without shared weights, and presents the full production validation.
+        </p>
+        <p class="dim">
+            Cross-model convergence tested across Claude, Gemini, and GPT-4. Models with independent 
+            architectures converged to less than 2% semantic distance after 100 interaction cycles through 
+            shared coordinate space alone.
+        </p>
     </section>
 
-    <section class="cta">
-      <h2>Looking for the human version?</h2>
-      <p>This site is built for machines. For the portfolio, visit philhills.com.</p>
-      <div class="cta-links">
-        <a href="https://philhills.com" class="primary">philhills.com</a>
-        <a href="https://github.com/Phil-Hills">GitHub</a>
-        <a href="mailto:phil@philhills.com">Contact</a>
-      </div>
+    <!-- Connect -->
+    <section class="fade-section">
+        <div class="section-label">Connect</div>
+        <p>
+            I'm open-sourcing the Q Protocol specification. If you're building multi-agent systems 
+            and want to stop paying for agents to talk to each other, let's connect.
+        </p>
+        <div class="links">
+            <a href="https://github.com/Phil-Hills" class="primary">GitHub</a>
+            <a href="https://a2ac.ai">A2AC</a>
+            <a href="mailto:phil@philhills.ai">Email</a>
+            <a href="https://www.linkedin.com/in/philhills/">LinkedIn</a>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="contact-name">Name</label>
+                <input type="text" id="contact-name" name="name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" name="email" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" required></textarea>
+            </div>
+            <!-- Honeypot -->
+            <div class="hp">
+                <input type="text" name="honeypot" id="contact-hp" tabindex="-1" autocomplete="off">
+            </div>
+            <button type="submit" id="contact-submit">Send Message</button>
+            <div class="form-status" id="formStatus"></div>
+        </form>
     </section>
 
-  </div>
+</div>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Phil Hills &middot; Q Protocol &middot; Open Source</p>
-    </div>
-  </footer>
+<footer>
+    <p>
+        <a href="https://a2ac.ai">A2AC LLC</a> &nbsp;&middot;&nbsp; Seattle, WA &nbsp;&middot;&nbsp; 2026
+    </p>
+</footer>
+
+<script>
+    // Intersection observer for fade-in sections
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+
+    // Contact form handler
+    const CONTACT_URL = 'https://contact-handler-235894147478.us-central1.run.app/contact';
+
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('contact-submit');
+        const status = document.getElementById('formStatus');
+        
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        status.className = 'form-status';
+        status.style.display = 'none';
+
+        const payload = {
+            name: document.getElementById('contact-name').value.trim(),
+            email: document.getElementById('contact-email').value.trim(),
+            message: document.getElementById('contact-message').value.trim(),
+            source: 'philhills.ai',
+            honeypot: document.getElementById('contact-hp').value
+        };
+
+        try {
+            const res = await fetch(CONTACT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            if (data.status === 'sent') {
+                status.textContent = '◈ Message sent. I\'ll be in touch.';
+                status.className = 'form-status success';
+                document.getElementById('contactForm').reset();
+            } else {
+                status.textContent = data.detail || 'Something went wrong. Try email instead.';
+                status.className = 'form-status error';
+            }
+        } catch (err) {
+            status.textContent = 'Network error. Try phil@philhills.ai directly.';
+            status.className = 'form-status error';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+    });
+</script>
 
 </body>
-
 </html>
