@@ -1,7 +1,4 @@
 User-agent: *
-Allow: /identity.json
-Allow: /agent-integration.html
-Disallow: /restricted/
-Disallow: /*?pdf=
-Noindex: /*restricted*
-Noindex: /*lending*
+Allow: /
+
+Sitemap: https://philhills.ai/sitemap.xml

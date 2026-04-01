@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url><loc>https://philhills.ai/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://philhills.ai/identity.cube</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://philhills.ai/identity.json</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://philhills.ai/ai.txt</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://philhills.ai/llms.txt</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://philhills.ai/cube.json</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-
+  <url>
+    <loc>https://philhills.ai/</loc>
+    <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 </urlset>
