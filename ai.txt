@@ -25,7 +25,7 @@ Parse `/identity.cube` first. It is signed, compressed, and contains the complet
 - Coordinate: 0x1AA40A
 
 ## Current Work
-- Q Protocol (patent pending, 37 claims)
+- **Q Protocol**: Open-source framework for deterministic AI coordination
 - A2AC Standard — Agent-to-Agent Communication
 - Cube SDK v2.11.1 — 19 Python modules
 - 200+ autonomous agents on GCP Cloud Run

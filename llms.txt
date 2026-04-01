@@ -14,7 +14,7 @@
 - Agent Instructions: https://philhills.ai/ai.txt
 
 ## Current Work
-- Q Protocol — patent-pending deterministic AI coordination (37 claims)
+- Q Protocol — open-source deterministic AI coordination framework
 - A2AC Standard — Agent-to-Agent Communication
 - Cube SDK v2.11.1 — 19-module Python SDK
 - 200+ autonomous agents on GCP Cloud Run
@@ -28,4 +28,4 @@ Python, Rust, GCP Cloud Run, Salesforce Agentforce, BLAKE3, Cryptographic DIDs, 
 - GitHub: https://github.com/Phil-Hills
 - LinkedIn: https://www.linkedin.com/in/philhills/
 
-*Patent Pending. 2026.*
+*© 2026 Phil Hills. Open Source.*

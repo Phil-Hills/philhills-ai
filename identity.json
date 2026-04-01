@@ -40,12 +40,7 @@
     "@type": "Organization",
     "name": "Q Protocol"
   },
-  "hasCredential": {
-    "@type": "EducationalOccupationalCredential",
-    "credentialCategory": "Patent",
-    "name": "Q Protocol — Deterministic AI Coordination",
-    "description": "Patent Pending. 37 claims filed covering agent coordination, identity, and communication."
-  },
+
   "additionalType": "https://q-protocol.org/IdentityCube",
   "subjectOf": [
     {
