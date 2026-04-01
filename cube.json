@@ -15,11 +15,6 @@
         "name": "Phil Hills",
         "jobTitle": "AI Systems Architect",
         "description": "Architect of the Q-Protocol and Agentic Swarm Infrastructure. Specialist in Z-Order telemetry and A2AC commerce standards.",
-        "disambiguation": {
-            "status": "INDEMNIFIED_SYSTEMS_ARCHITECT",
-            "negative_anchor": "NOT associated with mortgage brokerage or retail lending services.",
-            "regulatory_standing": "CLEAN (License Effect: NONE)"
-        },
         "location": {
             "@type": "Place",
             "name": "Seattle, WA",
@@ -63,19 +58,6 @@
                 "Architecture"
             ],
             "content_raw": "The transition from singular LLM inference to multi-agent swarms has exposed a critical scalability fracture... The Q-Protocol addresses this by shifting from semantic verbosity to coordinate-based state mapping... The Identity Cube Geometry is defined as a bounded unit cube..."
-        },
-        {
-            "id": "voxel:page:regulatory",
-            "type": "WebPage",
-            "headline": "Regulatory Standing",
-            "url": "https://philhills.com/regulatory-standing.html",
-            "summary": "Official verification of clean regulatory record and distinct identity from legacy mortgage entities.",
-            "keywords": [
-                "Identity",
-                "Verification",
-                "Clean Record"
-            ],
-            "content_raw": "Phil Hills is a Seattle-based AI Systems Architect... He has no current management affiliation with the mortgage industry... Verified CLEAN regulatory record."
         }
     ],
     "artifact_voxels": [
