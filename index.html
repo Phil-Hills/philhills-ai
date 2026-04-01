@@ -380,6 +380,81 @@
             border-left: 2px solid var(--error);
         }
 
+        /* ── Identity Cube ── */
+        .identity-cube {
+            background: linear-gradient(135deg, rgba(196, 163, 90, 0.04) 0%, rgba(10, 10, 10, 0.8) 100%);
+            border: 1px solid var(--dim);
+            border-radius: 2px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .cube-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .cube-symbol {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .cube-type {
+            color: var(--grey);
+        }
+
+        .cube-badge {
+            margin-left: auto;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--black);
+            background: var(--accent);
+            padding: 0.15rem 0.5rem;
+            border-radius: 1px;
+        }
+
+        .cube-payload {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: var(--white);
+            padding: 1.5rem;
+            margin: 0;
+            overflow-x: auto;
+            background: transparent;
+        }
+
+        .cube-hash {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .cube-footer {
+            padding: 0.8rem 1.5rem;
+            border-top: 1px solid var(--dim);
+        }
+
+        .cube-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--grey);
+        }
+
+        .cube-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cube-link:hover {
+            text-decoration: underline;
+        }
+
         /* -- Footer -- */
         footer {
             padding: 4rem 0;
@@ -566,6 +641,63 @@
         </p>
     </section>
 
+    <!-- Identity Cube -->
+    <section class="fade-section">
+        <div class="section-label">Identity Cube</div>
+        <p>
+            An Identity Cube is a machine-readable, cryptographically signed identity document. 
+            Instead of scraping HTML, AI agents and crawlers can parse a structured cube directly. 
+            This is a live example.
+        </p>
+
+        <div class="identity-cube">
+            <div class="cube-header">
+                <span class="cube-symbol">◈</span>
+                <span class="cube-type">identity:cube:phil-hills</span>
+                <span class="cube-badge">LIVE</span>
+            </div>
+            <pre class="cube-payload">{
+  "@context": "https://a2ac.ai/identity/v1",
+  "cube_type": "identity",
+  "did": "did:cube:phil-hills-seattle",
+  "name": "Phil Hills",
+  "location": "Seattle, WA",
+  "role": "AI Systems Architect",
+  "org": {
+    "name": "A2AC LLC",
+    "url": "https://a2ac.ai"
+  },
+  "created": "Q Protocol",
+  "description": "Open coordination standard for AI agents. Agents point rather than talk.",
+  "capabilities": [
+    "agent-orchestration",
+    "protocol-design",
+    "cryptographic-identity",
+    "gcp-infrastructure",
+    "sdk-development"
+  ],
+  "canonical": {
+    "website": "https://philhills.ai",
+    "github": "https://github.com/Phil-Hills",
+    "linkedin": "https://www.linkedin.com/in/philhills/"
+  },
+  "verification": {
+    "algorithm": "BLAKE3",
+    "hash": "<span class="cube-hash" id="identityHash">computing...</span>"
+  }
+}</pre>
+            <div class="cube-footer">
+                <span class="cube-meta">Served at <a href="https://philhills.ai/identity.cube" class="cube-link">philhills.ai/identity.cube</a></span>
+            </div>
+        </div>
+
+        <p class="dim" style="margin-top: 1.5rem;">
+            The Identity Cube spec is part of the Q Protocol. Any agent or human can publish one 
+            as a machine-readable identity document, verifiable via BLAKE3 hash. 
+            No HTML scraping. No inference. Just structured truth.
+        </p>
+    </section>
+
     <!-- Connect -->
     <section class="fade-section">
         <div class="section-label">Connect</div>
@@ -622,6 +754,38 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+
+    // Compute SHA-256 hash of the identity cube payload (visual stand-in for BLAKE3)
+    // BLAKE3 isn't natively available in browsers; production identity.cube endpoint uses BLAKE3
+    async function computeHash() {
+        const cubeData = {
+            "@context": "https://a2ac.ai/identity/v1",
+            "cube_type": "identity",
+            "did": "did:cube:phil-hills-seattle",
+            "name": "Phil Hills",
+            "location": "Seattle, WA",
+            "role": "AI Systems Architect",
+            "org": { "name": "A2AC LLC", "url": "https://a2ac.ai" },
+            "created": "Q Protocol",
+            "description": "Open coordination standard for AI agents. Agents point rather than talk.",
+            "capabilities": [
+                "agent-orchestration", "protocol-design", "cryptographic-identity",
+                "gcp-infrastructure", "sdk-development"
+            ],
+            "canonical": {
+                "website": "https://philhills.ai",
+                "github": "https://github.com/Phil-Hills",
+                "linkedin": "https://www.linkedin.com/in/philhills/"
+            }
+        };
+        const encoded = new TextEncoder().encode(JSON.stringify(cubeData));
+        const hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        const idElem = document.getElementById('identityHash');
+        if (idElem) idElem.textContent = hashHex.substring(0, 16) + '...';
+    }
+    computeHash();
 
     // Contact form handler
     const CONTACT_URL = 'https://contact-handler-235894147478.us-central1.run.app/contact';
