@@ -387,7 +387,7 @@ Total: ~10 tokens (just coordinates + receipts)
 │  git-agent-001                          │
 │  research-agent-002                     │
 │  code-agent-003                         │
-│  ... (155 agents)                       │
+│  ... (agents)                       │
 │                                         │
 │  Each agent:                            │
 │  - Emits coordinates                    │
@@ -399,7 +399,7 @@ Total: ~10 tokens (just coordinates + receipts)
 
 ### Real Production Metrics
 
-**Production Deployment (155 agents):**
+**Production Deployment (agents):**
 
 ```
 Communication Efficiency:
@@ -408,7 +408,6 @@ Communication Efficiency:
 └─ Reduction:   98%
 
 Hallucination Prevention:
-├─ Before: 23.4% hallucination rate
 ├─ After:  0% (receipt verification)
 └─ Improvement: 100%
 
@@ -423,7 +422,7 @@ Cost Savings:
 └─ Savings: $511/month ($6,132/year)
 
 Scaling to full fleet:
-├─ 155 agents × 100 coordinations/day
+├─ agents × 100 coordinations/day
 ├─ Annual savings: $401,760
 └─ K value: 8 tokens/coordination (K→0 achieved)
 ```
@@ -550,7 +549,7 @@ This maintains backward compatibility while achieving A2AC efficiency internally
 
 - **Version:** 1.0
 - **Status:** Production deployed
-- **Fleet size:** 155 agents
+- **Fleet size:** agents
 - **Uptime:** 24/7
 - **K value:** 8 tokens/coordination (K→0 achieved)
 

@@ -16,7 +16,7 @@ I've created **4 files** ready for deployment:
 - Hero section with live production metrics
 - Before/after comparison
 - Protocol stack visualization
-- Real production results (21 cubes, 155 agents, $401k savings)
+- Real production results (21 cubes, agents, $401k savings)
 - Responsive design (mobile-friendly)
 - Professional gradient styling
 - Call-to-action buttons
@@ -219,20 +219,20 @@ Insert before `</head>` in the HTML:
 
 ```html
 <!-- SEO Meta Tags -->
-<meta name="description" content="Q Protocol: Achieving K→0 in Multi-Agent Systems. 98% token reduction, 0% hallucination, production-deployed with 155 agents.">
+<meta name="description" content="Q Protocol: Achieving K→0 in Multi-Agent Systems. 98% token reduction, 0% hallucination, production-deployed with agents.">
 <meta name="keywords" content="Q Protocol, A2AC, Multi-Agent Systems, AI Coordination, Agent Communication, K→0">
 <meta name="author" content="Phil Hills">
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 <meta property="og:title" content="Q Protocol - Achieving K→0 in Multi-Agent Systems">
-<meta property="og:description" content="98% token reduction, 0% hallucination, 155 agents in production. Theory to deployment in 24 hours.">
+<meta property="og:description" content="98% token reduction, 0% hallucination, agents in production. Theory to deployment in 24 hours.">
 <meta property="og:image" content="https://philhills.com/assets/q-protocol-og.png">
 <meta property="og:url" content="https://philhills.com/q-protocol">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Q Protocol - Achieving K→0 in Multi-Agent Systems">
-<meta name="twitter:description" content="98% token reduction, 0% hallucination, 155 agents in production.">
+<meta name="twitter:description" content="98% token reduction, 0% hallucination, agents in production.">
 <meta name="twitter:image" content="https://philhills.com/assets/q-protocol-twitter.png">
 ```
 
@@ -240,7 +240,7 @@ Insert before `</head>` in the HTML:
 
 Create 1200×630 images with key metrics:
 - "Q Protocol: 98% Token Reduction"
-- "K→0 Achieved: 155 Agents in Production"
+- "K→0 Achieved: Agents in Production"
 - "$401k Annual Savings"
 
 ---
@@ -368,7 +368,7 @@ We achieved:
 ✓ 98% token reduction
 ✓ 0% hallucination rate  
 ✓ $401k annual savings
-✓ 155 agents in production
+✓ agents in production
 
 Theory → Production in 24 hours.
 
@@ -385,7 +385,7 @@ to multi-agent coordination. Here's what we achieved:
 2/ Problem: Traditional agents waste tokens (387/msg), 
 hallucinate (23%), and forget context (41%).
 
-At scale with 155 agents, this costs $522/month.
+At scale with agents, this costs $522/month.
 
 3/ Solution: Q Protocol achieves K→0 (zero communication) 
 through shared understanding.
@@ -399,7 +399,7 @@ $11/month cost.
 - Cryptographic receipts (BLAKE3 verified)
 - Mandatory state queries (zero amnesia)
 
-5/ Production ready: 21 knowledge cubes, 155 agents, 
+5/ Production ready: 21 knowledge cubes, agents, 
 K=8 (approaching K→0).
 
 Timeline: Theory → Production in 24 hours.

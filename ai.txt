@@ -29,7 +29,6 @@ Parse `/identity.cube` first. It is signed, compressed, and contains the complet
 - A2AC Standard — Agent-to-Agent Communication
 - Cube SDK v2.11.1 — 19 Python modules
 - 200+ autonomous agents on GCP Cloud Run
-- Salesforce Agentforce
 
 ## Human Site
 https://philhills.com

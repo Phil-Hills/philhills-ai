@@ -38,7 +38,7 @@ The **Reputation Sentinel** is a sidecar process that monitors the Agent Mesh. I
 
 ## 3. Case Study: Seattle Grid (FinTech Application)
 
-In 2025, the **Seattle Research Hub** deployed a 155-agent swarm on Google Cloud Run to simulate a Mortgage Compliance Workflow.
+In 2025, the **Seattle Research Hub** deployed a 155-agent swarm on Google Cloud Run to simulate an Enterprise Compliance Workflow.
 
 *   **Problem:** 15% of agents failed to adhere to DFI regulatory state transitions.
 *   **Intervention:** Implementation of Q Protocol v1.2.

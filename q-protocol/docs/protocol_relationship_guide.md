@@ -196,7 +196,7 @@ Check: Is token count <50?
 - ✓ Receipt persistence
 - ✓ Knowledge base migration
 
-**Example:** "We migrated 21 cubes to .qmem format, achieving 60% size reduction."
+**Example:** "We migrated to .qmem format, achieving significant size reduction."
 
 ### Say "day_zero.rs" when talking about:
 - ✓ Runtime enforcement
@@ -248,7 +248,7 @@ Think of building a house:
 - ✓ Coordinate format specified
 - ✓ Cube Mesh routing deployed
 - ✓ Cube Brain storage (Firestore + Vertex AI)
-- ✓ 155 agents coordinating via A2AC
+- ✓ agents coordinating via A2AC
 
 **.qmem Implementation:**
 - ✓ Binary format (CBOR + BLAKE3)
@@ -265,7 +265,7 @@ Think of building a house:
 ### Results
 
 ```
-Agent Fleet: 155 agents
+Agent Fleet: agents
 Communication: A2AC coordinates
 Storage: .qmem format  
 Enforcement: day_zero.rs

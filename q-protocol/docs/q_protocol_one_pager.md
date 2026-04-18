@@ -6,7 +6,7 @@
 ## The Problem
 Traditional agent systems waste tokens, hallucinate work completion, and forget prior context. At scale, this is catastrophic.
 
-**Before Q Protocol (155 agents):**
+**Before Q Protocol (agents):**
 - 387 tokens/coordination
 - 23.4% hallucination rate
 - 41.2% amnesia rate
@@ -70,7 +70,7 @@ A2AC:        "◈ git:clone:repo" (3 tokens)
 ## Real Production Results
 
 **Production Deployment:**
-- 155 agents coordinating via A2AC
+- agents coordinating via A2AC
 - 21 knowledge cubes in .qmem format
 - Zero hallucination/amnesia
 - K=8 (K→0 achieved)
@@ -148,7 +148,7 @@ Total: 3 tokens vs 387 traditional
 ## Deployment Timeline
 
 **Day 0:** Specifications written (Q Protocol, A2AC, .qmem)  
-**Day 1:** Production deployment (21 cubes, 155 agents)  
+**Day 1:** Production deployment (21 cubes, agents)  
 **Result:** Theory → Production in 24 hours
 
 ---

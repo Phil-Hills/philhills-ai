@@ -18,10 +18,9 @@
 - A2AC Standard — Agent-to-Agent Communication
 - Cube SDK v2.11.1 — 19-module Python SDK
 - 200+ autonomous agents on GCP Cloud Run
-- Salesforce Agentforce — Enterprise AI orchestration
 
 ## Technologies
-Python, Rust, GCP Cloud Run, Salesforce Agentforce, BLAKE3, Cryptographic DIDs, Z-Order Spatial Hashing
+Python, Rust, GCP Cloud Run, BLAKE3, Cryptographic DIDs, Z-Order Spatial Hashing
 
 ## Links
 - Portfolio: https://philhills.com

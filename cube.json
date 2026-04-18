@@ -43,7 +43,7 @@
                 "Morton Coding",
                 "Agent Swarms"
             ],
-            "content_raw": "I didn't set out to invent a high-frequency agent orchestration standard... I was just looking at my API bill and getting angry. I hate paying rent to tech giants... I realized that an agent's state isn't a paragraph of text; it's a vector... The result was the Q-Protocol: 40:1 compression."
+            "content_raw": "I didn't set out to invent a high-frequency agent orchestration standard... I was just looking at my API bill and getting angry. I hate paying rent to tech giants... I realized that an agent's state isn't a paragraph of text; it's a vector... The result was the Q-Protocol: standard compression."
         },
         {
             "id": "voxel:doc:whitepaper",
@@ -65,7 +65,7 @@
             "id": "voxel:repo:q-protocol",
             "name": "q-protocol",
             "url": "https://github.com/Phil-Hills/q-protocol",
-            "description": "High-density telemetry standard. Z-Order spatial hashing for 40:1 compression in agent swarms.",
+            "description": "High-density telemetry standard. Z-Order spatial hashing for standard compression in agent swarms.",
             "stack": [
                 "Python",
                 "Rust",
