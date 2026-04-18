@@ -1,13 +1,12 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": "https://philhills.com/#person",
+  "@id": "https://philhills.ai/#person",
   "name": "Phil Hills",
-  "alternateName": "Bruce Phillip Hills",
   "jobTitle": "Systems Architect",
-  "image": "https://philhills.com/phil.jpg",
-  "url": "https://philhills.com",
-  "description": "Creator of the Q Protocol and A2AC Standard. Specialist in deterministic AI agent orchestration, Salesforce Agentforce, and autonomous swarm coordination. Architect of the Cube SDK — a 19-module Python framework for agent identity, trust, memory, and communication.",
+  "image": "https://philhills.ai/phil.jpg",
+  "url": "https://philhills.ai",
+  "description": "Creator of the Q Protocol and A2AC Standard. 20 years in mortgage origination combined with self-directed work in multi-agent coordination, cryptographic provenance, and agent security. Founder of A2AC LLC.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Seattle",
@@ -22,25 +21,20 @@
   "knowsAbout": [
     "Q Protocol",
     "A2AC Standard",
-    "Deterministic AI",
     "Agent-to-Agent Communication",
-    "Salesforce Agentforce",
+    "Deterministic AI",
     "Cube Protocol",
     "Cryptographic Identity (DIDs)",
     "GCP Cloud Run",
-    "Python",
-    "Rust",
-    "Autonomous Agent Orchestration",
     "BLAKE3 Hashing",
-    "Z-Order Spatial Hashing",
-    "Smart Memory Systems",
-    "Trust Graph Architecture"
+    "Autonomous Agent Orchestration",
+    "Python"
   ],
   "worksFor": {
     "@type": "Organization",
-    "name": "Q Protocol"
+    "name": "A2AC LLC",
+    "url": "https://a2ac.ai"
   },
-
   "additionalType": "https://q-protocol.org/IdentityCube",
   "subjectOf": [
     {
@@ -57,10 +51,5 @@
       "version": "2.11.1",
       "programmingLanguage": "Python"
     }
-  ],
-  "context": {
-    "verification": {
-      "signature": "RVBIRU1FUkFMX1NJR05BVFVSRV8xNzc0MjE5NTc3Cg=="
-    }
-  }
+  ]
 }
