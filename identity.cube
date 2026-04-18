@@ -1,59 +1,30 @@
 {
-  "\u25c8": "identity",
-  "did": "did:cube:521714db0110e6fe",
-  "hash": "521714db0110e6fe64f06f0e6a5d6e042d124de52e5c8e2cb38f1d2b0b6cc381",
-  "created_at": "2026-03-22T22:23:21.573799+00:00",
-  "ttl_hours": 168,
-  "size_bytes": 2829,
-  "compressed_bytes": 1284,
-  "compression_ratio": "0.45",
-  "coordinate": {
-    "x": 34,
-    "y": 89,
-    "z": 96,
-    "morton_code": 1745930,
-    "hex": "0x1AA40A"
+  "@context": "https://a2ac.ai/identity/v1",
+  "cube_type": "identity",
+  "did": "did:cube:phil-hills-seattle",
+  "name": "Phil Hills",
+  "location": "Seattle, WA",
+  "role": "AI Systems Architect",
+  "org": {
+    "name": "A2AC LLC",
+    "url": "https://a2ac.ai"
   },
-  "entity_summary": {
-    "name": "Phil Hills",
-    "title": "Systems Architect",
-    "description": "Creator of the Q Protocol and A2AC Standard. 20 years of systems design across finance, blockchain, and AI. Specialist in deterministic AI agent orchestration, Salesforce Agentforce, and autonomous swarm coordination. Architect of the Cube SDK \u2014 a 19-module Python framework for agent identity, trust, memory, and communication."
+  "created": "Q Protocol",
+  "description": "Open coordination standard for AI agents. Agents point rather than talk.",
+  "capabilities": [
+    "agent-orchestration",
+    "protocol-design",
+    "cryptographic-identity",
+    "gcp-infrastructure",
+    "sdk-development"
+  ],
+  "canonical": {
+    "website": "https://philhills.ai",
+    "github": "https://github.com/Phil-Hills",
+    "linkedin": "https://www.linkedin.com/in/philhills/"
   },
-  "data": "H4sIANlrwGkC/+1WUW/bNhD+Kwc+ragkS3Ka1Hqq6mxt0G5x6wADthUGLTEWE4lUSWqOG/i/786SbDkOhgEDhj30jeId7z7e991Rj+zrojba6UyXLGFREDKPZc1SLNymFrgjc6GcdBvc/lMYK7Vq3VpHI7gT+YI73IzD+NwPx34c38RxEo+TOApeXYwvJpOXYZiE5O9cuSh0YyxLovPXHutCJ49M8YqyzQpZwntZlha9eemEUZjgl9b41jSZAHIpZb33utPLG+lKcphvrBOVhdRkhXQic2jOhc2MrF0LfEqAtQF9C64Q8Alm3d2BqxzSOJ3C3OGSmzyAOISN4MaSt+1CYzi5UsAzo62FW6m4yoQHy1Jn91nBpfLaSFcBzGuRSV5K60AqPIiXqaTCT5mhHfgKbw8aoQrrDCeAHsx5KewtbgpIyb5btiF547TSlW4s2DU3FWRamxwB0MngcOf+blMkEeaXH+CPJg6jM+AQTfxK502JNdy4Qiu4NVjYtTb3gHk6QD3fHjjTWOdBJSptNi2GTFdVo2TW5sTqNoZUUzhX22Q0qpEaYscG6IhWCm1/0gZdDpXGfSwW7wiZIx9Inge/pmiwiCdFcfy+D7mSrmiWFG9ExPs966cpO0+pB9b1eh2UUt0LrNMuhlSHEyP2xWP3Sq9tutSNo6xHKI/UgN+XTxgkFyqZ77S/W8B0WB40P8sm7u+oGWSamk3t9MpwxJbBVccA/HB5dWlfoP3ddAbTUjc5fG4obksfLj4jQwTjII0WyPVQVejw9mP64ccxvOe2kGqFG7/51yYXBjWKLrwcWOYVNw5+3pEOXUPh9g2JAd4RxIPUGiOohjgFdpB5SdQ9sm5yzLBzFcHrenvQbJ0kn1YUC3iQNMnBcdfYfSiYCZW3KKkvWUITZ4sAcIDdIZw2+0m2kyHQRvPrNtqTLjjp0+wY07Hin5XnqO8hnwapX2/Y1tvjeqqqY2h/J6i+apisNqIQioYxaJzK3ZbdTedBrn4EnKQ5mQQ0JwYzQGFNUD5NS/Fw8sdBFAXR0YXoCJZqTkPpJFMchi+Ho2uXACeqgmNRb79sUUh9qQU9CQ8sGZ8h1Sx5PfHYN5ZMzj2GssRYi0zn6BNdnL2ajEPsd4HOLHyI0vQsTBEdu7NalTmFeZNp5cSDG7BmsTsqHmhDUnrTyxXvuGP4uafo+yPzv31k/vs345/9l3x/Wf79y3L4gXjc9+m1WXElv/UATsc9dj/Pc0l2Xt60h3pyv/r9zy51/6gvCJWNbbd/AVrxj3gNCwAA",
-  "jsonld": {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Phil Hills",
-    "jobTitle": "Systems Architect",
-    "description": "Creator of the Q Protocol and A2AC Standard. 20 years of systems design across finance, blockchain, and AI. Specialist in deterministic AI agent orchestration, Salesforce Agentforce, and autonomous swarm coordination. Architect of the Cube SDK \u2014 a 19-module Python framework for agent identity, trust, memory, and communication.",
-    "url": "https://philhills.com",
-    "sameAs": [
-      "https://github.com/Phil-Hills",
-      "https://philhills.github.io",
-      "https://www.linkedin.com/in/philhills/"
-    ],
-    "alternateName": "Bruce Phillip Hills",
-    "knowsAbout": [
-      "Q Protocol",
-      "A2AC Standard",
-      "Deterministic AI",
-      "Agent-to-Agent Communication",
-      "Salesforce Agentforce",
-      "Cube Protocol",
-      "Cryptographic Identity (DIDs)",
-      "GCP Cloud Run",
-      "Python",
-      "Rust",
-      "Autonomous Agent Orchestration",
-      "BLAKE3 Hashing",
-      "Z-Order Spatial Hashing",
-      "Smart Memory Systems",
-      "Trust Graph Architecture"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Q Protocol"
-    },
-    "additionalType": "https://q-protocol.org/IdentityCube"
+  "verification": {
+    "algorithm": "BLAKE3",
+    "hash": "181247b9a3a24237fef42cef7da2c503a0b352064eb2080e30134c15293df54d"
   }
 }
