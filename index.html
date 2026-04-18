@@ -527,7 +527,7 @@
         </p>
         <p>
             I'm the creator of the Q Protocol, an open coordination standard for multi-agent AI systems. 
-            It's running in production today, managing 155 specialized agents on Google Cloud.
+            It's running in production today on Google Cloud.
         </p>
     </section>
 
@@ -555,36 +555,7 @@
             tokens, which the Q represents.
         </p>
 
-        <details style="margin: 2rem 0; padding: 1.5rem; background: rgba(196, 163, 90, 0.04); border-left: 2px solid var(--accent); cursor: pointer;">
-            <summary style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent); font-weight: 500; outline: none;">Why Q?</summary>
-            <div style="margin-top: 1rem;">
-                <p>
-                    The protocol was originally called Cube Protocol, referencing the 
-                    multi-dimensional structure of the coordinate space. That name proved 
-                    saturated in the AI and developer ecosystem, with dozens of projects 
-                    already using it.
-                </p>
-                <p>
-                    The name Q was chosen to reflect the core mathematical objective that 
-                    defines the protocol. The compression goal is:
-                </p>
-                <div class="thesis" style="padding: 1.5rem 0;">
-                    <div class="attr" style="font-size: 0.85rem; color: var(--white); margin: 0;">K* = argmin |K| &nbsp;subject to&nbsp; E(K | D, &Lambda;, Q) &equiv; N</div>
-                </div>
-                <p>
-                    Find the shortest coordinate message K that, when executed in context, 
-                    produces the same operational outcome as the natural language 
-                    instruction N. The limit of this objective is |K| &rarr; 0. A message that 
-                    approaches zero tokens while still causing correct action.
-                </p>
-                <p>
-                    The Q represents this target: the asymptote toward which the protocol 
-                    drives coordinate communication. Zero tokens in the execution layer, 
-                    with complete semantic fidelity preserved through shared coordinate 
-                    grounding.
-                </p>
-            </div>
-        </details>
+
 
         <p style="margin-top: 2rem;">
             Three architectural guarantees make the system trustworthy at enterprise scale:
@@ -608,7 +579,7 @@
             <div class="problem">
                 <div class="problem-num">03</div>
                 <div>
-                    <h3>Cost reduction</h3>
+                    <h3>Zero token waste</h3>
                     <p>One universal runtime image deploys all agents. The goal isn't cheaper tokens. It's eliminating them.</p>
                 </div>
             </div>
