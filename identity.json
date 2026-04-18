@@ -3,53 +3,35 @@
   "@type": "Person",
   "@id": "https://philhills.ai/#person",
   "name": "Phil Hills",
-  "jobTitle": "Systems Architect",
+  "jobTitle": "AI Systems Architect",
   "image": "https://philhills.ai/phil.jpg",
   "url": "https://philhills.ai",
-  "description": "Creator of the Q Protocol and A2AC Standard. 20 years in mortgage origination combined with self-directed work in multi-agent coordination, cryptographic provenance, and agent security. Founder of A2AC LLC.",
+  "description": "Creator of the Q Protocol and A2AC Standard. 20 years in mortgage origination combined with self-directed work in cryptographic provenance, multi-agent coordination, and agent security. First programming language was Rust, learned through crypto infrastructure work. Founder of A2AC LLC.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Seattle",
     "addressRegion": "WA",
     "addressCountry": "US"
   },
-  "sameAs": [
-    "https://github.com/Phil-Hills",
-    "https://philhills.github.io",
-    "https://www.linkedin.com/in/philhills/"
-  ],
-  "knowsAbout": [
-    "Q Protocol",
-    "A2AC Standard",
-    "Agent-to-Agent Communication",
-    "Deterministic AI",
-    "Cube Protocol",
-    "Cryptographic Identity (DIDs)",
-    "GCP Cloud Run",
-    "BLAKE3 Hashing",
-    "Autonomous Agent Orchestration",
-    "Python"
-  ],
   "worksFor": {
     "@type": "Organization",
     "name": "A2AC LLC",
     "url": "https://a2ac.ai"
   },
-  "additionalType": "https://q-protocol.org/IdentityCube",
-  "subjectOf": [
-    {
-      "@type": "SoftwareSourceCode",
-      "name": "Identity Cube",
-      "description": "Signed, compressed, AI-readable identity format that replaces HTML for machine consumption",
-      "url": "https://github.com/Phil-Hills/identity-cube-py",
-      "programmingLanguage": "Python"
-    },
-    {
-      "@type": "SoftwareSourceCode",
-      "name": "Cube SDK",
-      "description": "19-module Python SDK for agent identity, trust, memory, and communication",
-      "version": "2.11.1",
-      "programmingLanguage": "Python"
-    }
+  "knowsAbout": [
+    "Cryptographic Identity",
+    "BLAKE3 Hashing",
+    "Q Protocol",
+    "A2AC Standard",
+    "Agent-to-Agent Communication",
+    "Autonomous Agent Orchestration",
+    "Rust",
+    "Python",
+    "GCP Cloud Run"
+  ],
+  "sameAs": [
+    "https://github.com/Phil-Hills",
+    "https://www.linkedin.com/in/philhills/",
+    "https://a2ac.ai"
   ]
 }
