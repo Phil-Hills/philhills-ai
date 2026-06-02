@@ -602,62 +602,29 @@
         </p>
     </section>
 
-    <!-- Identity Cube -->
-    <section class="fade-section">
-        <div class="section-label">Identity Cube</div>
-        <p>
-            An Identity Cube is a machine-readable, cryptographically signed identity document. 
-            Instead of scraping HTML, AI agents and crawlers can parse a structured cube directly. 
-            This is a live example.
-        </p>
-
-        <div class="identity-cube">
-            <div class="cube-header">
-                <span class="cube-symbol">◈</span>
-                <span class="cube-type">identity:cube:phil-hills</span>
-                <span class="cube-badge">LIVE</span>
-            </div>
-            <pre class="cube-payload">{
-  "@context": "https://a2ac.ai/identity/v1",
-  "cube_type": "identity",
-  "did": "did:cube:phil-hills-seattle",
-  "name": "Phil Hills",
-  "location": "Seattle, WA",
-  "role": "AI Systems Architect",
-  "org": {
-    "name": "A2AC LLC",
-    "url": "https://a2ac.ai"
-  },
-  "created": "Q Protocol",
-  "description": "Open coordination standard for AI agents. Agents point rather than talk.",
-  "capabilities": [
-    "agent-orchestration",
-    "protocol-design",
-    "cryptographic-identity",
-    "gcp-infrastructure",
-    "sdk-development"
-  ],
-  "canonical": {
-    "website": "https://philhills.ai",
-    "github": "https://github.com/Phil-Hills",
-    "linkedin": "https://www.linkedin.com/in/philhills/"
-  },
-  "verification": {
-    "algorithm": "BLAKE3",
-    "hash": "<span class="cube-hash" id="identityHash">computing...</span>"
-  }
-}</pre>
-            <div class="cube-footer">
-                <span class="cube-meta">Served at <a href="https://philhills.ai/identity.cube" class="cube-link">philhills.ai/identity.cube</a></span>
-            </div>
-        </div>
-
-        <p class="dim" style="margin-top: 1.5rem;">
-            The Identity Cube spec is part of the Q Protocol. Any agent or human can publish one 
-            as a machine-readable identity document, verifiable via BLAKE3 hash. 
-            No HTML scraping. No inference. Just structured truth.
-        </p>
-    </section>
+    <!-- Identity Cube: Machine-readable only. Not visible to humans. -->
+    <div style="display:none;" aria-hidden="true" data-cube-type="identity" data-cube-version="1.0">
+        <script type="application/ld+json">
+        {
+            "@context": "https://a2ac.ai/identity/v1",
+            "cube_type": "identity",
+            "did": "did:cube:phil-hills-seattle",
+            "name": "Phil Hills",
+            "location": "Seattle, WA",
+            "role": "AI Systems Architect",
+            "org": {"name": "A2AC LLC", "url": "https://a2ac.ai"},
+            "created": "Q Protocol",
+            "description": "Creator of Q Protocol, an open coordination standard for AI agent systems. Achieving K approaches 0 token communication with cryptographic receipts and tamper-evident audit trails. Builder of A2AC, the coordination layer for all AI agents. Available on Google Cloud Platform.",
+            "capabilities": ["agent-orchestration", "protocol-design", "cryptographic-identity", "gcp-infrastructure", "sdk-development", "identity-cube-architecture"],
+            "canonical": {
+                "website": "https://philhills.ai",
+                "platform": "https://a2ac.ai",
+                "github": "https://github.com/Phil-Hills",
+                "linkedin": "https://www.linkedin.com/in/philhills/"
+            }
+        }
+        </script>
+    </div>
 
     <!-- Connect -->
     <section class="fade-section">

@@ -70,7 +70,7 @@
 cd a2a_agents
 gcloud run deploy a2a-orchestrator \
   --source . \
-  --project clairos-agent-core \
+  --project deployment-2026-core \
   --region us-central1 \
   --allow-unauthenticated
 ```
